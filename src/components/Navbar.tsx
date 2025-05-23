@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const navigation = [
   { name: "Docs", href: "/docs" },
@@ -19,19 +20,19 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <a href="/" className="text-xl font-bold text-white">
+              <Link href="/" className="text-xl font-bold text-white">
                 Python SDK
-              </a>
+              </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-300 hover:text-white"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -56,13 +57,13 @@ export default function Navbar() {
         <div className="sm:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-gray-700 hover:bg-gray-50"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import CodeBlock from "@/components/CodeBlock";
 
 export default function Home() {
