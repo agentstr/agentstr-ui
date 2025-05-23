@@ -18,7 +18,7 @@ export default function UsagePage() {
                 href="/docs"
                 className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
               >
-                View Docs
+                SDK Reference
               </a>
             </div>
           </div>
@@ -174,7 +174,7 @@ agent.start()`}
                 Check out the <a href="/demo" className="text-indigo-400 hover:text-white">Demo</a> to see how Agentstr can be used in a real-world scenario.
               </p>
               <p className="text-gray-400">
-                Check out our <a href="/docs" className="text-indigo-400 hover:text-white">API Reference</a> for more details on each component.
+                Check out our <a href="/docs" className="text-indigo-400 hover:text-white">SDK Reference</a> for more details on each component.
               </p>
             </div>
           </div>
