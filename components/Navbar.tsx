@@ -5,10 +5,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const navigation = [
-  { name: "Docs", href: "/docs" },
-  { name: "API", href: "/docs/api" },
+  { name: "Quick Start", href: "/" },
   { name: "Examples", href: "/examples" },
-  { name: "GitHub", href: "https://github.com/yourusername/yourrepo" },
+  { name: "Demo", href: "/demo" },
+  { name: "GitHub", href: "https://github.com/ehallmark/agentstr-sdk" },
 ];
 
 export default function Navbar() {

@@ -1,5 +1,4 @@
 import CodeBlock from "../components/CodeBlock";
-import VideoPlayer from "../components/VideoPlayer";
 import PDFViewer from "../components/PDFViewer";
 
 export default function Home() {
@@ -17,18 +16,18 @@ export default function Home() {
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
               <a
-                href="/docs/getting-started"
+                href="/demo"
                 className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
               >
-                Get Started
+                 Watch Demo
               </a>
             </div>
             <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
               <a
-                href="/docs/api"
+                href="/examples"
                 className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-400 bg-indigo-900 hover:bg-indigo-800 md:py-4 md:text-lg md:px-10"
               >
-                API Reference
+                Get Started
               </a>
             </div>
           </div>
@@ -72,34 +71,7 @@ server.start()
             </div>
           </div>
         </div>
-
-        <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Demo</h2>
-              <p className="text-gray-400 mb-4">Watch our demo video to get a sense of what Agentstr can do:</p>
-              <VideoPlayer
-                src="https://drive.google.com/file/d/1vsxTBiYBr7qx813MvX-JXvGL2BfW4Sxx/preview"
-                title="Agentstr Demo"
-                className="mb-4"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Presentation</h2>
-              <p className="text-gray-400 mb-4">View our detailed presentation slides:</p>
-              <PDFViewer
-                src="https://drive.google.com/file/d/1Dc6_pRQ2fQMge14HrB20zMXe81z_XNsc/preview"
-                title="Agentstr Presentation"
-                className="mb-4"
-              />
-            </div>
-          </div>
-        </div>
+        
       </div>
     </main>
   );
