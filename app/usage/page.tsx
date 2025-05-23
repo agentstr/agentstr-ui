@@ -169,52 +169,12 @@ agent.start()`}
         <div className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Basic Usage</h2>
-              <p className="text-gray-400 mb-4">
-                Here is a simple example of how to use Agentstr SDK:
-              </p>
-              <CodeBlock
-                language="python"
-                value={`from agentstr import NostrMCPServer
-
-# Define a simple tool
-def greet(name: str) -> str:
-    """Greet someone"""
-    return f"Hello, {name}!"
-
-# Initialize the server
-server = NostrMCPServer(
-    name="Greeting Server",
-    private_key="your_private_key",
-    relays=["wss://relay.damus.io"]
-)
-
-# Add the tool
-server.add_tool(greet, name="greet", description="Greet someone")
-
-# Start the server
-server.start()`}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Next Steps</h2>
               <p className="text-gray-400 mb-4">
-                Now that you have the basics down, you can explore more advanced features:
+                Check out the <a href="/demo" className="text-indigo-400 hover:text-white">Demo</a> to see how Agentstr can be used in a real-world scenario.
               </p>
-              <ul className="list-disc list-inside text-gray-400 mb-6">
-                <li>Creating custom tools</li>
-                <li>Working with Nostr events</li>
-                <li>Managing multiple relays</li>
-                <li>Handling authentication</li>
-                <li>Building complex workflows</li>
-              </ul>
               <p className="text-gray-400">
-                Check out our <a href="/docs/api" className="text-indigo-400 hover:text-white">API Reference</a> for more details.
+                Check out our <a href="/docs" className="text-indigo-400 hover:text-white">API Reference</a> for more details on each component.
               </p>
             </div>
           </div>
