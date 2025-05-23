@@ -12,6 +12,16 @@ export default function DemoPage() {
           <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
             Watch our demo video and view the presentation slides to learn more about Agentstr.
           </p>
+          <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+            <div className="rounded-md shadow">
+              <a
+                href="/usage"
+                className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+              >
+                Get Started
+              </a>
+            </div>
+          </div>
         </div>
 
         <div className="mt-12 max-w-4xl mx-auto">
