@@ -6,4 +6,4 @@
   NODE_VERSION = "20"
 
 [context.production.environment]
-  NODE_ENV = "production"
+  NODE_ENV = "development"
