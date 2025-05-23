@@ -6,8 +6,9 @@ import Link from "next/link";
 
 const navigation = [
   { name: "Quick Start", href: "/" },
-  { name: "Examples", href: "/examples" },
+  { name: "Usage", href: "/usage" },
   { name: "Demo", href: "/demo" },
+  { name: "Docs", href: "/docs" },
   { name: "GitHub", href: "https://github.com/ehallmark/agentstr-sdk" },
 ];
 
