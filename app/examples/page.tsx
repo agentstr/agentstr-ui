@@ -59,7 +59,7 @@ export default function GettingStartedPage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Basic Usage</h2>
               <p className="text-gray-400 mb-4">
-                Here's a simple example of how to use Agentstr SDK:
+                Here is a simple example of how to use Agentstr SDK:
               </p>
               <CodeBlock
                 language="python"
