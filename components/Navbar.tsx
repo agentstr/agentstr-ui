@@ -21,7 +21,7 @@ export default function Navbar() {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="text-xl font-bold text-white">
-                Python SDK
+                Agentstr SDK
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -60,7 +60,7 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-gray-700 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
               >
                 {item.name}
               </Link>

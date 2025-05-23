@@ -10,7 +10,7 @@ export default function Home() {
             <span className="block text-indigo-400">Python SDK Documentation</span>
           </h1>
           <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
-            A comprehensive guide to using our Python library and SDK for building powerful applications.
+            A comprehensive guide to using our Python library and SDK for building powerful Agentic applications on Nostr.
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
@@ -39,16 +39,31 @@ export default function Home() {
               <CodeBlock
                 language="python"
                 value={`# Install the package
-pip install your-sdk-name
+pip install agentstr-sdk
 
-# Initialize the SDK
-import your_sdk
+# Import the SDK
+from agentstr import NostrMCPServer
 
-client = your_sdk.Client(api_key="your-api-key")
+# Define some tools
+def add(a: int, b: int) -> int:
+    """Add two numbers"""
+    return a + b
 
-# Make a request
-response = client.get_data()
-print(response)`}
+def multiply(a: int, b: int) -> int:
+    """Multiply two numbers"""
+    return a * b
+
+# Initialize the server
+server = NostrMCPServer(name="Math MCP Server", 
+                        private_key="nsec...",
+                        relays=["wss://some-relay.com"])
+
+server.add_tool(add)  # Add by signature alone
+server.add_tool(multiply, name="multiply", description="Multiply two numbers")  # Add by signature and name
+
+# Start the server
+server.start()
+`}
               />
             </div>
           </div>
