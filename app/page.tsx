@@ -1,5 +1,6 @@
 import CodeBlock from "../components/CodeBlock";
 import VideoPlayer from "../components/VideoPlayer";
+import PDFViewer from "../components/PDFViewer";
 
 export default function Home() {
   return (
@@ -80,6 +81,20 @@ server.start()
               <VideoPlayer
                 src="https://drive.google.com/file/d/1vsxTBiYBr7qx813MvX-JXvGL2BfW4Sxx/preview"
                 title="Agentstr Demo"
+                className="mb-4"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Presentation</h2>
+              <p className="text-gray-400 mb-4">View our detailed presentation slides:</p>
+              <PDFViewer
+                src="https://drive.google.com/file/d/1Dc6_pRQ2fQMge14HrB20zMXe81z_XNsc/preview"
+                title="Agentstr Presentation"
                 className="mb-4"
               />
             </div>
