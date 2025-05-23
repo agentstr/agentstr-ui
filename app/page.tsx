@@ -1,4 +1,5 @@
 import CodeBlock from "../components/CodeBlock";
+import VideoPlayer from "../components/VideoPlayer";
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-white sm:text-5xl md:text-6xl">
             <span className="block">Welcome to the</span>
-            <span className="block text-indigo-400">Python SDK Documentation</span>
+            <span className="block text-indigo-400">Agentstr SDK</span>
           </h1>
           <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
             A comprehensive guide to using our Python library and SDK for building powerful Agentic applications on Nostr.
@@ -59,11 +60,27 @@ server = NostrMCPServer(name="Math MCP Server",
                         relays=["wss://some-relay.com"])
 
 server.add_tool(add)  # Add by signature alone
-server.add_tool(multiply, name="multiply", description="Multiply two numbers")  # Add by signature and name
+server.add_tool(multiply, 
+                name="multiply", 
+                description="Multiply two numbers")  # Add by signature and name
 
 # Start the server
 server.start()
 `}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Demo</h2>
+              <p className="text-gray-400 mb-4">Watch our demo video to get a sense of what Agentstr can do:</p>
+              <VideoPlayer
+                src="https://drive.google.com/file/d/1vsxTBiYBr7qx813MvX-JXvGL2BfW4Sxx/preview"
+                title="Agentstr Demo"
+                className="mb-4"
               />
             </div>
           </div>
