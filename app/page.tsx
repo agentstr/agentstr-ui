@@ -1,5 +1,4 @@
 import CodeBlock from "../components/CodeBlock";
-import PDFViewer from "../components/PDFViewer";
 
 export default function Home() {
   return (
@@ -71,7 +70,7 @@ server.start()
             </div>
           </div>
         </div>
-        
+
       </div>
     </main>
   );
