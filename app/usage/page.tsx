@@ -7,10 +7,10 @@ export default function UsagePage() {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-white sm:text-5xl md:text-6xl">
             <span className="block">Usage</span>
-            <span className="block text-indigo-400">Agentstr Use Cases</span>
+            <span className="block text-indigo-400">Agentstr SDK</span>
           </h1>
           <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
-            Explore practical examples for different use cases of Agentstr.
+            Explore practical examples using the Agentstr SDK.
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
@@ -47,7 +47,7 @@ export default function UsagePage() {
             </div>
           </div>
         </div>
-        
+
         <div className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
