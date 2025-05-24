@@ -51,6 +51,49 @@ export default function UsagePage() {
         <div className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr RAG</h2>
+              <p className="text-gray-400 mb-4">
+                Agentstr SDK provides powerful RAG (Retrieval-Augmented Generation) capabilities integrated with Nostr. This allows you to build intelligent agents that can search and retrieve relevant information from Nostr notes and use it to generate better responses.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`from agentstr import NostrRAG
+        
+# Initialize RAG with your Nostr credentials
+rag = NostrRAG(
+    private_key="your_private_key",
+    relays=["wss://relay.damus.io"]
+)
+
+# Search for relevant notes
+query = "What is the latest update about Agentstr?"
+results = rag.search(query)
+
+# Generate a response using retrieved information
+response = rag.generate(
+    query=query,
+    retrieved_notes=results
+)
+
+# The response will be generated using both the query and the relevant notes found in Nostr
+print(response)`}
+      />
+              <p className="text-gray-400 mt-4">
+                The Nostr RAG system can:
+              </p>
+              <ul className="list-disc list-inside text-gray-400 mb-6">
+                <li>Search Nostr notes using semantic search</li>
+                <li>Retrieve most relevant notes based on context</li>
+                <li>Generate responses using retrieved information</li>
+                <li>Work with multiple relays simultaneously</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Servers</h2>
               <p className="text-gray-400 mb-4">
                 Create servers that provide tools and services to other Nostr clients.
