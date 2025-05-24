@@ -13,23 +13,29 @@ export default function UsagePage() {
             Explore practical examples using the Agentstr SDK.
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-            <div className="rounded-md shadow">
-              <a
-                href="/docs"
-                className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
-              >
-                SDK Reference
-              </a>
-            </div>
-            <div className="rounded-md shadow ml-4">
-              <a
-                href="https://github.com/ehallmark/agentstr-sdk/tree/main/examples"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
-              >
-                View in GitHub
-              </a>
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <div className="flex-1">
+                <div className="rounded-md shadow">
+                  <a
+                    href="/docs"
+                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
+                  >
+                    SDK Reference
+                  </a>
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="rounded-md shadow">
+                  <a
+                    href="https://github.com/ehallmark/agentstr-sdk/tree/main/examples"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
+                  >
+                    View in GitHub
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
