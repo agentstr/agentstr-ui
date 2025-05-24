@@ -2,23 +2,33 @@ import CodeBlock from "../../components/CodeBlock";
 
 export default function UsagePage() {
   return (
-    <main className="min-h-screen bg-gray-900">
+    <main className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-bold text-foreground sm:text-5xl md:text-6xl">
             <span className="block">Usage</span>
-            <span className="block text-indigo-400">Agentstr SDK</span>
+            <span className="block text-primary">Agentstr SDK</span>
           </h1>
-          <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
+          <p className="mt-3 text-base text-foreground-light sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
             Explore practical examples using the Agentstr SDK.
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
               <a
                 href="/docs"
-                className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
               >
                 SDK Reference
+              </a>
+            </div>
+            <div className="rounded-md shadow ml-4">
+              <a
+                href="https://github.com/ehallmark/agentstr-sdk/tree/main/examples"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
+              >
+                View in GitHub
               </a>
             </div>
           </div>
@@ -65,28 +75,10 @@ rag = NostrRAG(
     relays=["wss://relay.damus.io"]
 )
 
-# Search for relevant notes
-query = "What is the latest update about Agentstr?"
-results = rag.search(query)
+results = rag.query(tags=['bitcoin', 'btc'], question="What's new with Bitcoin?", limit=3)
 
-# Generate a response using retrieved information
-response = rag.generate(
-    query=query,
-    retrieved_notes=results
-)
-
-# The response will be generated using both the query and the relevant notes found in Nostr
-print(response)`}
+print(results)`}
       />
-              <p className="text-gray-400 mt-4">
-                The Nostr RAG system can:
-              </p>
-              <ul className="list-disc list-inside text-gray-400 mb-6">
-                <li>Search Nostr notes using semantic search</li>
-                <li>Retrieve most relevant notes based on context</li>
-                <li>Generate responses using retrieved information</li>
-                <li>Work with multiple relays simultaneously</li>
-              </ul>
             </div>
           </div>
         </div>

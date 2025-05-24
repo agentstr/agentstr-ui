@@ -3,20 +3,20 @@ import PDFViewer from "../../components/PDFViewer";
 
 export default function DemoPage() {
   return (
-    <main className="min-h-screen bg-gray-900">
+    <main className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-bold text-foreground sm:text-5xl md:text-6xl">
             <span className="block">Agentstr Demo</span>
           </h1>
-          <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
+          <p className="mt-3 text-base text-foreground-light sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
             Watch our demo video and view the presentation slides to learn more about Agentstr.
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
               <a
                 href="/usage"
-                className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
               >
                 Get Started
               </a>
@@ -34,22 +34,13 @@ export default function DemoPage() {
                 title="Agentstr Demo"
                 className="mb-4"
               />
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">GitHub Repository</h2>
-              <p className="text-gray-400 mb-4">Explore the code behind the demo:</p>
               <a
                 href="https://github.com/ehallmark/nostr-ai-demo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-400 bg-indigo-900 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-accent bg-background hover:bg-background-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
               >
-                View on GitHub
+                View Code in GitHub
               </a>
             </div>
           </div>
