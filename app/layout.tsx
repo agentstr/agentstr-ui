@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agentstr SDK Documentation",
+  title: "Agentstr SDK",
   description: "Documentation and API reference for the Agentstr SDK",
 };
 

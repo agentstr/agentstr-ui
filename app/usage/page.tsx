@@ -44,7 +44,32 @@ export default function UsagePage() {
           </div>
         </div>
 
-        <div className="mt-12 max-w-4xl mx-auto">
+        <div className="mt-12">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Table of Contents</h2>
+              <div className="space-y-3">
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#installation" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Installation</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-rag" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-mcp-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Servers</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-mcp-clients" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Clients</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-agent-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agent Servers</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="installation" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Installation</h2>
@@ -68,7 +93,7 @@ export default function UsagePage() {
           </div>
         </div>
 
-        <div className="mt-12 max-w-4xl mx-auto">
+        <div id="nostr-rag" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr RAG</h2>
@@ -99,7 +124,7 @@ print(rag.query(question="What's new with Bitcoin?"))`}
           </div>
         </div>
 
-        <div className="mt-12 max-w-4xl mx-auto">
+        <div id="nostr-mcp-servers" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Servers</h2>
@@ -138,7 +163,7 @@ server.start()
           </div>
         </div>
 
-        <div className="mt-12 max-w-4xl mx-auto">
+        <div id="nostr-mcp-clients" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Clients</h2>
@@ -171,7 +196,7 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
           </div>
         </div>
 
-        <div className="mt-12 max-w-4xl mx-auto">
+        <div id="nostr-agent-servers" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr Agent Servers</h2>
