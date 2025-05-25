@@ -56,13 +56,13 @@ export default function UsagePage() {
                   <a href="#nostr-rag" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-mcp-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Servers</a>
+                  <a href="#nostr-mcp-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Server</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-mcp-clients" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Clients</a>
+                  <a href="#nostr-mcp-clients" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Client</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-agent-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agent Servers</a>
+                  <a href="#nostr-agent-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agent Server</a>
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@ print(rag.query(question="What's new with Bitcoin?"))`}
         <div id="nostr-mcp-servers" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Servers</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Server</h2>
               <p className="text-gray-400 mb-4">
                 Create servers that provide tools and services to other Nostr clients.
               </p>
@@ -166,7 +166,7 @@ server.start()
         <div id="nostr-mcp-clients" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Clients</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Client</h2>
               <p className="text-gray-400 mb-4">
                 Create clients that can discover and use tools from MCP servers.
               </p>
@@ -199,7 +199,7 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
         <div id="nostr-agent-servers" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr Agent Servers</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr Agent Server</h2>
               <p className="text-gray-400 mb-4">
                 Create intelligent agents that can both provide and use tools on the Nostr network.
               </p>
