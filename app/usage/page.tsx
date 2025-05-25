@@ -64,6 +64,9 @@ export default function UsagePage() {
                 <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-agent-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agent Server</a>
                 </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#langgraph-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Langgraph MCP Agent</a>
+                </div>
               </div>
             </div>
           </div>
@@ -119,7 +122,7 @@ rag = NostrRAG(relays=relays,
 
 # Query the RAG
 print(rag.query(question="What's new with Bitcoin?"))`}
-      />
+              />
             </div>
           </div>
         </div>
@@ -226,6 +229,76 @@ server = NostrAgentServer(
 
 # Start the server
 server.start()`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="langgraph-agent" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Langgraph MCP Agent</h2>
+              <p className="text-gray-400 mb-4">
+                Integrate Langgraph agents with Nostr MCP servers to enable decentralized tool calling and discovery. Note: this requires a few additional python libraries.
+              </p>
+              <CodeBlock
+                language="bash"
+                value={`pip install nostr-langchain-mcp langchain_openai langgraph`}
+              />
+              <CodeBlock
+                language="python"
+                value={`from langchain_mcp_adapters import MultiServerMCPClient
+from langchain_openai import ChatOpenAI
+from langgraph.prebuilt import create_react_agent
+from langgraph.checkpoint.memory import MemorySaver
+
+# Define relays and private key
+relays = ['wss://some.relay.io']
+private_key = 'nsec...'
+
+# Define Nostr Wallet Connect string to support lightning payments
+nwc_str = 'nostr+walletconnect://...'
+
+# Define MCP server public key
+server_public_key = 'npub...'
+
+# Define LLM base URL and API key
+base_url = 'https://api.routstr.com/v1'
+api_key  = 'cashuA1DkpMb...'
+
+model = ChatOpenAI(temperature=0, 
+                   base_url=base_url,
+                   api_key=api_key,
+                   model_name="gpt-4o")
+
+async def nostr_mcp_agent():
+    # Define MCP Server with Nostr transport
+    async with MultiServerMCPClient(
+        {
+            "nostr-math-mcp": {
+                "relays": relays,
+                "server_public_key": server_public_key,
+                "private_key": private_key,
+                "nwc_str": nwc_str,
+                "transport": "nostr",
+            },
+        }
+    ) as client:
+        # Create the agent
+        agent = create_react_agent(model, client.get_tools(), checkpointer=MemorySaver())
+        yield agent
+    
+if __name__ == '__main__':
+    import asyncio
+
+    # Async function to run the agent
+    async def run():
+        async with nostr_mcp_agent() as agent:
+            async for output in agent.astream({"messages": "what's (4 + 20) * 69?"}, stream_mode="updates"):
+                print(output)
+
+    # Run the agent
+    asyncio.run(run())`}
               />
             </div>
           </div>
