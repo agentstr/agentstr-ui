@@ -79,15 +79,20 @@ export default function UsagePage() {
                 language="python"
                 value={`from agentstr import NostrRAG
 
+# Define relays
 relays   = ['wss://some.relay.io']
+
+# Define LLM base URL and API key
 base_url = 'https://api.routstr.com/v1'
 api_key  = 'cashuA1DkpMb...'
 
+# Create the RAG instance
 rag = NostrRAG(relays=relays,
                llm_model_name='qwen/qwen3-14b',
                llm_base_url=base_url,
                llm_api_key=api_key)
 
+# Query the RAG
 print(rag.query(question="What's new with Bitcoin?"))`}
       />
             </div>
@@ -177,7 +182,25 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
                 language="python"
                 value={`from agentstr import NostrAgentServer
 
-# TODO`}
+# Define relays and private key
+relays = ['wss://some.relay.io']
+private_key = 'nsec...'
+
+# Define Nostr Wallet Connect string to support lightning payments
+nwc_str = 'nostr+walletconnect://...'
+
+# Define agent URL
+agent_url = 'http://localhost:8000'
+
+# Create the server
+server = NostrAgentServer(
+    agent_url=agent_url,
+    satoshis=100,  # Satoshis required for agent interaction
+    relays=relays,
+    private_key=private_key)
+
+# Start the server
+server.start()`}
               />
             </div>
           </div>

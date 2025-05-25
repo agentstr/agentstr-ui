@@ -74,17 +74,21 @@ export default function Navbar() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800 flex items-center justify-between"
                 >
-                  {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+                  <span className="flex items-center">
+                    {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+                  </span>
                 </a>
               : 
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800 flex items-center justify-between"
                 >
-                  {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+                  <span className="flex items-center">
+                    {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+                  </span>
                 </Link>
             )}
           </div>
