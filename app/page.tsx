@@ -59,19 +59,19 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Nostr Integration</h3>
-              <p className="text-foreground-light">Seamlessly integrate with the Nostr protocol to build decentralized agents and tools.</p>
+              <p className="text-foreground-light">Seamlessly integrate with the <a className="text-indigo-400 hover:text-white" href="https://nostr.com/">Nostr</a> protocol to build decentralized agents and tools.</p>
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Lightning Integration</h3>
-              <p className="text-foreground-light">Integrate with the Lightning Network for fast, low-cost micropayments and instant transactions.</p>
+              <p className="text-foreground-light">Integrate with the <a className="text-indigo-400 hover:text-white" href="https://lightning.network/">Lightning Network</a> for fast, low-cost micropayments and instant transactions.</p>
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Routstr Integration</h3>
-              <p className="text-foreground-light">Leverage Routstr for decentralized, private, and secure LLM routing.</p>
+              <p className="text-foreground-light">Leverage <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> for decentralized, private, and secure LLM routing.</p>
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Langgraph Integration</h3>
-              <p className="text-foreground-light">Easily connect Langgraph agents to Nostr MCP servers for decentralized tool calling and discovery.</p>
+              <p className="text-foreground-light">Easily connect <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">Langgraph</a> agents to Nostr MCP servers for decentralized tool calling and discovery.</p>
             </div>
           </div>
         </div>
