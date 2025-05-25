@@ -1,5 +1,6 @@
 import VideoPlayer from "../../components/VideoPlayer";
 import PDFViewer from "../../components/PDFViewer";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 export default function DemoPage() {
   return (
@@ -40,7 +41,10 @@ export default function DemoPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-accent bg-background hover:bg-background-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
               >
-                View Code in GitHub
+                <span className="flex items-center">
+                  View Code in GitHub
+                  <ArrowTopRightOnSquareIcon className="ml-2 h-4 w-4" />
+                </span>
               </a>
             </div>
           </div>
@@ -56,7 +60,18 @@ export default function DemoPage() {
                 title="Agentstr Presentation"
                 className="mb-4"
               />
-            </div>
+              <a
+                href="https://drive.google.com/file/d/1Dc6_pRQ2fQMge14HrB20zMXe81z_XNsc/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-accent bg-background hover:bg-background-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
+              >
+                <span className="flex items-center">
+                  View in Drive
+                  <ArrowTopRightOnSquareIcon className="ml-2 h-4 w-4" />
+                </span>
+              </a>    
+            </div>         
           </div>
         </div>
 

@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const navigation = [
   { name: "Usage", href: "/usage" },
   { name: "Demo", href: "/demo" },
   { name: "Reference", href: "/docs" },
-  { name: "GitHub", href: "https://github.com/ehallmark/agentstr-sdk" },
+  { name: "GitHub", href: "https://github.com/ehallmark/agentstr-sdk", external: true },
 ];
 
 export default function Navbar() {
@@ -25,15 +25,26 @@ export default function Navbar() {
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-foreground-light hover:text-foreground"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => 
+                item.external ? 
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-foreground-light hover:text-foreground"
+                  >
+                    {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+                  </a>
+                : 
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-foreground-light hover:text-foreground"
+                  >
+                    {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+                  </Link>
+              )}
             </div>
           </div>
           <div className="flex items-center sm:hidden">
@@ -56,15 +67,26 @@ export default function Navbar() {
       {isOpen && (
         <div className="sm:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigation.map((item) => 
+              item.external ? 
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
+                >
+                  {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+                </a>
+              : 
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800"
+                >
+                  {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+                </Link>
+            )}
           </div>
         </div>
       )}

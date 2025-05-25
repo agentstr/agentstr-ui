@@ -39,15 +39,15 @@ export default function Home() {
         <div className="mt-20">
           <h2 className="text-3xl font-bold text-center text-foreground mb-12">Key Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
+            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Agentic Architecture</h3>
               <p className="text-foreground-light">Build intelligent, autonomous agents that can make decisions and interact with the decentralized web.</p>
             </div>
-            <div className="bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
+            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Python SDK</h3>
               <p className="text-foreground-light">Leverage our powerful Python SDK to build complex agentic applications quickly and efficiently.</p>
             </div>
-            <div className="bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
+            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Documentation</h3>
               <p className="text-foreground-light">Comprehensive documentation to help you get started and build amazing applications.</p>
             </div>
@@ -57,15 +57,15 @@ export default function Home() {
         <div className="mt-20">
           <h2 className="text-3xl font-bold text-center text-foreground mb-12">Integrations</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
+            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Nostr Integration</h3>
               <p className="text-foreground-light">Seamlessly integrate with the Nostr protocol to build decentralized agents and tools.</p>
             </div>
-            <div className="bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
+            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Lightning Integration</h3>
               <p className="text-foreground-light">Integrate with the Lightning Network for fast, low-cost micropayments and instant transactions.</p>
             </div>
-            <div className="bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
+            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Routstr Integration</h3>
               <p className="text-foreground-light">Leverage Routstr for decentralized, private, and secure LLM routing.</p>
             </div>

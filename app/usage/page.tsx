@@ -1,4 +1,5 @@
 import CodeBlock from "../../components/CodeBlock";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 export default function UsagePage() {
   return (
@@ -32,7 +33,10 @@ export default function UsagePage() {
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
                   >
-                    View in GitHub
+                    <span className="flex items-center justify-center">
+                      View in GitHub
+                      <ArrowTopRightOnSquareIcon className="ml-2 h-4 w-4" />
+                    </span>
                   </a>
                 </div>
               </div>
