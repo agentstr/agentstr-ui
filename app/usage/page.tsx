@@ -73,21 +73,22 @@ export default function UsagePage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr RAG</h2>
               <p className="text-gray-400 mb-4">
-                Agentstr SDK provides powerful RAG (Retrieval-Augmented Generation) capabilities integrated with Nostr. This allows you to build intelligent agents that can search and retrieve relevant information from Nostr notes and use it to generate better responses.
+                Agentstr SDK provides powerful RAG (Retrieval-Augmented Generation) capabilities integrated with Nostr. This allows you to build intelligent agents that can search and retrieve relevant information from Nostr notes. Integrate with <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> for decentralized, private LLM access.
               </p>
               <CodeBlock
                 language="python"
                 value={`from agentstr import NostrRAG
-        
-# Initialize RAG with your Nostr credentials
-rag = NostrRAG(
-    private_key="your_private_key",
-    relays=["wss://relay.damus.io"]
-)
 
-results = rag.query(tags=['bitcoin', 'btc'], question="What's new with Bitcoin?", limit=3)
+relays   = ['wss://some.relay.io']
+base_url = 'https://api.routstr.com/v1'
+api_key  = 'cashuA1DkpMb...'
 
-print(results)`}
+rag = NostrRAG(relays=relays,
+               llm_model_name='qwen/qwen3-14b',
+               llm_base_url=base_url,
+               llm_api_key=api_key)
+
+print(rag.query(question="What's new with Bitcoin?"))`}
       />
             </div>
           </div>
@@ -104,28 +105,29 @@ print(results)`}
                 language="python"
                 value={`from agentstr import NostrMCPServer
 
-# Define a simple tool
-def greet(name: str) -> str:
-    """Greet someone"""
-    return f"Hello, {name}!"
+# Define relays and private key
+relays   = ['wss://some.relay.io']
+private_key = 'nsec...'
 
+# Define tools
 def add(a: int, b: int) -> int:
-    """Add two numbers"""
+    """Add two numbers."""
     return a + b
 
-# Initialize the server
-server = NostrMCPServer(
-    name="Greeting Server",
-    private_key="your_private_key",
-    relays=["wss://relay.damus.io"]
-)
+def multiply(a: int, b: int) -> int:
+    """Multiply two numbers."""
+    return a * b
+
+# Define the server
+server = NostrMCPServer("Math MCP Server", relays=relays, private_key=private_key)
 
 # Add tools
-server.add_tool(greet, name="greet", description="Greet someone")
-server.add_tool(add, name="add", description="Add two numbers")
+server.add_tool(add)
+server.add_tool(multiply, name="multiply", description="Multiply two numbers")
 
 # Start the server
-server.start()`}
+server.start()
+`}
               />
             </div>
           </div>
@@ -142,22 +144,23 @@ server.start()`}
                 language="python"
                 value={`from agentstr import NostrMCPClient
 
+# Define relays and private key
+relays = ['wss://some.relay.io']
+private_key = 'nsec...'
+
+# Define MCP server public key
+server_public_key = 'npub...'
+
 # Initialize the client
-client = NostrMCPClient(
-    private_key="your_private_key",
-    relays=["wss://relay.damus.io"]
-)
+mcp_client = NostrMCPClient(mcp_pubkey=server_public_key, relays=relays, private_key=private_key)
 
-# Discover available tools
-available_tools = await client.discover_tools()
-print("Available tools:", available_tools)
+# List available tools
+tools = mcp_client.list_tools()
+print(f'Found tools: {json.dumps(tools, indent=4)}')
 
-# Use a tool
-result = await client.use_tool(
-    tool_id="greet",
-    parameters={"name": "John"}
-)
-print("Tool result:", result)`}
+# Call a tool
+result = mcp_client.call_tool("multiply", {"a": 69, "b": 420})
+print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
               />
             </div>
           </div>
@@ -174,38 +177,7 @@ print("Tool result:", result)`}
                 language="python"
                 value={`from agentstr import NostrAgentServer
 
-# Define agent logic
-def agent_logic(tool_results):
-    """Agent's decision-making logic"""
-    # Example: Use previous tool results to decide next action
-    if "weather" in tool_results:
-        if tool_results["weather"]["temperature"] > 30:
-            return "get_drink"
-    return "check_weather"
-
-# Initialize the agent server
-agent = NostrAgentServer(
-    name="Weather Agent",
-    private_key="your_private_key",
-    relays=["wss://relay.damus.io"],
-    agent_logic=agent_logic
-)
-
-# Add tools for the agent
-agent.add_tool(
-    name="check_weather",
-    description="Check current weather",
-    function=lambda location: f"Current weather in {location} is sunny"
-)
-
-agent.add_tool(
-    name="get_drink",
-    description="Get a drink",
-    function=lambda drink_type: f"Getting {drink_type} for you"
-)
-
-# Start the agent
-agent.start()`}
+# TODO`}
               />
             </div>
           </div>
