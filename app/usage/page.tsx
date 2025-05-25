@@ -44,7 +44,7 @@ export default function UsagePage() {
           </div>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Table of Contents</h2>
