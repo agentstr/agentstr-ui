@@ -56,7 +56,7 @@ export default function Home() {
 
         <div className="mt-20">
           <h2 className="text-3xl font-bold text-center text-foreground mb-12">Integrations</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Nostr Integration</h3>
               <p className="text-foreground-light">Seamlessly integrate with the Nostr protocol to build decentralized agents and tools.</p>
@@ -68,6 +68,10 @@ export default function Home() {
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Routstr Integration</h3>
               <p className="text-foreground-light">Leverage Routstr for decentralized, private, and secure LLM routing.</p>
+            </div>
+            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
+              <h3 className="text-xl font-semibold text-foreground mb-4">Langgraph Integration</h3>
+              <p className="text-foreground-light">Easily connect Langgraph agents to Nostr MCP servers for decentralized tool calling and discovery.</p>
             </div>
           </div>
         </div>
