@@ -1,7 +1,12 @@
+'use client';
+
+import React from 'react';
 import CodeBlock from "../../components/CodeBlock";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 export default function UsagePage() {
+  const [isTocOpen, setIsTocOpen] = React.useState(false);
+
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -47,8 +52,16 @@ export default function UsagePage() {
         <div className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Table of Contents</h2>
-              <div className="space-y-3">
+              <div 
+                className="flex items-center justify-between mb-4 cursor-pointer hover:bg-gray-700 rounded-md p-2"
+                onClick={() => setIsTocOpen(!isTocOpen)}
+              >
+                <h2 className="text-xl font-semibold text-white">Table of Contents</h2>
+                <span className="text-gray-400 hover:text-white">
+                  {isTocOpen ? '▼' : '▶'}
+                </span>
+              </div>
+              <div className={`space-y-3 ${isTocOpen ? 'block' : 'hidden'}`}>
                 <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#installation" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Installation</a>
                 </div>
