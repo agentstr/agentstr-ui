@@ -102,8 +102,8 @@ export default function UsagePage() {
               <CodeBlock
                 language="bash"
                 value={`git clone https://github.com/ehallmark/agentstr-sdk.git
-                cd agentstr-sdk
-                pip install -e .`}
+cd agentstr-sdk
+pip install -e .`}
               />
             </div>
           </div>
