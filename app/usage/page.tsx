@@ -80,6 +80,9 @@ export default function UsagePage() {
                 <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#langgraph-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Langgraph MCP Agent</a>
                 </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#lightning-mcp" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Lightning Enablement</a>
+                </div>
               </div>
             </div>
           </div>
@@ -312,6 +315,75 @@ if __name__ == '__main__':
 
     # Run the agent
     asyncio.run(run())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="lightning-mcp" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Lightning Enablement</h2>
+              <p className="text-gray-400 mb-4">
+                Create agents and MCP servers with Lightning payment support. When the tool is called, the MCP server will respond with a lightning invoice. Upon payment, the tool will be executed and the result will be sent to the client. This process is handled automatically by the agentstr SDK.
+              </p>
+              <h3 className="text-lg font-semibold text-white mt-6">Lightning-Enabled MCP Server</h3>
+              <CodeBlock
+                language="python"
+                value={`from agentstr import NostrMCPServer
+
+# Define relays and private key
+relays = ['wss://some.relay.io']
+private_key = 'nsec...'
+
+# Define Nostr Wallet Connect string
+nwc_str = 'nostr+walletconnect://...'
+
+# Create Lightning-enabled MCP Server
+server = NostrMCPServer(
+    "Lightning Math Server",
+    relays=relays,
+    private_key=private_key,
+    nwc_str=nwc_str,  # Enable Lightning payments
+)
+
+# Define a tool that requires payment
+def premium_tool(**kwargs) -> int:
+    """Premium service (requires payment)."""
+    return 42
+
+# Add the tool with payment requirement
+server.add_tool(premium_tool, satoshis=10)
+
+# Start the server
+server.start()`}
+              />
+              <h3 className="text-lg font-semibold text-white mt-6">Client Integration</h3>
+              <CodeBlock
+                language="python"
+                value={`from agentstr import NostrMCPClient
+
+# Define relays and private key
+relays = ['wss://some.relay.io']
+private_key = 'nsec...'
+
+# Define MCP server public key
+server_public_key = 'npub...'
+
+# Define Nostr Wallet Connect string
+nwc_str = 'nostr+walletconnect://...'
+
+# Create Lightning-enabled MCP Client
+client = NostrMCPClient(
+    mcp_pubkey=server_public_key,
+    relays=relays,
+    private_key=private_key,
+    nwc_str=nwc_str  # Enable Lightning payments
+)
+
+# Call a paid tool
+result = client.call_tool("premium_tool", {"a": 100, "b": 200})
+print(f'Result: {result["content"][-1]["text"]}')`}
               />
             </div>
           </div>
