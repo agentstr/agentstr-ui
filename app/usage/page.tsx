@@ -325,7 +325,7 @@ if __name__ == '__main__':
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Lightning Enablement</h2>
               <p className="text-gray-400 mb-4">
-                Create agents and MCP servers with Lightning payment support. When the tool is called, the MCP server will respond with a lightning invoice. Upon payment, the tool will be executed and the result will be sent to the client. This process is handled automatically by the agentstr SDK.
+                Create agents and MCP servers with Lightning payment support. When the tool is called, the MCP server will respond with a lightning invoice. Upon payment, the tool will be executed and the result will be sent to the client. This process is handled automatically by the Agentstr SDK.
               </p>
               <h3 className="text-lg font-semibold text-white mt-6">Lightning-Enabled MCP Server</h3>
               <CodeBlock

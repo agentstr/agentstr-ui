@@ -293,7 +293,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NostrClient.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relays</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relays</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the NostrClient.</span>
 
 <span class="sd">        Args:</span>
@@ -524,18 +524,6 @@
         <span class="n">relay_manager</span><span class="o">.</span><span class="n">run_sync</span><span class="p">()</span></div>
 </div>
 
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-    <span class="n">load_dotenv</span><span class="p">()</span>
-    <span class="n">relays</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NOSTR_RELAYS&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-    <span class="n">private_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;AGENT_PRIVATE_KEY&#39;</span><span class="p">)</span>
-    <span class="n">server_public_key</span> <span class="o">=</span> <span class="n">PrivateKey</span><span class="o">.</span><span class="n">from_nsec</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MCP_MATH_PRIVATE_KEY&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">NostrClient</span><span class="p">(</span><span class="n">relays</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">events</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">read_posts_by_tag</span><span class="p">(</span><span class="s1">&#39;mcp_tool_discovery&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">([</span><span class="n">event</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">])</span>
 </pre></div>
         </article>
       </div>

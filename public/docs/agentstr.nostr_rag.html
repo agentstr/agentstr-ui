@@ -347,8 +347,25 @@ base with optional questions. It uses embeddings to enable similarity-based retr
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.retrieve">
+<span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.retrieve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.retrieve" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve relevant documents from the knowledge base.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>question</strong> – The user’s question</p></li>
+<li><p><strong>limit</strong> – Maximum number of documents to retrieve</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of retrieved documents</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.query" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.query" title="Link to this definition">¶</a></dt>
 <dd><p>Ask a question using the knowledge base.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -427,6 +444,7 @@ base with optional questions. It uses embeddings to enable similarity-based retr
 <li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.llm"><code class="docutils literal notranslate"><span class="pre">NostrRAG.llm</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.__init__"><code class="docutils literal notranslate"><span class="pre">NostrRAG.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.build_knowledge_base"><code class="docutils literal notranslate"><span class="pre">NostrRAG.build_knowledge_base()</span></code></a></li>
+<li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.retrieve"><code class="docutils literal notranslate"><span class="pre">NostrRAG.retrieve()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.query"><code class="docutils literal notranslate"><span class="pre">NostrRAG.query()</span></code></a></li>
 </ul>
 </li>

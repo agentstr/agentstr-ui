@@ -345,7 +345,8 @@
 <span class="sd">            Document: A LangChain Document with the event&#39;s content and ID.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="n">metadata</span><span class="o">=</span><span class="n">event</span><span class="p">)</span>
 
 <div class="viewcode-block" id="NostrRAG.build_knowledge_base">
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.build_knowledge_base">[docs]</a>
@@ -376,9 +377,25 @@
         <span class="k">return</span> <span class="n">events</span></div>
 
 
+<div class="viewcode-block" id="NostrRAG.retrieve">
+<a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.retrieve">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve relevant documents from the knowledge base.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            question: The user&#39;s question</span>
+<span class="sd">            limit: Maximum number of documents to retrieve</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of retrieved documents</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_knowledge_base</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_store</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="NostrRAG.query">
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.query">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Ask a question using the knowledge base.</span>
 
 <span class="sd">        Args:</span>
@@ -388,10 +405,8 @@
 <span class="sd">            The generated response</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">build_knowledge_base</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
-
         <span class="c1"># Get relevant documents</span>
-        <span class="n">relevant_docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_store</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">relevant_docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">limit</span><span class="p">)</span>
         
         <span class="c1"># Generate response using the LLM</span>
         <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
