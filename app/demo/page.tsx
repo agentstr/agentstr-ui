@@ -25,13 +25,13 @@ export default function DemoPage() {
                 className="mb-4"
               />
               <a
-                href="https://github.com/ehallmark/nostr-ai-demo"
+                href="https://github.com/ehallmark/agentstr-demo"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-accent bg-background hover:bg-background-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
               >
                 <span className="flex items-center">
-                  View Code in GitHub
+                  View Demo in GitHub
                   <ArrowTopRightOnSquareIcon className="ml-2 h-4 w-4" />
                 </span>
               </a>
