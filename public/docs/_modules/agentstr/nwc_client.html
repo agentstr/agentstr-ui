@@ -255,45 +255,111 @@
 <div class="viewcode-block" id="NWCClient">
 <a class="viewcode-back" href="../../agentstr.nwc_client.html#agentstr.nwc_client.NWCClient">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NWCClient</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A client for interacting with Nostr Wallet Connect (NWC) endpoints.</span>
+<span class="sd">    This class provides methods to manage Lightning Network payments and invoices.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nwc_str (str): The Nostr Wallet Connect connection string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NWCClient.__init__">
 <a class="viewcode-back" href="../../agentstr.nwc_client.html#agentstr.nwc_client.NWCClient.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the NWC client with a connection string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            nwc_str (str): The Nostr Wallet Connect connection string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span> <span class="o">=</span> <span class="n">processNWCstring</span><span class="p">(</span><span class="n">nwc_str</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="NWCClient.list_tx">
 <a class="viewcode-back" href="../../agentstr.nwc_client.html#agentstr.nwc_client.NWCClient.list_tx">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">list_tx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List all transactions in the wallet.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: A list of transaction objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">listTx</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">)[</span><span class="s1">&#39;result&#39;</span><span class="p">][</span><span class="s1">&#39;transactions&#39;</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="NWCClient.get_balance">
 <a class="viewcode-back" href="../../agentstr.nwc_client.html#agentstr.nwc_client.NWCClient.get_balance">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current wallet balance in satoshis.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The current wallet balance in satoshis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">getBalance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">)[</span><span class="s1">&#39;result&#39;</span><span class="p">][</span><span class="s1">&#39;balance&#39;</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="NWCClient.make_invoice">
 <a class="viewcode-back" href="../../agentstr.nwc_client.html#agentstr.nwc_client.NWCClient.make_invoice">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">make_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">desc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new Lightning invoice.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            amt (int, optional): The amount in satoshis. If not provided, the invoice will be for any amount.</span>
+<span class="sd">            desc (str, optional): A description for the invoice.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The Lightning invoice string (BOLT11 format).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">makeInvoice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">,</span> <span class="n">amt</span><span class="o">=</span><span class="n">amt</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">desc</span><span class="p">)[</span><span class="s1">&#39;result&#39;</span><span class="p">][</span><span class="s1">&#39;invoice&#39;</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="NWCClient.check_invoice">
 <a class="viewcode-back" href="../../agentstr.nwc_client.html#agentstr.nwc_client.NWCClient.check_invoice">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">check_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">payment_hash</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check the status of a Lightning invoice.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            invoice (str, optional): The BOLT11 invoice string to check.</span>
+<span class="sd">            payment_hash (str, optional): The payment hash to check.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary containing the invoice status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">checkInvoice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">,</span> <span class="n">invoice</span><span class="o">=</span><span class="n">invoice</span><span class="p">,</span> <span class="n">payment_hash</span><span class="o">=</span><span class="n">payment_hash</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="NWCClient.did_payment_succeed">
 <a class="viewcode-back" href="../../agentstr.nwc_client.html#agentstr.nwc_client.NWCClient.did_payment_succeed">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">did_payment_succeed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">did_payment_succeed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if a payment has been successfully settled.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            invoice (str, optional): The BOLT11 invoice string to check.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the payment was successfully settled, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_invoice</span><span class="p">(</span><span class="n">invoice</span><span class="o">=</span><span class="n">invoice</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;settled_at&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
 
 <div class="viewcode-block" id="NWCClient.try_pay_invoice">
 <a class="viewcode-back" href="../../agentstr.nwc_client.html#agentstr.nwc_client.NWCClient.try_pay_invoice">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">try_pay_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempt to pay a Lightning invoice.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            invoice (str): The BOLT11 invoice string to pay.</span>
+<span class="sd">            amt (int, optional): The amount in satoshis to pay. If not provided, </span>
+<span class="sd">                the amount from the invoice will be used.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: If the provided amount doesn&#39;t match the invoice amount,</span>
+<span class="sd">                         or if no amount is provided and the invoice doesn&#39;t specify one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">decoded</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">invoice</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">decoded</span><span class="o">.</span><span class="n">amount_msat</span> <span class="ow">and</span> <span class="n">amt</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">decoded</span><span class="o">.</span><span class="n">amount_msat</span> <span class="o">!=</span> <span class="n">amt</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">:</span>  <span class="c1"># convert to msats</span>
@@ -308,10 +374,19 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">on_payment_success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unsuccess_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Listen for payment success for a given invoice.</span>
-<span class="sd">        :param invoice: The invoice to listen for.</span>
-<span class="sd">        :param callback: The callback to call on success.</span>
-<span class="sd">        :param timeout: The timeout in seconds.</span>
-<span class="sd">        :param interval: The interval in seconds to check for payment success.</span>
+
+<span class="sd">        This method continuously checks for payment success until either the payment</span>
+<span class="sd">        is confirmed or the timeout is reached.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            invoice (str): The BOLT11 invoice string to listen for.</span>
+<span class="sd">            callback (callable, optional): A function to call when payment succeeds.</span>
+<span class="sd">            unsuccess_callback (callable, optional): A function to call if payment fails.</span>
+<span class="sd">            timeout (int, optional): Maximum time to wait in seconds (default: 60).</span>
+<span class="sd">            interval (int, optional): Time between checks in seconds (default: 5).</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: If the callback function raises an exception.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
