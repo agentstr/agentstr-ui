@@ -33,7 +33,7 @@ export default function UsagePage() {
               <div className="flex-1">
                 <div className="rounded-md shadow">
                   <a
-                    href="https://github.com/ehallmark/agentstr-sdk/tree/main/examples"
+                    href="https://github.com/ehallmark/agentstr-sdk.git"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
