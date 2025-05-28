@@ -80,6 +80,9 @@ export default function UsagePage() {
                   <a href="#langgraph-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Langgraph MCP Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#dspy-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">DSPy Agent</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#lightning-mcp" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Lightning Enablement</a>
                 </div>
               </div>
@@ -345,6 +348,89 @@ if __name__ == '__main__':
 
     # Run the agent
     asyncio.run(run())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="dspy-agent" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">DSPy Agent</h2>
+              <p className="text-gray-400 mb-4">
+                This example shows how to create a DSPy agent that can interact with Nostr.
+              </p>
+              <CodeBlock
+                language="bash"
+                value={"pip install dspy"}
+              />
+              <CodeBlock
+                language="python"
+                value={`import dspy
+from agentstr import NostrAgentServer, NoteFilters
+from agentstr.a2a import AgentCard, Skill, ChatInput
+
+# Define relays and private key
+relays = ['wss://some.relay.io']
+private_key = 'nsec...'
+
+# Define Nostr Wallet Connect string to support lightning payments
+nwc_str = 'nostr+walletconnect://...'
+
+# Define A2A agent info
+agent_info = AgentCard(
+    name='Travel Agent',
+    description=('This agent can help you book and manage flights.'),
+    skills=[Skill(name='book_flight', description='Book a flight on behalf of a user.', satoshis=25),
+            Skill(name='show_itinerary', description='Show the itinerary for the user.', satoshis=0),
+            Skill(name='pick_flight', description='Pick the best flight that matches users\' request.', satoshis=0),
+            Skill(name='cancel_itinerary', description='Cancel an itinerary on behalf of the user.', satoshis=0),
+            ],
+    satoshis=0,
+    nostr_pubkey='npub...',
+)
+
+# Define note filters to listen on
+note_filters = NoteFilters(
+    tags=['travel_agent_ai_request'],
+)
+
+# Define DSPy agent 
+# (see https://dspy.ai/tutorials/customer_service_agent/ for more info)
+agent = dspy.ReAct(
+    DSPyAirlineCustomerSerice,
+    tools = [
+        fetch_flight_info,
+        show_itinerary,
+        pick_flight,
+        book_flight,
+        cancel_itinerary
+    ]
+)
+
+# Configure LLM
+llm_api_key = 'cashuA1DkpMb...'
+llm_base_url = 'https://api.routstr.com'
+llm_model_name = 'gpt-4o'
+
+# Configure DSPy
+dspy.configure(lm=dspy.LM(model=llm_model_name, api_base=llm_base_url, api_key=llm_api_key, model_type='chat'))
+
+
+# Define agent callable
+def agent_callable(chat_input: ChatInput) -> str:
+    return agent(user_request=chat_input.messages[-1]).process_result
+
+# Initialize the server
+server = NostrAgentServer(relays=relays, 
+                          private_key=private_key, 
+                          nwc_str=nwc_str,
+                          agent_info=agent_info,
+                          agent_callable=agent_callable,
+                          note_filters=note_filters)
+
+# Start the server
+server.start()`}
               />
             </div>
           </div>
