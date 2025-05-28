@@ -2,7 +2,6 @@
 
 export default function DocsPage() {
   return (
-    <main className="min-h-screen bg-gray-900">
       <div className="h-[calc(100vh-4rem)]">
         <iframe
           src="/docs/index.html"
@@ -12,6 +11,5 @@ export default function DocsPage() {
           allowFullScreen
         />
       </div>
-    </main>
   );
 }

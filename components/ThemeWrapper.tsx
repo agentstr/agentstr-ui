@@ -13,7 +13,7 @@ export default function ThemeWrapper({ children }: { children: React.ReactNode }
   return (
     <ThemeProvider>
       <Navbar />
-      <div className="min-h-screen bg-gray-900">
+      <div className=" bg-gray-900">
         {children}
       </div>
     </ThemeProvider>
