@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>agentstr.nostr_client - Agentstr SDK 0.0.4 documentation</title>
+        <title>agentstr.nostr_client - Agentstr SDK 0.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Agentstr SDK 0.0.4 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Agentstr SDK 0.1.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -204,6 +204,7 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">a2a module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">nostr_client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
@@ -480,6 +481,59 @@
         <span class="n">relay_manager</span><span class="o">.</span><span class="n">run_sync</span><span class="p">()</span></div>
 
 
+<div class="viewcode-block" id="NostrClient.note_listener">
+<a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.note_listener">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">note_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Event</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">pubkeys</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+                     <span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">followers_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
+                     <span class="n">following_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
+                     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">close_after_first_message</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Listen for public notes matching the given filters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            callback: Function to handle received notes (takes Event as argument).</span>
+<span class="sd">            pubkeys: List of pubkeys to filter notes from (hex or bech32 format).</span>
+<span class="sd">            tags: List of tags to filter notes by.</span>
+<span class="sd">            followers_only: If True, only show notes from users the key follows (not implemented).</span>
+<span class="sd">            following_only: If True, only show notes from users following the key (not implemented).</span>
+<span class="sd">            timeout: Timeout for listening in seconds (0 for indefinite).</span>
+<span class="sd">            timestamp: Filter messages since this timestamp (optional).</span>
+<span class="sd">            close_after_first_message: Close subscription after receiving the first message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">authors</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">pubkeys</span><span class="p">:</span>
+            <span class="n">authors</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_public_key</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span> <span class="k">for</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">pubkeys</span><span class="p">]</span>        
+        <span class="n">filters</span> <span class="o">=</span> <span class="n">Filters</span><span class="p">(</span><span class="n">authors</span><span class="o">=</span><span class="n">authors</span><span class="p">,</span> <span class="n">kinds</span><span class="o">=</span><span class="p">[</span><span class="n">EventKind</span><span class="o">.</span><span class="n">TEXT_NOTE</span><span class="p">],</span>
+                                <span class="n">since</span><span class="o">=</span><span class="n">timestamp</span> <span class="ow">or</span> <span class="n">get_timestamp</span><span class="p">(),</span> <span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tags</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">filters</span><span class="o">.</span><span class="n">add_arbitrary_tag</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
+        
+        <span class="c1"># Start subscription</span>
+        <span class="n">subscription_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">on_event</span><span class="p">(</span><span class="n">message_json</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+            <span class="n">message_type</span> <span class="o">=</span> <span class="n">message_json</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">message_type</span> <span class="o">==</span> <span class="n">RelayMessageType</span><span class="o">.</span><span class="n">EVENT</span><span class="p">:</span>
+                <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">message_json</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">ack</span><span class="p">:</span>
+                    <span class="k">return</span>
+                <span class="n">ack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">EventKind</span><span class="o">.</span><span class="n">TEXT_NOTE</span><span class="p">:</span>
+                    <span class="n">success</span> <span class="o">=</span> <span class="n">callback</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">message_type</span> <span class="o">==</span> <span class="n">RelayMessageType</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message_json</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">message_type</span> <span class="o">==</span> <span class="n">RelayMessageType</span><span class="o">.</span><span class="n">NOTICE</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message_json</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">success</span> <span class="ow">and</span> <span class="n">close_after_first_message</span><span class="p">:</span>
+                <span class="n">relay_manager</span><span class="o">.</span><span class="n">close_subscription_on_all_relays</span><span class="p">(</span><span class="n">subscription_id</span><span class="p">)</span>
+
+        <span class="n">relay_manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_relay_manager</span><span class="p">(</span><span class="n">message_callback</span><span class="o">=</span><span class="n">on_event</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="n">relay_manager</span><span class="o">.</span><span class="n">add_subscription_on_all_relays</span><span class="p">(</span><span class="n">subscription_id</span><span class="p">,</span> <span class="n">FiltersList</span><span class="p">([</span><span class="n">filters</span><span class="p">]))</span>
+        <span class="n">relay_manager</span><span class="o">.</span><span class="n">run_sync</span><span class="p">()</span></div>
+
+
+
 <div class="viewcode-block" id="NostrClient.direct_message_listener">
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.direct_message_listener">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">direct_message_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Event</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">recipient_pubkey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -498,7 +552,7 @@
                                       <span class="n">since</span><span class="o">=</span><span class="n">timestamp</span> <span class="ow">or</span> <span class="n">get_timestamp</span><span class="p">(),</span> <span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">)])</span>
         <span class="n">subscription_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">print_dm</span><span class="p">(</span><span class="n">message_json</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">on_event</span><span class="p">(</span><span class="n">message_json</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
             <span class="n">message_type</span> <span class="o">=</span> <span class="n">message_json</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="n">message_type</span> <span class="o">==</span> <span class="n">RelayMessageType</span><span class="o">.</span><span class="n">EVENT</span><span class="p">:</span>
@@ -519,7 +573,7 @@
             <span class="k">if</span> <span class="n">success</span> <span class="ow">and</span> <span class="n">close_after_first_message</span><span class="p">:</span>
                 <span class="n">relay_manager</span><span class="o">.</span><span class="n">close_subscription_on_all_relays</span><span class="p">(</span><span class="n">subscription_id</span><span class="p">)</span>
 
-        <span class="n">relay_manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_relay_manager</span><span class="p">(</span><span class="n">message_callback</span><span class="o">=</span><span class="n">print_dm</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="n">relay_manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_relay_manager</span><span class="p">(</span><span class="n">message_callback</span><span class="o">=</span><span class="n">on_event</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
         <span class="n">relay_manager</span><span class="o">.</span><span class="n">add_subscription_on_all_relays</span><span class="p">(</span><span class="n">subscription_id</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span>
         <span class="n">relay_manager</span><span class="o">.</span><span class="n">run_sync</span><span class="p">()</span></div>
 </div>
@@ -556,7 +610,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=8c5712d9"></script>
+</div><script src="../../_static/documentation_options.js?v=92734c54"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

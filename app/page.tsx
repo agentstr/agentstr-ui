@@ -74,8 +74,8 @@ export default function Home() {
               <p className="text-foreground-light">Leverage <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> for decentralized, private, and secure LLM routing.</p>
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Langgraph Integration</h3>
-              <p className="text-foreground-light">Easily connect <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">Langgraph</a> agents to Nostr MCP servers for decentralized tool calling and discovery.</p>
+              <h3 className="text-xl font-semibold text-foreground mb-4">Langgraph and DSPy Integration</h3>
+              <p className="text-foreground-light">Easily connect <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">Langgraph</a> and <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a> agents with Nostr for decentralized agentic workflows.</p>
             </div>
           </div>
         </div>
