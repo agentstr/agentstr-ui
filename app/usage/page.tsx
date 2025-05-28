@@ -102,13 +102,11 @@ export default function UsagePage() {
                 value={`pip install agentstr-sdk`}
               />
               <p className="text-gray-400 mt-4">
-                Or, if you prefer to install from source:
+                Note: if you want to use Nostr RAG, you will need to install a few additional dependencies:
               </p>
               <CodeBlock
                 language="bash"
-                value={`git clone https://github.com/ehallmark/agentstr-sdk.git
-cd agentstr-sdk
-pip install -e .`}
+                value={`pip install agentstr-sdk[rag]`}
               />
             </div>
           </div>
