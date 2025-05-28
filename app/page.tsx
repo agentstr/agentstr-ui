@@ -75,7 +75,7 @@ export default function Home() {
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Langgraph and DSPy Integration</h3>
-              <p className="text-foreground-light">Easily connect <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">Langgraph</a> and <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a> agents with Nostr for decentralized agentic workflows.</p>
+              <p className="text-foreground-light">Use popular open-source backends like <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">Langgraph</a> and <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a> to expedite development.</p>
             </div>
           </div>
         </div>
