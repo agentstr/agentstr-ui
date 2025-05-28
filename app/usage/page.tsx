@@ -225,17 +225,21 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
                 language="python"
                 value={`from agentstr import NostrClient
 
-  nostr_client = NostrClient(relays)
+# Initialize Nostr Client
+nostr_client = NostrClient(relays)
 
-  mcp_servers = nostr_client.read_posts_by_tag('mcp-tools')
+# Search for MCP Servers
+mcp_servers = nostr_client.read_posts_by_tag('mcp-tools')
   
-  mcp_pubkeys = set([server['pubkey'] for server in mcp_servers])
+# Get unique public keys
+mcp_pubkeys = set([server['pubkey'] for server in mcp_servers])
 
-  for pubkey in mcp_pubkeys:
-      mcp_client = NostrMCPClient(mcp_pubkey=pubkey, relays=relays)
-      tools = mcp_client.list_tools()
+# Iterate through public keys and list tools
+for pubkey in mcp_pubkeys:
+    mcp_client = NostrMCPClient(mcp_pubkey=pubkey, relays=relays)
+    tools = mcp_client.list_tools()
 
-      print(f'Found tools: {json.dumps(tools, indent=4)}')`}
+    print(f'Found tools: {json.dumps(tools, indent=4)}')`}
               />
             </div>
           </div>
