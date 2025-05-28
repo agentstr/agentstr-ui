@@ -23,24 +23,21 @@ export default function UsagePage() {
               <div className="flex-1">
                 <div className="rounded-md shadow">
                   <a
-                    href="/docs"
+                    href="/demo"
                     className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
                   >
-                    SDK Reference
+                    Watch Demo
                   </a>
                 </div>
               </div>
               <div className="flex-1">
                 <div className="rounded-md shadow">
                   <a
-                    href="https://github.com/ehallmark/agentstr-sdk.git"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/docs"
                     className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
                   >
                     <span className="flex items-center justify-center">
-                      View in GitHub
-                      <ArrowTopRightOnSquareIcon className="ml-2 h-4 w-4" />
+                      View Reference
                     </span>
                   </a>
                 </div>
@@ -73,6 +70,9 @@ export default function UsagePage() {
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-mcp-clients" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Client</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#tool-discovery" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Tool Discovery</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-agent-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agent Server</a>
@@ -210,6 +210,33 @@ print(f'Found tools: {json.dumps(tools, indent=4)}')
 # Call a tool
 result = mcp_client.call_tool("multiply", {"a": 69, "b": 420})
 print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="tool-discovery" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Tool Discovery</h2>
+              <p className="text-gray-400 mb-4">
+                Search Nostr for MCP Servers to discover available tools.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`from agentstr import NostrClient
+
+  nostr_client = NostrClient(relays)
+
+  mcp_servers = nostr_client.read_posts_by_tag('mcp-tools')
+  
+  mcp_pubkeys = set([server['pubkey'] for server in mcp_servers])
+
+  for pubkey in mcp_pubkeys:
+      mcp_client = NostrMCPClient(mcp_pubkey=pubkey, relays=relays)
+      tools = mcp_client.list_tools()
+
+      print(f'Found tools: {json.dumps(tools, indent=4)}')`}
               />
             </div>
           </div>
