@@ -8,7 +8,7 @@ export default function Home() {
             <span className="block text-primary">Agentstr SDK</span>
           </h1>
           <p className="mt-3 text-base text-foreground-light sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
-            A comprehensive guide to using our Python library and SDK for building powerful Agentic applications on Nostr.
+            A comprehensive guide to using our Python library and SDK for building decentralized agentic applications on Nostr.
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="flex flex-col gap-4 sm:flex-row">
