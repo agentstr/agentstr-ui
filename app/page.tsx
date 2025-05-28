@@ -41,11 +41,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Agentic Architecture</h3>
-              <p className="text-foreground-light">Build intelligent, autonomous agents that can make decisions and interact with the decentralized web.</p>
+              <p className="text-foreground-light">Build intelligent, autonomous agents that interact with the decentralized world.  <a className="text-indigo-400 hover:text-white" href="https://docs.anthropic.com/en/docs/agents-and-tools/mcp">MCP</a> and <a className="text-indigo-400 hover:text-white" href="https://google-a2a.github.io/A2A/">A2A</a> enabled.</p>
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Censorship Resistance</h3>
-              <p className="text-foreground-light">Built on decentralized protocols, Agentstr provides robust censorship resistance and privacy.</p>
+              <p className="text-foreground-light">Built entirely on decentralized protocols, Agentstr provides robust censorship resistance and privacy.</p>
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Python SDK</h3>
