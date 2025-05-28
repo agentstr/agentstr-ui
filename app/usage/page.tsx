@@ -2,7 +2,6 @@
 
 import React from 'react';
 import CodeBlock from "../../components/CodeBlock";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 export default function UsagePage() {
   const [isTocOpen, setIsTocOpen] = React.useState(false);
