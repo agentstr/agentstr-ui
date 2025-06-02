@@ -412,7 +412,7 @@ agent = Agent(
     ),
     tools=[
         ReasoningTools(add_instructions=True, analyze=True, think=True),
-        YFinanceTools(stock_price=True, historical_prices=True) #, analyst_recommendations=True, company_info=True, company_news=True),
+        YFinanceTools(stock_price=True, historical_prices=True),
     ],
     instructions=[
         "Use tables to display data",
