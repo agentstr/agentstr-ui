@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="DSPy Tool" href="agentstr.tools.dspy.html" /><link rel="prev" title="Tools Module" href="agentstr.tools.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="PydanticAI Integration" href="agentstr.mcp.pydantic.html" /><link rel="prev" title="DSPy Integration" href="agentstr.mcp.dspy.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Agno Tool - Agentstr SDK documentation</title>
+        <title>LangGraph Integration - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -205,21 +205,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="agentstr.html">Agentstr SDK</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="agentstr.tools.html">Tools Module</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -242,7 +243,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/agentstr.tools.agno.rst.txt" title="View this page">
+  <a class="muted-link" href="_sources/agentstr.mcp.langgraph.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -262,14 +263,67 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="agno-tool">
-<h1>Agno Tool<a class="headerlink" href="#agno-tool" title="Link to this heading">¶</a></h1>
-<dl class="py function" id="module-agentstr.tools.agno">
-<dt class="sig sig-object py" id="agentstr.tools.agno.to_agno_tools">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.tools.agno.</span></span><span class="sig-name descname"><span class="pre">to_agno_tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nostr_mcp_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient" title="agentstr.nostr_mcp_client.NostrMCPClient"><span class="pre">NostrMCPClient</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Function</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/tools/agno.html#to_agno_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.tools.agno.to_agno_tools" title="Link to this definition">¶</a></dt>
-<dd><p>Convert tools from the MCP client to Agno tools.</p>
+          <section id="langgraph-integration">
+<h1>LangGraph Integration<a class="headerlink" href="#langgraph-integration" title="Link to this heading">¶</a></h1>
+<dl class="py function" id="module-agentstr.mcp.langgraph">
+<dt class="sig sig-object py" id="agentstr.mcp.langgraph.to_langgraph_tools">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.mcp.langgraph.</span></span><span class="sig-name descname"><span class="pre">to_langgraph_tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nostr_mcp_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient" title="agentstr.nostr_mcp_client.NostrMCPClient"><span class="pre">NostrMCPClient</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">BaseTool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/mcp/langgraph.html#to_langgraph_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.mcp.langgraph.to_langgraph_tools" title="Link to this definition">¶</a></dt>
+<dd><p>Convert tools from the MCP client to LangGraph tools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nostr_mcp_client</strong> – An instance of NostrMCPClient to fetch tools from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of LangGraph BaseTool objects that wrap the MCP tools.</p>
+</dd>
+</dl>
 </dd></dl>
 
+<p>This module provides integration with LangGraph tools, enabling conversion between MCP tools and LangGraph’s tool format.</p>
+<section id="main-functions">
+<h2>Main Functions<a class="headerlink" href="#main-functions" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="id0">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.mcp.langgraph.</span></span><span class="sig-name descname"><span class="pre">to_langgraph_tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nostr_mcp_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient" title="agentstr.nostr_mcp_client.NostrMCPClient"><span class="pre">NostrMCPClient</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">BaseTool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/mcp/langgraph.html#to_langgraph_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd><p>Convert tools from the MCP client to LangGraph tools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nostr_mcp_client</strong> – An instance of NostrMCPClient to fetch tools from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of LangGraph BaseTool objects that wrap the MCP tools.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="helper-functions">
+<h2>Helper Functions<a class="headerlink" href="#helper-functions" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="agentstr.mcp.langgraph._convert_call_tool_result">
+<span class="sig-prename descclassname"><span class="pre">agentstr.mcp.langgraph.</span></span><span class="sig-name descname"><span class="pre">_convert_call_tool_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call_tool_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CallToolResult</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ImageContent</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">EmbeddedResource</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/mcp/langgraph.html#_convert_call_tool_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.mcp.langgraph._convert_call_tool_result" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a CallToolResult into a format suitable for LangGraph tools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>call_tool_result</strong> – The result from calling an MCP tool.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The tool’s output as a string or list of strings</p></li>
+<li><p>A list of non-text content (images, embedded resources) or None</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ToolException</strong> – If the tool call resulted in an error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
         </article>
@@ -277,23 +331,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="agentstr.tools.dspy.html">
+          <a class="next-page" href="agentstr.mcp.pydantic.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">DSPy Tool</div>
+                <div class="title">PydanticAI Integration</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="agentstr.tools.html">
+          <a class="prev-page" href="agentstr.mcp.dspy.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Tools Module</div>
+                <div class="title">DSPy Integration</div>
                 
               </div>
             </a>
@@ -327,8 +381,16 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Agno Tool</a><ul>
-<li><a class="reference internal" href="#agentstr.tools.agno.to_agno_tools"><code class="docutils literal notranslate"><span class="pre">to_agno_tools()</span></code></a></li>
+<li><a class="reference internal" href="#">LangGraph Integration</a><ul>
+<li><a class="reference internal" href="#agentstr.mcp.langgraph.to_langgraph_tools"><code class="docutils literal notranslate"><span class="pre">to_langgraph_tools()</span></code></a></li>
+<li><a class="reference internal" href="#main-functions">Main Functions</a><ul>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">to_langgraph_tools()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#helper-functions">Helper Functions</a><ul>
+<li><a class="reference internal" href="#agentstr.mcp.langgraph._convert_call_tool_result"><code class="docutils literal notranslate"><span class="pre">_convert_call_tool_result()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

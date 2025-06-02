@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>agentstr.tools.langgraph - Agentstr SDK documentation</title>
+        <title>agentstr.mcp.langgraph - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -204,21 +204,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -255,7 +256,7 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for agentstr.tools.langgraph</h1><div class="highlight"><pre>
+          <h1>Source code for agentstr.mcp.langgraph</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseTool</span><span class="p">,</span> <span class="n">StructuredTool</span><span class="p">,</span> <span class="n">ToolException</span>
@@ -272,9 +273,24 @@
 
 
 
+<div class="viewcode-block" id="_convert_call_tool_result">
+<a class="viewcode-back" href="../../../agentstr.mcp.langgraph.html#agentstr.mcp.langgraph._convert_call_tool_result">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_convert_call_tool_result</span><span class="p">(</span>
     <span class="n">call_tool_result</span><span class="p">:</span> <span class="n">CallToolResult</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">NonTextContent</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a CallToolResult into a format suitable for LangGraph tools.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        call_tool_result: The result from calling an MCP tool.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple containing:</span>
+<span class="sd">        - The tool&#39;s output as a string or list of strings</span>
+<span class="sd">        - A list of non-text content (images, embedded resources) or None</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ToolException: If the tool call resulted in an error.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">text_contents</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TextContent</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">non_text_contents</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">call_tool_result</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
@@ -292,13 +308,21 @@
     <span class="k">if</span> <span class="n">call_tool_result</span><span class="o">.</span><span class="n">isError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">ToolException</span><span class="p">(</span><span class="n">tool_content</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">tool_content</span><span class="p">,</span> <span class="n">non_text_contents</span> <span class="ow">or</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">tool_content</span><span class="p">,</span> <span class="n">non_text_contents</span> <span class="ow">or</span> <span class="kc">None</span></div>
+
 
 
 <div class="viewcode-block" id="to_langgraph_tools">
-<a class="viewcode-back" href="../../../agentstr.tools.langgraph.html#agentstr.tools.langgraph.to_langgraph_tools">[docs]</a>
+<a class="viewcode-back" href="../../../agentstr.mcp.langgraph.html#agentstr.mcp.langgraph.to_langgraph_tools">[docs]</a>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">to_langgraph_tools</span><span class="p">(</span><span class="n">nostr_mcp_client</span><span class="p">:</span> <span class="n">NostrMCPClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">BaseTool</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert tools from the MCP client to LangGraph tools.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert tools from the MCP client to LangGraph tools.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nostr_mcp_client: An instance of NostrMCPClient to fetch tools from.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of LangGraph BaseTool objects that wrap the MCP tools.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Load tools from this server</span>
     <span class="n">tools</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nostr_mcp_client</span><span class="o">.</span><span class="n">list_tools</span><span class="p">()</span>
     <span class="n">server_tools</span> <span class="o">=</span> <span class="p">[]</span>

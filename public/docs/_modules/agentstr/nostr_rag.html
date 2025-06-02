@@ -204,21 +204,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -285,7 +286,8 @@
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NostrRAG</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieval-Augmented Generation (RAG) system for Nostr events.</span>
-<span class="sd">    Fetches Nostr events, builds a vector store knowledge base, and enables</span>
+<span class="sd">    </span>
+<span class="sd">    This class fetches Nostr events, builds a vector store knowledge base, and enables</span>
 <span class="sd">    semantic search and question answering over the indexed content.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NostrRAG.__init__">
@@ -293,6 +295,7 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nostr_client</span><span class="p">:</span> <span class="n">NostrClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vector_store</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relays</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">embeddings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_model_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_api_key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the NostrRAG system.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            nostr_client: An existing NostrClient instance (optional).</span>
 <span class="sd">            vector_store: An existing vector store instance (optional).</span>
@@ -304,6 +307,9 @@
 <span class="sd">            llm_model_name: Name of the language model to use (optional).</span>
 <span class="sd">            llm_base_url: Base URL for the language model (optional).</span>
 <span class="sd">            llm_api_key: API key for the language model (optional).</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ImportError: If LangChain is not installed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">langchain_installed</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Langchain not found. Please install it to use NostrRAG. `pip install agentstr-sdk[rag]`&quot;</span><span class="p">)</span>
@@ -318,9 +324,11 @@
 
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_select_hashtags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">previous_hashtags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Select relevant hashtags for the given question.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            question: The user&#39;s question</span>
 <span class="sd">            previous_hashtags: Previously used hashtags for this conversation</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            List of relevant hashtags</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -366,9 +374,11 @@
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.build_knowledge_base">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">build_knowledge_base</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build a knowledge base from Nostr events relevant to the question.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            question: The user&#39;s question to guide hashtag selection</span>
 <span class="sd">            limit: Maximum number of posts to retrieve</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            List of retrieved events</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -392,9 +402,11 @@
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.retrieve">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve relevant documents from the knowledge base.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            question: The user&#39;s question</span>
 <span class="sd">            limit: Maximum number of documents to retrieve</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            List of retrieved documents</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -406,9 +418,11 @@
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.query">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Ask a question using the knowledge base.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            question: The user&#39;s question</span>
 <span class="sd">            limit: Number of documents to retrieve for context</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The generated response</span>
 <span class="sd">        &quot;&quot;&quot;</span>

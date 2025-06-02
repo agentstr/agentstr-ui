@@ -204,21 +204,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -280,7 +281,12 @@
 <div class="viewcode-block" id="DecryptedMessage">
 <a class="viewcode-back" href="../../agentstr.relay.html#agentstr.relay.DecryptedMessage">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DecryptedMessage</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A decrypted message from a Nostr relay.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A decrypted message from a Nostr relay.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        event: The Nostr event containing the message.</span>
+<span class="sd">        message: The decrypted message content.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">event</span><span class="p">:</span> <span class="n">Event</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span></div>
 
@@ -289,7 +295,14 @@
 <div class="viewcode-block" id="create_subscription">
 <a class="viewcode-back" href="../../agentstr.relay.html#agentstr.relay.create_subscription">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">create_subscription</span><span class="p">(</span><span class="n">filters</span><span class="p">:</span> <span class="n">Filters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a subscription for the given filters.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a subscription for the given filters.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        filters: The filters to apply to the subscription.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A list containing the subscription request components.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;REQ&quot;</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span> <span class="n">filters</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()]</span></div>
 
 
@@ -298,10 +311,11 @@
 <a class="viewcode-back" href="../../agentstr.relay.html#agentstr.relay.EventRelay">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EventRelay</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Handles communication with a single Nostr relay.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        relay: WebSocket URL of the Nostr relay</span>
-<span class="sd">        private_key: Private key for signing events</span>
-<span class="sd">        public_key: Optional public key (derived from private_key if not provided)</span>
+<span class="sd">        relay: WebSocket URL of the Nostr relay.</span>
+<span class="sd">        private_key: Private key for signing events.</span>
+<span class="sd">        public_key: Optional public key (derived from private_key if not provided).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="EventRelay.__init__">
 <a class="viewcode-back" href="../../agentstr.relay.html#agentstr.relay.EventRelay.__init__">[docs]</a>
@@ -316,7 +330,18 @@
 <a class="viewcode-back" href="../../agentstr.relay.html#agentstr.relay.EventRelay.get_events">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">Filters</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">close_on_eose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Event</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetch events matching the given filters from this relay.</span>
-<span class="sd">        Returns up to `limit` events that match the filters, or times out after `timeout` seconds.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            filters: The filters to apply when fetching events.</span>
+<span class="sd">            limit: Maximum number of events to return. Defaults to 10.</span>
+<span class="sd">            timeout: Maximum time to wait for events in seconds. Defaults to 30.</span>
+<span class="sd">            close_on_eose: Whether to close the subscription after EOSE. Defaults to True.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of up to `limit` events that match the filters, or an empty list if none found.</span>
+<span class="sd">            </span>
+<span class="sd">        Note:</span>
+<span class="sd">            Times out after `timeout` seconds if no matching events are found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">limit</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">limit</span> <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">limit</span> <span class="k">else</span> <span class="n">limit</span>
         <span class="n">subscription</span> <span class="o">=</span> <span class="n">create_subscription</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="nostr_mcp_server module" href="agentstr.nostr_mcp_server.html" /><link rel="prev" title="nostr_client module" href="agentstr.nostr_client.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Nostr MCP Server" href="agentstr.nostr_mcp_server.html" /><link rel="prev" title="Nostr Client" href="agentstr.nostr_client.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>nostr_mcp_client module - Agentstr SDK documentation</title>
+        <title>Nostr MCP Client - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -205,21 +205,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="agentstr.html">Agentstr SDK</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -262,9 +263,12 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-agentstr.nostr_mcp_client">
-<span id="nostr-mcp-client-module"></span><h1>nostr_mcp_client module<a class="headerlink" href="#module-agentstr.nostr_mcp_client" title="Link to this heading">¶</a></h1>
-<dl class="py class">
+          <section id="nostr-mcp-client">
+<h1>Nostr MCP Client<a class="headerlink" href="#nostr-mcp-client" title="Link to this heading">¶</a></h1>
+<p>This module implements a Model Context Protocol (MCP) client over the Nostr network.
+It enables agents to discover, invoke, and manage tools in a decentralized manner using
+the Nostr protocol for communication.</p>
+<dl class="py class" id="module-agentstr.nostr_mcp_client">
 <dt class="sig sig-object py" id="agentstr.nostr_mcp_client.NostrMCPClient">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.nostr_mcp_client.</span></span><span class="sig-name descname"><span class="pre">NostrMCPClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mcp_pubkey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nostr_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient" title="agentstr.nostr_client.NostrClient"><span class="pre">NostrClient</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relays</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwc_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nostr_mcp_client.html#NostrMCPClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_client.NostrMCPClient" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -330,7 +334,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">nostr_mcp_server module</div>
+                <div class="title">Nostr MCP Server</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -341,7 +345,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">nostr_client module</div>
+                <div class="title">Nostr Client</div>
                 
               </div>
             </a>
@@ -375,7 +379,7 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">nostr_mcp_client module</a><ul>
+<li><a class="reference internal" href="#">Nostr MCP Client</a><ul>
 <li><a class="reference internal" href="#agentstr.nostr_mcp_client.NostrMCPClient"><code class="docutils literal notranslate"><span class="pre">NostrMCPClient</span></code></a><ul>
 <li><a class="reference internal" href="#agentstr.nostr_mcp_client.NostrMCPClient.__init__"><code class="docutils literal notranslate"><span class="pre">NostrMCPClient.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_mcp_client.NostrMCPClient.list_tools"><code class="docutils literal notranslate"><span class="pre">NostrMCPClient.list_tools()</span></code></a></li>

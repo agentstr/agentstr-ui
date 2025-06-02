@@ -204,21 +204,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -278,6 +279,7 @@
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NostrClient</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A client for interacting with the Nostr protocol, handling events, direct messages, and metadata.</span>
+<span class="sd">    </span>
 <span class="sd">    This class provides methods to connect to Nostr relays, send and receive direct messages,</span>
 <span class="sd">    manage metadata, and read posts by tags. It integrates with Nostr Wallet Connect (NWC)</span>
 <span class="sd">    for payment processing if provided.</span>
@@ -286,10 +288,14 @@
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relays</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the NostrClient.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            relays: List of Nostr relay URLs to connect to.</span>
 <span class="sd">            private_key: Nostr private key in &#39;nsec&#39; format.</span>
 <span class="sd">            nwc_str: Nostr Wallet Connect string for payment processing (optional).</span>
+<span class="sd">            </span>
+<span class="sd">        Note:</span>
+<span class="sd">            If no private key is provided, the client will operate in read-only mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing NostrClient&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -329,8 +335,10 @@
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.sign">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sign an event with the client&#39;s private key.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            event: The Nostr event to sign.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The signed event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -342,9 +350,11 @@
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.read_posts_by_tag">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_posts_by_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Event</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read posts containing a specific tag from Nostr relays.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            tag: The tag to filter posts by.</span>
 <span class="sd">            limit: Maximum number of posts to retrieve.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            List of Events.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -374,6 +384,7 @@
                        <span class="n">lud06</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                        <span class="n">display_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">website</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the client&#39;s metadata on Nostr relays.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            name: Nostr name.</span>
 <span class="sd">            about: Description or bio.</span>
@@ -423,10 +434,12 @@
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.send_direct_message">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_direct_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipient_pubkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">event_ref</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Send an encrypted direct message to a recipient.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            recipient_pubkey: The recipient&#39;s public key in hex or bech32 format.</span>
 <span class="sd">            message: The message content to send.</span>
 <span class="sd">            event_ref: Optional event ID to reference in the message.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            The sent event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -464,6 +477,7 @@
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.send_direct_message_and_receive_response">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_direct_message_and_receive_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipient_pubkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span> <span class="n">event_ref</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DecryptedMessage</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Send an encrypted direct message to a recipient and wait for a response.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            recipient_pubkey: The recipient&#39;s public key.</span>
 <span class="sd">            message: The message content (string or dict, which will be JSON-encoded).</span>
@@ -476,6 +490,7 @@
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">note_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Event</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">pubkeys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="n">tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">following_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Listen for public notes matching the given filters.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            callback: Function to handle received notes (takes Event as argument).</span>
 <span class="sd">            pubkeys: List of pubkeys to filter notes from (hex or bech32 format).</span>
@@ -501,11 +516,11 @@
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.direct_message_listener">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">direct_message_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Event</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">recipient_pubkey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Listen for incoming encrypted direct messages.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            callback: Function to handle received messages (takes Event and message content as args).</span>
 <span class="sd">            recipient_pubkey: Filter messages from a specific public key (optional).</span>
 <span class="sd">            timestamp: Filter messages since this timestamp (optional).</span>
-<span class="sd">            close_after_first_message: Close subscription after receiving the first message.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">authors</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_public_key</span><span class="p">(</span><span class="n">recipient_pubkey</span><span class="p">)</span><span class="o">.</span><span class="n">hex</span><span class="p">()]</span> <span class="k">if</span> <span class="n">recipient_pubkey</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="n">filters</span> <span class="o">=</span> <span class="n">Filters</span><span class="p">(</span><span class="n">authors</span><span class="o">=</span><span class="n">authors</span><span class="p">,</span> <span class="n">kinds</span><span class="o">=</span><span class="p">[</span><span class="n">EventKind</span><span class="o">.</span><span class="n">ENCRYPTED_DIRECT_MESSAGE</span><span class="p">],</span>

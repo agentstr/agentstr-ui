@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="relay module" href="agentstr.relay.html" /><link rel="prev" title="nostr_rag module" href="agentstr.nostr_rag.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Relay Module" href="agentstr.relay.html" /><link rel="prev" title="Nostr RAG (Retrieval-Augmented Generation)" href="agentstr.nostr_rag.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>nwc_relay module - Agentstr SDK documentation</title>
+        <title>NWC (Nostr Wallet Connect) Relay - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -205,21 +205,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="agentstr.html">Agentstr SDK</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -262,45 +263,99 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-agentstr.nwc_relay">
-<span id="nwc-relay-module"></span><h1>nwc_relay module<a class="headerlink" href="#module-agentstr.nwc_relay" title="Link to this heading">¶</a></h1>
-<dl class="py function">
+          <section id="nwc-nostr-wallet-connect-relay">
+<h1>NWC (Nostr Wallet Connect) Relay<a class="headerlink" href="#nwc-nostr-wallet-connect-relay" title="Link to this heading">¶</a></h1>
+<p>This module implements a relay service for Nostr Wallet Connect (NWC) functionality.
+It facilitates secure communication between Nostr clients and wallet applications,
+handling authentication, message relaying, and payment processing within the Nostr ecosystem.</p>
+<dl class="py function" id="module-agentstr.nwc_relay">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.encrypt">
 <span class="sig-prename descclassname"><span class="pre">agentstr.nwc_relay.</span></span><span class="sig-name descname"><span class="pre">encrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">privkey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pubkey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">plaintext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#encrypt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.encrypt" title="Link to this definition">¶</a></dt>
 <dd><p>Encrypt plaintext using ECDH shared secret.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>privkey</strong> – Sender’s private key.</p></li>
+<li><p><strong>pubkey</strong> – Recipient’s public key.</p></li>
+<li><p><strong>plaintext</strong> – The message to encrypt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encrypted message as a string.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.decrypt">
 <span class="sig-prename descclassname"><span class="pre">agentstr.nwc_relay.</span></span><span class="sig-name descname"><span class="pre">decrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">privkey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pubkey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ciphertext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#decrypt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.decrypt" title="Link to this definition">¶</a></dt>
 <dd><p>Decrypt ciphertext using ECDH shared secret.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>privkey</strong> – Recipient’s private key.</p></li>
+<li><p><strong>pubkey</strong> – Sender’s public key.</p></li>
+<li><p><strong>ciphertext</strong> – The encrypted message to decrypt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decrypted plaintext message.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.process_nwc_string">
 <span class="sig-prename descclassname"><span class="pre">agentstr.nwc_relay.</span></span><span class="sig-name descname"><span class="pre">process_nwc_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a></span></span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#process_nwc_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.process_nwc_string" title="Link to this definition">¶</a></dt>
-<dd><p>Parse Nostr Wallet Connect connection string into its components.
-:returns: Dictionary containing connection parameters</p>
+<dd><p>Parse Nostr Wallet Connect connection string into its components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong> – The NWC connection string to parse.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing connection parameters.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If the connection string is invalid.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.get_signed_event">
-<span class="sig-prename descclassname"><span class="pre">agentstr.nwc_relay.</span></span><span class="sig-name descname"><span class="pre">get_signed_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Event</span></span></span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#get_signed_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.get_signed_event" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">agentstr.nwc_relay.</span></span><span class="sig-name descname"><span class="pre">get_signed_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#get_signed_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.get_signed_event" title="Link to this definition">¶</a></dt>
 <dd><p>Create and sign a Nostr event with the given private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> – The event data as a dictionary.</p></li>
+<li><p><strong>private_key</strong> – The private key to sign the event with.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A signed Nostr event.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.NWCRelay">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.nwc_relay.</span></span><span class="sig-name descname"><span class="pre">NWCRelay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nwc_connection_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">relay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#NWCRelay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.NWCRelay" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Client for interacting with Nostr Wallet Connect (NWC) relays.
-Handles encrypted communication with wallet services over the Nostr network.</p>
+<p>Client for interacting with Nostr Wallet Connect (NWC) relays.</p>
+<p>Handles encrypted communication with wallet services over the Nostr network.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.NWCRelay.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nwc_connection_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">relay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#NWCRelay.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.NWCRelay.__init__" title="Link to this definition">¶</a></dt>
-<dd><p>Initialize NWC client with connection string and optional relay URL.
-:param nwc_connection_string: NWC connection string (starts with ‘nostr+walletconnect://’)
-:param relay: Optional relay URL override</p>
+<dd><p>Initialize NWC client with connection string and optional relay URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nwc_connection_string</strong> – NWC connection string (starts with ‘nostr+walletconnect://’)</p></li>
+<li><p><strong>relay</strong> – Optional relay URL override</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -312,8 +367,12 @@ Handles encrypted communication with wallet services over the Nostr network.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.NWCRelay.make_invoice">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">make_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Event</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#NWCRelay.make_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.NWCRelay.make_invoice" title="Link to this definition">¶</a></dt>
-<dd><p>Generate a new payment request.
-:returns: Dictionary containing invoice details</p>
+<dd><p>Generate a new payment request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing invoice details</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -325,8 +384,12 @@ Handles encrypted communication with wallet services over the Nostr network.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.NWCRelay.did_payment_succeed">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">did_payment_succeed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invoice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#NWCRelay.did_payment_succeed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.NWCRelay.did_payment_succeed" title="Link to this definition">¶</a></dt>
-<dd><p>Check if a payment was successful.
-:returns: True if payment was successful, False otherwise</p>
+<dd><p>Check if a payment was successful.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if payment was successful, False otherwise</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -357,22 +420,21 @@ Handles encrypted communication with wallet services over the Nostr network.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nwc_relay.NWCRelay.on_payment_success">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_payment_success</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invoice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsuccess_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nwc_relay.html#NWCRelay.on_payment_success"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nwc_relay.NWCRelay.on_payment_success" title="Link to this definition">¶</a></dt>
-<dd><p>Listen for payment success for a given invoice.
-This method continuously checks for payment success until either the payment
-is confirmed or the timeout is reached.
-:param invoice: The BOLT11 invoice string to listen for.
-:type invoice: str
-:param callback: A function to call when payment succeeds.
-:type callback: callable, optional
-:param unsuccess_callback: A function to call if payment fails.
-:type unsuccess_callback: callable, optional
-:param timeout: Maximum time to wait in seconds (default: 300).
-:type timeout: int, optional
-:param interval: Time between checks in seconds (default: 2).
-:type interval: int, optional</p>
+<dd><p>Listen for payment success for a given invoice.</p>
+<p>This method continuously checks for payment success until either the payment
+is confirmed or the timeout is reached.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – If the callback function raises an exception.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>invoice</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The BOLT11 invoice string to listen for.</p></li>
+<li><p><strong>callback</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function to call when payment succeeds.</p></li>
+<li><p><strong>unsuccess_callback</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function to call if payment fails.</p></li>
+<li><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum time to wait in seconds (default: 300).</p></li>
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Time between checks in seconds (default: 2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – If the callback function raises an exception.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -391,7 +453,7 @@ is confirmed or the timeout is reached.
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">relay module</div>
+                <div class="title">Relay Module</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -402,7 +464,7 @@ is confirmed or the timeout is reached.
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">nostr_rag module</div>
+                <div class="title">Nostr RAG (Retrieval-Augmented Generation)</div>
                 
               </div>
             </a>
@@ -436,7 +498,7 @@ is confirmed or the timeout is reached.
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">nwc_relay module</a><ul>
+<li><a class="reference internal" href="#">NWC (Nostr Wallet Connect) Relay</a><ul>
 <li><a class="reference internal" href="#agentstr.nwc_relay.encrypt"><code class="docutils literal notranslate"><span class="pre">encrypt()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nwc_relay.decrypt"><code class="docutils literal notranslate"><span class="pre">decrypt()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nwc_relay.process_nwc_string"><code class="docutils literal notranslate"><span class="pre">process_nwc_string()</span></code></a></li>

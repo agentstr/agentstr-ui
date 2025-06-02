@@ -204,21 +204,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -276,7 +277,16 @@
 <div class="viewcode-block" id="encrypt">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.encrypt">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">encrypt</span><span class="p">(</span><span class="n">privkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pubkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">plaintext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encrypt plaintext using ECDH shared secret.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encrypt plaintext using ECDH shared secret.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        privkey: Sender&#39;s private key.</span>
+<span class="sd">        pubkey: Recipient&#39;s public key.</span>
+<span class="sd">        plaintext: The message to encrypt.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The encrypted message as a string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dm</span> <span class="o">=</span> <span class="n">EncryptedDirectMessage</span><span class="p">()</span>
     <span class="n">dm</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">privkey</span><span class="p">,</span> <span class="n">cleartext_content</span><span class="o">=</span><span class="n">plaintext</span><span class="p">,</span> <span class="n">recipient_pubkey</span><span class="o">=</span><span class="n">pubkey</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">dm</span><span class="o">.</span><span class="n">encrypted_message</span></div>
@@ -286,7 +296,16 @@
 <div class="viewcode-block" id="decrypt">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.decrypt">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">decrypt</span><span class="p">(</span><span class="n">privkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pubkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decrypt ciphertext using ECDH shared secret.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decrypt ciphertext using ECDH shared secret.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        privkey: Recipient&#39;s private key.</span>
+<span class="sd">        pubkey: Sender&#39;s public key.</span>
+<span class="sd">        ciphertext: The encrypted message to decrypt.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The decrypted plaintext message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dm</span> <span class="o">=</span> <span class="n">EncryptedDirectMessage</span><span class="p">()</span>
     <span class="n">dm</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">privkey</span><span class="p">,</span> <span class="n">encrypted_message</span><span class="o">=</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">public_key_hex</span><span class="o">=</span><span class="n">pubkey</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">dm</span><span class="o">.</span><span class="n">cleartext_content</span></div>
@@ -297,8 +316,15 @@
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.process_nwc_string">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">process_nwc_string</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse Nostr Wallet Connect connection string into its components.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        string: The NWC connection string to parse.</span>
+<span class="sd">        </span>
 <span class="sd">    Returns:</span>
-<span class="sd">        Dictionary containing connection parameters</span>
+<span class="sd">        Dictionary containing connection parameters.</span>
+<span class="sd">        </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the connection string is invalid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">22</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;nostr+walletconnect://&quot;</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Your pairing string was invalid, try one that starts with this: nostr+walletconnect://&quot;</span><span class="p">)</span>
@@ -329,9 +355,17 @@
 
 <div class="viewcode-block" id="get_signed_event">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.get_signed_event">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_signed_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and sign a Nostr event with the given private key.&quot;&quot;&quot;</span>
-    <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="o">**</span><span class="n">event</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_signed_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and sign a Nostr event with the given private key.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        event: The event data as a dictionary.</span>
+<span class="sd">        private_key: The private key to sign the event with.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A signed Nostr event.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
     <span class="n">event</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">private_key</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">event</span></div>
 
@@ -341,12 +375,14 @@
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NWCRelay</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Client for interacting with Nostr Wallet Connect (NWC) relays.</span>
+
 <span class="sd">    Handles encrypted communication with wallet services over the Nostr network.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NWCRelay.__init__">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nwc_connection_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">relay</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize NWC client with connection string and optional relay URL.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            nwc_connection_string: NWC connection string (starts with &#39;nostr+walletconnect://&#39;)</span>
 <span class="sd">            relay: Optional relay URL override</span>
@@ -386,6 +422,7 @@
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.make_invoice">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">make_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new payment request.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            Dictionary containing invoice details</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -458,6 +495,7 @@
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.did_payment_succeed">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">did_payment_succeed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a payment was successful.</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            True if payment was successful, False otherwise</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -589,16 +627,18 @@
 <div class="viewcode-block" id="NWCRelay.on_payment_success">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.on_payment_success">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_payment_success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unsuccess_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Listen for payment success for a given invoice.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Listen for payment success for a given invoice.</span>
+
 <span class="sd">        This method continuously checks for payment success until either the payment</span>
 <span class="sd">        is confirmed or the timeout is reached.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            invoice (str): The BOLT11 invoice string to listen for.</span>
 <span class="sd">            callback (callable, optional): A function to call when payment succeeds.</span>
 <span class="sd">            unsuccess_callback (callable, optional): A function to call if payment fails.</span>
 <span class="sd">            timeout (int, optional): Maximum time to wait in seconds (default: 300).</span>
 <span class="sd">            interval (int, optional): Time between checks in seconds (default: 2).</span>
+
 <span class="sd">        Raises:</span>
 <span class="sd">            Exception: If the callback function raises an exception.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

@@ -204,21 +204,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -270,9 +271,11 @@
 <a class="viewcode-back" href="../../agentstr.a2a.html#agentstr.a2a.Skill">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Skill</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a specific capability or service that an agent can perform.</span>
+
 <span class="sd">    A Skill defines a discrete unit of functionality that an agent can provide to other</span>
 <span class="sd">    agents or users. Skills are the building blocks of an agent&#39;s service offerings and</span>
 <span class="sd">    can be priced individually to create a market for agent capabilities.</span>
+
 <span class="sd">    Attributes:</span>
 <span class="sd">        name (str): A unique identifier for the skill that should be descriptive and</span>
 <span class="sd">            concise. This name is used for referencing the skill in agent interactions.</span>
@@ -299,9 +302,11 @@
 <a class="viewcode-back" href="../../agentstr.a2a.html#agentstr.a2a.AgentCard">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AgentCard</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents an agent&#39;s profile and capabilities in the Nostr network.</span>
+
 <span class="sd">    An AgentCard is the public identity and capabilities card for an agent in the Nostr</span>
 <span class="sd">    network. It contains essential information about the agent&#39;s services, pricing,</span>
 <span class="sd">    and communication endpoints.</span>
+
 <span class="sd">    Attributes:</span>
 <span class="sd">        name (str): A human-readable name for the agent. This is the agent&#39;s display name.</span>
 <span class="sd">        description (str): A detailed description of the agent&#39;s purpose, capabilities,</span>
@@ -365,12 +370,15 @@
 <a class="viewcode-back" href="../../agentstr.a2a.html#agentstr.a2a.agent_router">[docs]</a>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">agent_router</span><span class="p">(</span><span class="n">user_message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">agent_card</span><span class="p">:</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">llm_callable</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RouterResponse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine if an agent can handle a user&#39;s request and calculate the cost.</span>
+
 <span class="sd">    This function uses an LLM to analyze whether the agent&#39;s skills match the user&#39;s request</span>
 <span class="sd">    and returns the cost in satoshis if the agent can handle it.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        user_message: The user&#39;s request message.</span>
 <span class="sd">        agent_card: The AgentCard containing the agent&#39;s skills and pricing.</span>
 <span class="sd">        llm_callable: A callable that takes a prompt and returns an LLM response.</span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        RouterResponse</span>
 <span class="sd">    &quot;&quot;&quot;</span>

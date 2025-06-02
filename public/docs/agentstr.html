@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="a2a module" href="agentstr.a2a.html" /><link rel="prev" title="Welcome to Agentstr SDK’s documentation!" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="A2A (Agent-to-Agent) Module" href="agentstr.a2a.html" /><link rel="prev" title="Welcome to Agentstr SDK’s documentation!" href="index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>Agentstr SDK - Agentstr SDK documentation</title>
@@ -205,21 +205,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Agentstr SDK</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -262,13 +263,17 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-agentstr">
-<span id="agentstr-sdk"></span><h1>Agentstr SDK<a class="headerlink" href="#module-agentstr" title="Link to this heading">¶</a></h1>
-<section id="modules">
-<h2>Modules<a class="headerlink" href="#modules" title="Link to this heading">¶</a></h2>
+          <section id="agentstr-sdk">
+<h1>Agentstr SDK<a class="headerlink" href="#agentstr-sdk" title="Link to this heading">¶</a></h1>
+<p>A comprehensive SDK for building decentralized, agent-based applications on the Nostr protocol.
+The Agentstr SDK provides tools and utilities for creating, managing, and interacting with
+autonomous agents in a decentralized network, enabling secure and scalable agent-to-agent communication.</p>
+<section id="core-modules">
+<span id="module-agentstr"></span><h2>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading">¶</a></h2>
+<p>The Agentstr SDK is organized into the following core modules:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.a2a.html">a2a module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent) Module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html#agentstr.a2a.Skill"><code class="docutils literal notranslate"><span class="pre">Skill</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html#agentstr.a2a.AgentCard"><code class="docutils literal notranslate"><span class="pre">AgentCard</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html#agentstr.a2a.ChatInput"><code class="docutils literal notranslate"><span class="pre">ChatInput</span></code></a></li>
@@ -276,28 +281,32 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html#agentstr.a2a.agent_router"><code class="docutils literal notranslate"><span class="pre">agent_router()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_agent_server.html">nostr_agent_server module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol) Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.mcp.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_agent_server.html">Nostr Agent Server</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters"><code class="docutils literal notranslate"><span class="pre">NoteFilters</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer"><code class="docutils literal notranslate"><span class="pre">NostrAgentServer</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_client.html">nostr_client module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_client.html">Nostr Client</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient"><code class="docutils literal notranslate"><span class="pre">NostrClient</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_mcp_client.html">nostr_mcp_client module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_mcp_client.html">Nostr MCP Client</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient"><code class="docutils literal notranslate"><span class="pre">NostrMCPClient</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_mcp_server.html">nostr_mcp_server module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_mcp_server.html">Nostr MCP Server</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_rag.html">nostr_rag module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG"><code class="docutils literal notranslate"><span class="pre">NostrRAG</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.encrypt"><code class="docutils literal notranslate"><span class="pre">encrypt()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.decrypt"><code class="docutils literal notranslate"><span class="pre">decrypt()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.process_nwc_string"><code class="docutils literal notranslate"><span class="pre">process_nwc_string()</span></code></a></li>
@@ -305,18 +314,14 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay"><code class="docutils literal notranslate"><span class="pre">NWCRelay</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.relay.html">relay module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.relay.html">Relay Module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html#agentstr.relay.DecryptedMessage"><code class="docutils literal notranslate"><span class="pre">DecryptedMessage</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html#agentstr.relay.create_subscription"><code class="docutils literal notranslate"><span class="pre">create_subscription()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html#agentstr.relay.EventRelay"><code class="docutils literal notranslate"><span class="pre">EventRelay</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager"><code class="docutils literal notranslate"><span class="pre">RelayManager</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.tools.html">Tools Module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.tools.html#submodules">Submodules</a></li>
 </ul>
 </li>
 </ul>
@@ -334,7 +339,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">a2a module</div>
+                <div class="title">A2A (Agent-to-Agent) Module</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -380,7 +385,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Agentstr SDK</a><ul>
-<li><a class="reference internal" href="#modules">Modules</a></li>
+<li><a class="reference internal" href="#core-modules">Core Modules</a></li>
 </ul>
 </li>
 </ul>

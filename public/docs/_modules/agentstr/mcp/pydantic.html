@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>agentstr.tools.agno - Agentstr SDK documentation</title>
+        <title>agentstr.mcp.pydantic - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -204,21 +204,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -255,36 +256,55 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for agentstr.tools.agno</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">agno.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Function</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">agno.tools.function</span><span class="w"> </span><span class="kn">import</span> <span class="n">FunctionExecutionResult</span>
+          <h1>Source code for agentstr.mcp.pydantic</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">RunContext</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolDefinition</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_mcp_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrMCPClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_ai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tool</span>
 
 
-<div class="viewcode-block" id="to_agno_tools">
-<a class="viewcode-back" href="../../../agentstr.tools.agno.html#agentstr.tools.agno.to_agno_tools">[docs]</a>
-<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">to_agno_tools</span><span class="p">(</span><span class="n">nostr_mcp_client</span><span class="p">:</span> <span class="n">NostrMCPClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Function</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert tools from the MCP client to Agno tools.&quot;&quot;&quot;</span>
-    <span class="n">tools</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nostr_mcp_client</span><span class="o">.</span><span class="n">list_tools</span><span class="p">()</span>
+<div class="viewcode-block" id="to_pydantic_tools">
+<a class="viewcode-back" href="../../../agentstr.mcp.pydantic.html#agentstr.mcp.pydantic.to_pydantic_tools">[docs]</a>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">to_pydantic_tools</span><span class="p">(</span><span class="n">nostr_mcp_client</span><span class="p">:</span> <span class="n">NostrMCPClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tool</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert tools from the MCP client to Pydantic tools.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        nostr_mcp_client: An instance of NostrMCPClient to fetch tools from.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of Pydantic tools that wrap the MCP tools.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">call_tool</span><span class="p">(</span>
             <span class="n">tool_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">inner</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">inner</span><span class="p">(</span><span class="n">arguments</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
             <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nostr_mcp_client</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">result</span>
         <span class="k">return</span> <span class="n">inner</span>
 
-    <span class="k">return</span> <span class="p">[</span><span class="n">Function</span><span class="p">(</span>
+    <span class="n">tools</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nostr_mcp_client</span><span class="o">.</span><span class="n">list_tools</span><span class="p">()</span>
+    <span class="n">tool_to_schema</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tools</span><span class="p">[</span><span class="s2">&quot;tools&quot;</span><span class="p">]:</span>
+        <span class="n">tool_to_schema</span><span class="p">[</span><span class="n">tool</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;arguments&quot;</span><span class="p">:</span> <span class="n">tool</span><span class="p">[</span><span class="s2">&quot;inputSchema&quot;</span><span class="p">]},</span> <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;arguments&#39;</span><span class="p">]}</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">prepare_tool</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">RunContext</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">tool_def</span><span class="p">:</span> <span class="n">ToolDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ToolDefinition</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="n">tool_def</span><span class="o">.</span><span class="n">parameters_json_schema</span> <span class="o">=</span> <span class="n">tool_to_schema</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tool_def</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tool_def</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">Tool</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">tool</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
             <span class="n">description</span><span class="o">=</span><span class="n">tool</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
-            <span class="n">parameters</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;arguments&quot;</span><span class="p">:</span> <span class="n">tool</span><span class="p">[</span><span class="s2">&quot;inputSchema&quot;</span><span class="p">]},</span> <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;arguments&#39;</span><span class="p">]},</span>
-            <span class="n">entrypoint</span><span class="o">=</span><span class="n">call_tool</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]),</span>
-        <span class="p">)</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tools</span><span class="p">[</span><span class="s2">&quot;tools&quot;</span><span class="p">]]</span></div>
+            <span class="n">function</span><span class="o">=</span><span class="n">call_tool</span><span class="p">(</span><span class="n">tool</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]),</span>
+            <span class="n">prepare</span><span class="o">=</span><span class="n">prepare_tool</span><span class="p">,</span>
+            <span class="n">takes_ctx</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tools</span><span class="p">[</span><span class="s2">&quot;tools&quot;</span><span class="p">]</span>
+    <span class="p">]</span></div>
 
+    
 </pre></div>
         </article>
       </div>

@@ -204,21 +204,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">a2a module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">nostr_agent_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">nostr_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.agno.html">Agno Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.dspy.html">DSPy Tool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.agno.html">Agno Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_client.html">Nostr Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">Nostr MCP Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
 </ul>
@@ -277,6 +278,7 @@
 <a class="viewcode-back" href="../../agentstr.relay_manager.html#agentstr.relay_manager.RelayManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RelayManager</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Manages connections to multiple Nostr relays and handles message passing.</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
 <span class="sd">        relays: List of relay URLs to connect to.</span>
 <span class="sd">        private_key: Optional private key for signing events.</span>
@@ -291,14 +293,30 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">relays</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">relays</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">EventRelay</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a list of connected EventRelay instances.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of EventRelay instances, one for each relay URL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">EventRelay</span><span class="p">(</span><span class="n">relay</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">private_key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">public_key</span><span class="p">)</span> <span class="k">for</span> <span class="n">relay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_relays</span><span class="p">]</span>
 
 <div class="viewcode-block" id="RelayManager.get_events">
 <a class="viewcode-back" href="../../agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.get_events">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">Filters</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">close_on_eose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Event</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetch events matching the given filters from connected relays.</span>
-<span class="sd">        Returns up to `limit` unique events, stopping early if possible.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            filters: The filters to apply when fetching events.</span>
+<span class="sd">            limit: Maximum number of events to return. Defaults to 10.</span>
+<span class="sd">            timeout: Maximum time to wait for events in seconds. Defaults to 30.</span>
+<span class="sd">            close_on_eose: Whether to close the subscription after EOSE. Defaults to True.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of up to `limit` unique events that match the filters.</span>
+<span class="sd">            </span>
+<span class="sd">        Note:</span>
+<span class="sd">            Stops early if enough events are found before the timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">limit</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">limit</span> <span class="k">if</span> <span class="n">filters</span><span class="o">.</span><span class="n">limit</span> <span class="k">else</span> <span class="n">limit</span>
         <span class="n">event_id_map</span> <span class="o">=</span> <span class="p">{}</span>
@@ -438,6 +456,7 @@
 <a class="viewcode-back" href="../../agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.send_receive_message">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_receive_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">recipient_pubkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">event_ref</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DecryptedMessage</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a message and wait for a response from the recipient.</span>
+
 <span class="sd">        Returns the first response received within the timeout period.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dm_event</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">recipient_pubkey</span><span class="p">,</span> <span class="n">event_ref</span><span class="p">)</span>
@@ -450,6 +469,7 @@
 <a class="viewcode-back" href="../../agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.event_listener">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">event_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">Filters</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Event</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Start listening for events matching the given filters.</span>
+
 <span class="sd">        The callback will be called for each matching event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">event_cache</span> <span class="o">=</span> <span class="n">ExpiringDict</span><span class="p">(</span><span class="n">max_len</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_age_seconds</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
@@ -464,6 +484,7 @@
 <a class="viewcode-back" href="../../agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.direct_message_listener">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">direct_message_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">Filters</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Event</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Start listening for direct messages.</span>
+
 <span class="sd">        The callback will be called with each received message and its decrypted content.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">event_cache</span> <span class="o">=</span> <span class="n">ExpiringDict</span><span class="p">(</span><span class="n">max_len</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_age_seconds</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>

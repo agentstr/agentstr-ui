@@ -80,6 +80,9 @@ export default function UsagePage() {
                   <a href="#nostr-agno-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agno Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-pydantic-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr PydanticAI Agent</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-rag" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
                 </div>
               </div>
@@ -92,13 +95,16 @@ export default function UsagePage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Overview</h2>
               <p className="text-gray-400 mb-4">
-                Agentstr SDK is a powerful toolkit for building decentralized agentic applications on the Nostr protocol. It provides seamless integration with <a className="text-indigo-400 hover:text-white" href="https://modelcontextprotocol.io/introduction">MCP (Model Context Protocol)</a>, <a className="text-indigo-400 hover:text-white" href="https://google-a2a.github.io/A2A/">A2A (Agent-to-Agent)</a>, and multiple popular agentic frameworks like <a className="text-indigo-400 hover:text-white" href="https://docs.agno.com/introduction">Agno</a>, <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a>, and <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">LangGraph</a>.
+                Agentstr SDK is a powerful toolkit for building decentralized agentic applications on the Nostr protocol. 
               </p>
               <p className="text-gray-400 mb-4">
-                To ensure full stack decentralization, we recommend using <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> as your LLM provider.
+                It provides seamless integration with <a className="text-indigo-400 hover:text-white" href="https://modelcontextprotocol.io/introduction">MCP (Model Context Protocol)</a>, <a className="text-indigo-400 hover:text-white" href="https://google-a2a.github.io/A2A/">A2A (Agent-to-Agent)</a>, and multiple popular agentic frameworks like <a className="text-indigo-400 hover:text-white" href="https://docs.agno.com/introduction">Agno</a>, <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a>, <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">LangGraph</a>, and <a className="text-indigo-400 hover:text-white" href="https://ai.pydantic.dev/">PydanticAI</a>.
               </p>
               <p className="text-gray-400 mb-4">
-                Each of these examples is available in the <a className="text-indigo-400 hover:text-white" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples">Agentstr SDK repository</a>.
+                To ensure full stack decentralization, it is recommended to use <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> as your LLM provider.
+              </p>
+              <p className="text-gray-400 mb-4">
+                Each of these examples is available in the <a className="text-indigo-400 hover:text-white" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples">Agentstr examples folder</a>.
               </p>
             </div>
           </div>
@@ -109,14 +115,14 @@ export default function UsagePage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Installation</h2>
               <p className="text-gray-400 mb-4">
-                We recommend installing the Agentstr SDK with <a className="text-indigo-400 hover:text-white" href="https://docs.astral.sh/uv/">uv</a>:
+                It is recommended to install the Agentstr SDK with <a className="text-indigo-400 hover:text-white" href="https://docs.astral.sh/uv/">uv</a>:
               </p>
               <CodeBlock
                 language="bash"
                 value={`uv add agentstr-sdk[all]`}
               />
               <p className="text-gray-400 mb-4 mt-4">
-                But you can also install with pip:
+                But you can also install it with pip:
               </p>
               <CodeBlock
                 language="bash"
@@ -272,55 +278,71 @@ if __name__ == "__main__":
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr LangGraph Agent</h2>
+              <p className="text-gray-400 mb-4">
+                Use <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">LangGraph</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              </p>
               <CodeBlock
                 language="python"
                 value={`import os
+
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
-from agentstr import ChatInput, NostrAgentServer
+
+from agentstr import NostrAgentServer, NostrMCPClient, ChatInput
+from agentstr.mcp.langgraph import to_langgraph_tools
 
 
 # Get the environment variables
-relays = os.getenv('NOSTR_RELAYS').split(',')
-private_key = os.getenv('EXAMPLE_LANGGRAPH_AGENT_NSEC')
+relays = os.getenv("NOSTR_RELAYS").split(",")
+private_key = os.getenv("EXAMPLE_LANGGRAPH_AGENT_NSEC")
+mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
+
+
+nostr_mcp_client = NostrMCPClient(relays=relays,
+                                  private_key=private_key,
+                                  mcp_pubkey=mcp_server_pubkey)
+
 
 # Define LLM
 model = ChatOpenAI(temperature=0,
-                   base_url=os.getenv('LLM_BASE_URL'),
-                   api_key=os.getenv('LLM_API_KEY'),
-                   model_name=os.getenv('LLM_MODEL_NAME'))
+                   base_url=os.getenv("LLM_BASE_URL"),
+                   api_key=os.getenv("LLM_API_KEY"),
+                   model_name=os.getenv("LLM_MODEL_NAME"))
 
 
-# Define tools
-async def get_weather(city: str) -> str:  
-    """Get weather for a given city."""
-    return f"It's always sunny in {city}!"
+async def agent_server():
+    # Convert tools to LangGraph tools
+    langgraph_tools = await to_langgraph_tools(nostr_mcp_client)
 
-# Create react agent
-agent = create_react_agent(
-    model=model,
-    tools=[get_weather],  
-    prompt="You are a helpful assistant"  
-)
+    for tool in langgraph_tools:
+        print(f'Found {tool.name}: {tool.description}')
 
-# Define agent callable
-async def agent_callable(input: ChatInput) -> str:    
-    result = await agent.ainvoke(
-        {"messages": [{"role": "user", "content": input.messages[-1]}]}
+    # Create react agent
+    agent = create_react_agent(
+        model=model,
+        tools=langgraph_tools,
+        prompt="You are a helpful assistant",
     )
-    return result["messages"][-1].content
-    
-# Create Nostr Agent Server
-async def server():
+
+    # Define agent callable
+    async def agent_callable(input: ChatInput) -> str:
+        result = await agent.ainvoke(
+            {"messages": [{"role": "user", "content": input.messages[-1]}]},
+        )
+        return result["messages"][-1].content
+
+    # Create Nostr Agent Server
     server = NostrAgentServer(relays=relays,
                               private_key=private_key,
                               agent_callable=agent_callable)
-    await server.start()
-    
 
-if __name__ == '__main__':
+    # Start server
+    await server.start()
+
+
+if __name__ == "__main__":
     import asyncio
-    asyncio.run(server())`}
+    asyncio.run(agent_server())`}
               />
             </div>
           </div>
@@ -330,56 +352,65 @@ if __name__ == '__main__':
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr DSPy Agent</h2>
+              <p className="text-gray-400 mb-4">
+                Use <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              </p>
               <CodeBlock
                 language="python"
                 value={`import os
+
 import dspy
-from agentstr import NostrAgentServer
-from agentstr.a2a import ChatInput
+
+from agentstr import NostrAgentServer, NostrMCPClient, ChatInput
+from agentstr.mcp.dspy import to_dspy_tools
 
 # Get the environment variables
-relays = os.getenv('NOSTR_RELAYS').split(',')
-private_key = os.getenv('EXAMPLE_DSPY_AGENT_NSEC')
-
-llm_base_url = os.getenv('LLM_BASE_URL').rstrip('/v1')
-llm_api_key = os.getenv('LLM_API_KEY')
-llm_model_name = os.getenv('LLM_MODEL_NAME')
-
-
-# Define tools
-async def divide_by(dividend: float, divisor: float) -> float:
-    return dividend / divisor
+relays = os.getenv("NOSTR_RELAYS").split(",")
+private_key = os.getenv("EXAMPLE_DSPY_AGENT_NSEC")
+mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
+llm_base_url = os.getenv("LLM_BASE_URL").rstrip("/v1")
+llm_api_key = os.getenv("LLM_API_KEY")
+llm_model_name = os.getenv("LLM_MODEL_NAME")
 
 
-async def search_wikipedia(query: str) -> list[str]:
-    results = await dspy.ColBERTv2(url='http://20.102.90.50:2017/wiki17_abstracts')(query, k=3)
-    return [x['text'] for x in results]
+nostr_mcp_client = NostrMCPClient(relays=relays,
+                                  private_key=private_key,
+                                  mcp_pubkey=mcp_server_pubkey)
 
 
-# Create ReAct agent
-react = dspy.ReAct("question -> answer: float", tools=[divide_by, search_wikipedia])
+async def agent_server():    
+    # Convert tools to DSPy tools
+    dspy_tools = await to_dspy_tools(nostr_mcp_client)
 
+    for tool in dspy_tools:
+        print(f'Found {tool.name}: {tool.desc}')
 
-# Configure DSPy
-dspy.configure(lm=dspy.LM(model=llm_model_name, api_base=llm_base_url, api_key=llm_api_key, model_type='chat'))
+    # Create ReAct agent
+    react = dspy.ReAct("question -> answer: str", tools=dspy_tools)
 
+    # Configure DSPy
+    dspy.configure(lm=dspy.LM(model=llm_model_name, 
+                              api_base=llm_base_url, 
+                              api_key=llm_api_key, 
+                              model_type="chat",
+                              temperature=0))
 
-# Define agent callable
-async def agent_callable(chat_input: ChatInput) -> str:
-    return (await react.acall(question=chat_input.messages[-1])).answer
+    # Define agent callable
+    async def agent_callable(chat_input: ChatInput) -> str:
+        return (await react.acall(question=chat_input.messages[-1])).answer
 
-
-# Create Nostr Agent Server
-async def server():
+    # Create Nostr Agent Server
     server = NostrAgentServer(relays=relays,
                               private_key=private_key,
                               agent_callable=agent_callable)
+
+    # Start server
     await server.start()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import asyncio
-    asyncio.run(server())`}
+    asyncio.run(agent_server())`}
               />
             </div>
           </div>
@@ -389,54 +420,139 @@ if __name__ == '__main__':
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr Agno Agent</h2>
+              <p className="text-gray-400 mb-4">
+                Use <a className="text-indigo-400 hover:text-white" href="https://docs.agno.com/introduction">Agno</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              </p>
               <CodeBlock
                 language="python"
                 value={`import os
+
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.tools.reasoning import ReasoningTools
-from agno.tools.yfinance import YFinanceTools
-from agentstr import ChatInput, NostrAgentServer
+
+from agentstr import ChatInput, NostrAgentServer, NostrMCPClient
+from agentstr.mcp.agno import to_agno_tools
 
 # Get the environment variables
-relays = os.getenv('NOSTR_RELAYS').split(',')
-private_key = os.getenv('EXAMPLE_AGNO_AGENT_NSEC')
+relays = os.getenv("NOSTR_RELAYS").split(",")
+private_key = os.getenv("EXAMPLE_AGNO_AGENT_NSEC")
+mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
 
-# Define Agno agent
-agent = Agent(
-    model=OpenAIChat(
-        temperature=0,
-        base_url=os.getenv('LLM_BASE_URL'),
-        api_key=os.getenv('LLM_API_KEY'),
-        id=os.getenv('LLM_MODEL_NAME')
-    ),
-    tools=[
-        ReasoningTools(add_instructions=True, analyze=True, think=True),
-        YFinanceTools(stock_price=True, historical_prices=True),
-    ],
-    instructions=[
-        "Use tables to display data",
-        "Only output the report, no other text",
-    ],
-    markdown=True,
-)
 
-# Define agent callable
-async def agent_callable(input: ChatInput) -> str:    
-    result = await agent.arun(message=input.messages[-1], session_id=input.thread_id)
-    return result.content
-    
-# Create Nostr Agent Server
-async def server():
+nostr_mcp_client = NostrMCPClient(relays=relays,
+                                  private_key=private_key,
+                                  mcp_pubkey=mcp_server_pubkey)
+
+
+
+async def agent_server():
+    # Define tools
+    agno_tools = await to_agno_tools(nostr_mcp_client)
+
+    for tool in agno_tools:
+        print(f'Found {tool.name}: {tool.description}')
+
+    # Define Agno agent
+    agent = Agent(
+        model=OpenAIChat(
+            temperature=0,
+            base_url=os.getenv("LLM_BASE_URL"),
+            api_key=os.getenv("LLM_API_KEY"),
+            id=os.getenv("LLM_MODEL_NAME"),
+        ),
+        tools=agno_tools,
+    )
+
+    # Define agent callable
+    async def agent_callable(input: ChatInput) -> str:
+        result = await agent.arun(message=input.messages[-1], session_id=input.thread_id)
+        return result.content
+
+    # Create Nostr Agent Server
     server = NostrAgentServer(relays=relays,
                               private_key=private_key,
                               agent_callable=agent_callable)
+
+    # Start server
     await server.start()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import asyncio
-    asyncio.run(server())`}
+    asyncio.run(agent_server())
+`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="nostr-pydantic-agent" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr PydanticAI Agent</h2>
+              <p className="text-gray-400 mb-4">
+                Use <a className="text-indigo-400 hover:text-white" href="https://ai.pydantic.dev/">PydanticAI</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`import os
+
+from pydantic_ai import Agent
+from pydantic_ai.models.openai import OpenAIModel
+from pydantic_ai.providers.openai import OpenAIProvider
+
+from agentstr import ChatInput, NostrAgentServer, NostrMCPClient
+from agentstr.mcp.pydantic import to_pydantic_tools
+
+# Get the environment variables
+relays = os.getenv("NOSTR_RELAYS").split(",")
+private_key = os.getenv("EXAMPLE_PYDANTIC_AGENT_NSEC")
+mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
+
+
+nostr_mcp_client = NostrMCPClient(relays=relays,
+                                  private_key=private_key,
+                                  mcp_pubkey=mcp_server_pubkey)
+
+
+
+async def agent_server():
+    # Define tools
+    pydantic_tools = await to_pydantic_tools(nostr_mcp_client)
+
+    for tool in pydantic_tools:
+        print(f'Found {tool.name}: {tool.description}')
+
+    # Define Pydantic agent
+    agent = Agent(
+        system="You are a helpful assistant.",
+        model=OpenAIModel(
+            os.getenv("LLM_MODEL_NAME"),
+            provider=OpenAIProvider(
+                base_url=os.getenv("LLM_BASE_URL"),
+                api_key=os.getenv("LLM_API_KEY"),
+            )
+        ),
+        tools=pydantic_tools,
+    )
+
+    # Define agent callable
+    async def agent_callable(input: ChatInput) -> str:
+        result = await agent.run(input.messages[-1])
+        return result.output
+
+    # Create Nostr Agent Server
+    server = NostrAgentServer(relays=relays,
+                              private_key=private_key,
+                              agent_callable=agent_callable)
+
+    # Start server
+    await server.start()
+
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(agent_server())`}
               />
             </div>
           </div>
