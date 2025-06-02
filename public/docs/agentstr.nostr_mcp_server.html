@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="nostr_rag module" href="agentstr.nostr_rag.html" /><link rel="prev" title="nostr_mcp_client module" href="agentstr.nostr_mcp_client.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>nostr_mcp_server module - Agentstr SDK 0.1.2 documentation</title>
+        <title>nostr_mcp_server module - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Agentstr SDK 0.1.2 documentation</div></a>
+      <a href="index.html"><div class="brand">Agentstr SDK  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -211,7 +211,9 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">nostr_mcp_server module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_client.html">nwc_client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">relay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a></li>
 </ul>
 </li>
 </ul>
@@ -260,54 +262,9 @@
 <dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.nostr_mcp_server.</span></span><span class="sig-name descname"><span class="pre">NostrMCPServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nostr_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient" title="agentstr.nostr_client.NostrClient"><span class="pre">NostrClient</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relays</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwc_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nostr_mcp_server.html#NostrMCPServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>A Model Context Protocol (MCP) server running on the Nostr protocol.</p>
-<p>This server registers tools that can be called by clients via direct messages.
-It supports optional payment requirements in satoshis for tool usage, processed
-through Nostr Wallet Connect (NWC).</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer.client">
-<span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.client" title="Link to this definition">¶</a></dt>
-<dd><p>Nostr client for communication.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient" title="agentstr.nostr_client.NostrClient">NostrClient</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer.display_name">
-<span class="sig-name descname"><span class="pre">display_name</span></span><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.display_name" title="Link to this definition">¶</a></dt>
-<dd><p>Display name of the server.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer.tool_to_sats_map">
-<span class="sig-name descname"><span class="pre">tool_to_sats_map</span></span><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.tool_to_sats_map" title="Link to this definition">¶</a></dt>
-<dd><p>Mapping of tool names to required satoshis.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer.tool_manager">
-<span class="sig-name descname"><span class="pre">tool_manager</span></span><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.tool_manager" title="Link to this definition">¶</a></dt>
-<dd><p>Manager for registered tools.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ToolManager</p>
-</dd>
-</dl>
-</dd></dl>
-
+<p>Model Context Protocol (MCP) server running on the Nostr protocol.</p>
+<p>Registers and manages tools that can be called by clients via direct messages,
+with optional payment requirements handled through NWC.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nostr_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient" title="agentstr.nostr_client.NostrClient"><span class="pre">NostrClient</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relays</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwc_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nostr_mcp_server.html#NostrMCPServer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.__init__" title="Link to this definition">¶</a></dt>
@@ -343,7 +300,7 @@ through Nostr Wallet Connect (NWC).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer.list_tools">
-<span class="sig-name descname"><span class="pre">list_tools</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/nostr_mcp_server.html#NostrMCPServer.list_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.list_tools" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_tools</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/nostr_mcp_server.html#NostrMCPServer.list_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.list_tools" title="Link to this definition">¶</a></dt>
 <dd><p>List all registered tools and their metadata.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -355,7 +312,7 @@ input schemas, and required satoshis.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer.call_tool">
-<span class="sig-name descname"><span class="pre">call_tool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></span><a class="reference internal" href="_modules/agentstr/nostr_mcp_server.html#NostrMCPServer.call_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.call_tool" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">call_tool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></span><a class="reference internal" href="_modules/agentstr/nostr_mcp_server.html#NostrMCPServer.call_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.call_tool" title="Link to this definition">¶</a></dt>
 <dd><p>Execute a registered tool by name with provided arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -375,7 +332,7 @@ input schemas, and required satoshis.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_mcp_server.NostrMCPServer.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nostr_mcp_server.html#NostrMCPServer.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.start" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nostr_mcp_server.html#NostrMCPServer.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_mcp_server.NostrMCPServer.start" title="Link to this definition">¶</a></dt>
 <dd><p>Start the MCP server, updating metadata and listening for direct messages.</p>
 </dd></dl>
 
@@ -440,10 +397,6 @@ input schemas, and required satoshis.</p>
             <ul>
 <li><a class="reference internal" href="#">nostr_mcp_server module</a><ul>
 <li><a class="reference internal" href="#agentstr.nostr_mcp_server.NostrMCPServer"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer</span></code></a><ul>
-<li><a class="reference internal" href="#agentstr.nostr_mcp_server.NostrMCPServer.client"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer.client</span></code></a></li>
-<li><a class="reference internal" href="#agentstr.nostr_mcp_server.NostrMCPServer.display_name"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer.display_name</span></code></a></li>
-<li><a class="reference internal" href="#agentstr.nostr_mcp_server.NostrMCPServer.tool_to_sats_map"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer.tool_to_sats_map</span></code></a></li>
-<li><a class="reference internal" href="#agentstr.nostr_mcp_server.NostrMCPServer.tool_manager"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer.tool_manager</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_mcp_server.NostrMCPServer.__init__"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_mcp_server.NostrMCPServer.add_tool"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer.add_tool()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_mcp_server.NostrMCPServer.list_tools"><code class="docutils literal notranslate"><span class="pre">NostrMCPServer.list_tools()</span></code></a></li>
@@ -462,7 +415,7 @@ input schemas, and required satoshis.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=92734c54"></script>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

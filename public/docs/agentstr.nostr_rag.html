@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="nwc_client module" href="agentstr.nwc_client.html" /><link rel="prev" title="nostr_mcp_server module" href="agentstr.nostr_mcp_server.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="nwc_relay module" href="agentstr.nwc_relay.html" /><link rel="prev" title="nostr_mcp_server module" href="agentstr.nostr_mcp_server.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>nostr_rag module - Agentstr SDK 0.1.2 documentation</title>
+        <title>nostr_rag module - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Agentstr SDK 0.1.2 documentation</div></a>
+      <a href="index.html"><div class="brand">Agentstr SDK  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -211,7 +211,9 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_client.html">nwc_client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">relay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a></li>
 </ul>
 </li>
 </ul>
@@ -260,54 +262,9 @@
 <dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.nostr_rag.</span></span><span class="sig-name descname"><span class="pre">NostrRAG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nostr_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient" title="agentstr.nostr_client.NostrClient"><span class="pre">NostrClient</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector_store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relays</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwc_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llm_model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llm_base_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llm_api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>A Retrieval-Augmented Generation (RAG) system for querying Nostr events.</p>
-<p>This class integrates with the Nostr protocol to fetch events based on tags,
-builds a knowledge base using a vector store, and supports querying the knowledge
-base with optional questions. It uses embeddings to enable similarity-based retrieval.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.nostr_client">
-<span class="sig-name descname"><span class="pre">nostr_client</span></span><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.nostr_client" title="Link to this definition">¶</a></dt>
-<dd><p>Client for interacting with Nostr relays.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient" title="agentstr.nostr_client.NostrClient">NostrClient</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.embeddings">
-<span class="sig-name descname"><span class="pre">embeddings</span></span><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.embeddings" title="Link to this definition">¶</a></dt>
-<dd><p>Embedding model for vectorizing documents (defaults to FakeEmbeddings).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.vector_store">
-<span class="sig-name descname"><span class="pre">vector_store</span></span><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.vector_store" title="Link to this definition">¶</a></dt>
-<dd><p>Vector store for storing and querying documents.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>InMemoryVectorStore</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.llm">
-<span class="sig-name descname"><span class="pre">llm</span></span><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.llm" title="Link to this definition">¶</a></dt>
-<dd><p>Language model for generating responses.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ChatOpenAI</p>
-</dd>
-</dl>
-</dd></dl>
-
+<p>Retrieval-Augmented Generation (RAG) system for Nostr events.</p>
+<p>Fetches Nostr events, builds a vector store knowledge base, and enables
+semantic search and question answering over the indexed content.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nostr_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient" title="agentstr.nostr_client.NostrClient"><span class="pre">NostrClient</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector_store</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relays</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwc_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llm_model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llm_base_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">llm_api_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.__init__" title="Link to this definition">¶</a></dt>
@@ -332,7 +289,7 @@ base with optional questions. It uses embeddings to enable similarity-based retr
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.build_knowledge_base">
-<span class="sig-name descname"><span class="pre">build_knowledge_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.build_knowledge_base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.build_knowledge_base" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_knowledge_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.build_knowledge_base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.build_knowledge_base" title="Link to this definition">¶</a></dt>
 <dd><p>Build a knowledge base from Nostr events relevant to the question.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -349,7 +306,7 @@ base with optional questions. It uses embeddings to enable similarity-based retr
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.retrieve">
-<span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.retrieve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.retrieve" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Document</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.retrieve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.retrieve" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve relevant documents from the knowledge base.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -366,11 +323,14 @@ base with optional questions. It uses embeddings to enable similarity-based retr
 
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_rag.NostrRAG.query">
-<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.query" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></span><a class="reference internal" href="_modules/agentstr/nostr_rag.html#NostrRAG.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_rag.NostrRAG.query" title="Link to this definition">¶</a></dt>
 <dd><p>Ask a question using the knowledge base.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>question</strong> – The user’s question</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>question</strong> – The user’s question</p></li>
+<li><p><strong>limit</strong> – Number of documents to retrieve for context</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The generated response</p>
@@ -387,12 +347,12 @@ base with optional questions. It uses embeddings to enable similarity-based retr
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="agentstr.nwc_client.html">
+          <a class="next-page" href="agentstr.nwc_relay.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">nwc_client module</div>
+                <div class="title">nwc_relay module</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -439,10 +399,6 @@ base with optional questions. It uses embeddings to enable similarity-based retr
             <ul>
 <li><a class="reference internal" href="#">nostr_rag module</a><ul>
 <li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG"><code class="docutils literal notranslate"><span class="pre">NostrRAG</span></code></a><ul>
-<li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.nostr_client"><code class="docutils literal notranslate"><span class="pre">NostrRAG.nostr_client</span></code></a></li>
-<li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.embeddings"><code class="docutils literal notranslate"><span class="pre">NostrRAG.embeddings</span></code></a></li>
-<li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.vector_store"><code class="docutils literal notranslate"><span class="pre">NostrRAG.vector_store</span></code></a></li>
-<li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.llm"><code class="docutils literal notranslate"><span class="pre">NostrRAG.llm</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.__init__"><code class="docutils literal notranslate"><span class="pre">NostrRAG.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.build_knowledge_base"><code class="docutils literal notranslate"><span class="pre">NostrRAG.build_knowledge_base()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_rag.NostrRAG.retrieve"><code class="docutils literal notranslate"><span class="pre">NostrRAG.retrieve()</span></code></a></li>
@@ -460,7 +416,7 @@ base with optional questions. It uses embeddings to enable similarity-based retr
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=92734c54"></script>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

@@ -4,7 +4,7 @@ import React from 'react';
 import CodeBlock from "../../components/CodeBlock";
 
 export default function UsagePage() {
-  const [isTocOpen, setIsTocOpen] = React.useState(false);
+  const [isTocOpen, setIsTocOpen] = React.useState(true);
 
   return (
     <main className="min-h-screen bg-background">
@@ -62,30 +62,44 @@ export default function UsagePage() {
                   <a href="#installation" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Installation</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-mcp-server" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Server</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-mcp-client" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Client</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-tool-discovery" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Tool Discovery</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-langgraph-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr LangGraph Agent</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-dspy-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr DSPy Agent</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-agno-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agno Agent</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-rag" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
                 </div>
-                <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-mcp-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Server</a>
-                </div>
-                <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-mcp-clients" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Client</a>
-                </div>
-                <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#tool-discovery" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Tool Discovery</a>
-                </div>
-                <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-agent-servers" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agent Server</a>
-                </div>
-                <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#langgraph-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Langgraph MCP Agent</a>
-                </div>
-                <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#dspy-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">DSPy Agent</a>
-                </div>
-                <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#lightning-mcp" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Lightning Enablement</a>
-                </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="overview" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Overview</h2>
+              <p className="text-gray-400 mb-4">
+                Agentstr SDK is a powerful toolkit for building decentralized agentic applications on the Nostr protocol. It provides seamless integration with <a className="text-indigo-400 hover:text-white" href="https://modelcontextprotocol.io/introduction">MCP (Model Context Protocol)</a>, <a className="text-indigo-400 hover:text-white" href="https://google-a2a.github.io/A2A/">A2A (Agent-to-Agent)</a>, and multiple popular agentic frameworks like <a className="text-indigo-400 hover:text-white" href="https://docs.agno.com/introduction">Agno</a>, <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a>, and <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">LangGraph</a>.
+              </p>
+              <p className="text-gray-400 mb-4">
+                To ensure full stack decentralization, we recommend using <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> as your LLM provider.
+              </p>
+              <p className="text-gray-400 mb-4">
+                Each of these examples is available in the <a className="text-indigo-400 hover:text-white" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples">Agentstr SDK repository</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -95,18 +109,334 @@ export default function UsagePage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Installation</h2>
               <p className="text-gray-400 mb-4">
-                Install Agentstr SDK using pip:
+                We recommend installing the Agentstr SDK with <a className="text-indigo-400 hover:text-white" href="https://docs.astral.sh/uv/">uv</a>:
               </p>
               <CodeBlock
                 language="bash"
-                value={`pip install agentstr-sdk`}
+                value={`uv add agentstr-sdk[all]`}
               />
-              <p className="text-gray-400 mt-4">
-                Note: if you want to use Nostr RAG, you will need to install a few additional dependencies:
+              <p className="text-gray-400 mb-4 mt-4">
+                But you can also install with pip:
               </p>
               <CodeBlock
                 language="bash"
-                value={`pip install agentstr-sdk[rag]`}
+                value={`pip install agentstr-sdk[all]`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="nostr-mcp-server" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Server</h2>
+              <p className="text-gray-400 mb-4">
+                MCP Servers are used to provide tools and services to other Nostr clients. Provide a Nostr Wallet Connect string to enable premium tools.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`import os
+from agentstr import NostrMCPServer
+
+# Define relays and private key
+relays   = os.getenv('NOSTR_RELAYS').split(',')
+private_key = os.getenv('EXAMPLE_MCP_SERVER_NSEC')
+
+# To enable Nostr Wallet Connect
+nwc_str = os.getenv('MCP_SERVER_NWC_CONN_STR')
+
+# Define tools
+async def add(a: int, b: int) -> int:
+    """Add two numbers."""
+    return a + b
+
+async def multiply(a: int, b: int) -> int:
+    """Multiply two numbers."""
+    return a * b
+
+async def run():
+    # Define the server
+    server = NostrMCPServer(
+        "Math MCP Server", 
+        relays=relays,
+        private_key=private_key,
+        nwc_str=nwc_str
+    )
+
+    # Add tools
+    server.add_tool(add) # Free tool
+    server.add_tool(multiply, satoshis=3) # Premium tool
+
+    # Start the server
+    await server.start()
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(run())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="nostr-mcp-client" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Client</h2>
+              <p className="text-gray-400 mb-4">
+                Create clients that can discover and use tools from MCP servers.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`import os
+import json
+from agentstr import PrivateKey, NostrMCPClient
+
+
+# Define relays and private key
+relays   = os.getenv('NOSTR_RELAYS').split(',')
+private_key = os.getenv('EXAMPLE_MCP_CLIENT_NSEC')
+
+# To enable Nostr Wallet Connect
+nwc_str = os.getenv('MCP_CLIENT_NWC_CONN_STR')
+
+# Define MCP server public key
+server_public_key = PrivateKey.from_nsec(os.getenv('EXAMPLE_MCP_SERVER_NSEC')).public_key.bech32()
+
+
+async def run()   :
+    # Initialize the client
+    mcp_client = NostrMCPClient(mcp_pubkey=server_public_key, 
+                                relays=relays, 
+                                private_key=private_key,
+                                nwc_str=nwc_str)
+
+    # List available tools
+    tools = await mcp_client.list_tools()
+    print(f'Found tools: {json.dumps(tools, indent=4)}')
+
+    # Call a tool
+    result = await mcp_client.call_tool("add", {"a": 69, "b": 420})
+    print(f'The result of 69 + 420 is: {result["content"][-1]["text"]}')
+
+    # Call a premium tool
+    result = await mcp_client.call_tool("multiply", {"a": 69, "b": 420})
+    print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')
+
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(run())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="nostr-tool-discovery" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr Tool Discovery</h2>
+              <p className="text-gray-400 mb-4">
+                Search Nostr for MCP Servers to discover available tools.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`import os
+import json
+from agentstr import NostrClient
+
+# Define relays
+relays = os.getenv('NOSTR_RELAYS').split(',')
+
+
+async def run():
+    client = NostrClient(relays)
+    events = await client.read_posts_by_tag('mcp_research_tools', limit=2)
+    for event in events:
+        metadata = await client.get_metadata_for_pubkey(event.pubkey)
+        try:
+            mcp_definition = json.loads(metadata.about)
+            print(json.dumps(mcp_definition, indent=4))
+        except:
+            pass
+
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(run())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="nostr-langgraph-agent" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr LangGraph Agent</h2>
+              <CodeBlock
+                language="python"
+                value={`import os
+from langchain_openai import ChatOpenAI
+from langgraph.prebuilt import create_react_agent
+from agentstr import ChatInput, NostrAgentServer
+
+
+# Get the environment variables
+relays = os.getenv('NOSTR_RELAYS').split(',')
+private_key = os.getenv('EXAMPLE_LANGGRAPH_AGENT_NSEC')
+
+# Define LLM
+model = ChatOpenAI(temperature=0,
+                   base_url=os.getenv('LLM_BASE_URL'),
+                   api_key=os.getenv('LLM_API_KEY'),
+                   model_name=os.getenv('LLM_MODEL_NAME'))
+
+
+# Define tools
+async def get_weather(city: str) -> str:  
+    """Get weather for a given city."""
+    return f"It's always sunny in {city}!"
+
+# Create react agent
+agent = create_react_agent(
+    model=model,
+    tools=[get_weather],  
+    prompt="You are a helpful assistant"  
+)
+
+# Define agent callable
+async def agent_callable(input: ChatInput) -> str:    
+    result = await agent.ainvoke(
+        {"messages": [{"role": "user", "content": input.messages[-1]}]}
+    )
+    return result["messages"][-1].content
+    
+# Create Nostr Agent Server
+async def server():
+    server = NostrAgentServer(relays=relays,
+                              private_key=private_key,
+                              agent_callable=agent_callable)
+    await server.start()
+    
+
+if __name__ == '__main__':
+    import asyncio
+    asyncio.run(server())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="nostr-dspy-agent" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr DSPy Agent</h2>
+              <CodeBlock
+                language="python"
+                value={`import os
+import dspy
+from agentstr import NostrAgentServer
+from agentstr.a2a import ChatInput
+
+# Get the environment variables
+relays = os.getenv('NOSTR_RELAYS').split(',')
+private_key = os.getenv('EXAMPLE_DSPY_AGENT_NSEC')
+
+llm_base_url = os.getenv('LLM_BASE_URL').rstrip('/v1')
+llm_api_key = os.getenv('LLM_API_KEY')
+llm_model_name = os.getenv('LLM_MODEL_NAME')
+
+
+# Define tools
+async def divide_by(dividend: float, divisor: float) -> float:
+    return dividend / divisor
+
+
+async def search_wikipedia(query: str) -> list[str]:
+    results = await dspy.ColBERTv2(url='http://20.102.90.50:2017/wiki17_abstracts')(query, k=3)
+    return [x['text'] for x in results]
+
+
+# Create ReAct agent
+react = dspy.ReAct("question -> answer: float", tools=[divide_by, search_wikipedia])
+
+
+# Configure DSPy
+dspy.configure(lm=dspy.LM(model=llm_model_name, api_base=llm_base_url, api_key=llm_api_key, model_type='chat'))
+
+
+# Define agent callable
+async def agent_callable(chat_input: ChatInput) -> str:
+    return (await react.acall(question=chat_input.messages[-1])).answer
+
+
+# Create Nostr Agent Server
+async def server():
+    server = NostrAgentServer(relays=relays,
+                              private_key=private_key,
+                              agent_callable=agent_callable)
+    await server.start()
+
+
+if __name__ == '__main__':
+    import asyncio
+    asyncio.run(server())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="nostr-agno-agent" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr Agno Agent</h2>
+              <CodeBlock
+                language="python"
+                value={`import os
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.reasoning import ReasoningTools
+from agno.tools.yfinance import YFinanceTools
+from agentstr import ChatInput, NostrAgentServer
+
+# Get the environment variables
+relays = os.getenv('NOSTR_RELAYS').split(',')
+private_key = os.getenv('EXAMPLE_AGNO_AGENT_NSEC')
+
+# Define Agno agent
+agent = Agent(
+    model=OpenAIChat(
+        temperature=0,
+        base_url=os.getenv('LLM_BASE_URL'),
+        api_key=os.getenv('LLM_API_KEY'),
+        id=os.getenv('LLM_MODEL_NAME')
+    ),
+    tools=[
+        ReasoningTools(add_instructions=True, analyze=True, think=True),
+        YFinanceTools(stock_price=True, historical_prices=True) #, analyst_recommendations=True, company_info=True, company_news=True),
+    ],
+    instructions=[
+        "Use tables to display data",
+        "Only output the report, no other text",
+    ],
+    markdown=True,
+)
+
+# Define agent callable
+async def agent_callable(input: ChatInput) -> str:    
+    result = await agent.arun(message=input.messages[-1], session_id=input.thread_id)
+    return result.content
+    
+# Create Nostr Agent Server
+async def server():
+    server = NostrAgentServer(relays=relays,
+                              private_key=private_key,
+                              agent_callable=agent_callable)
+    await server.start()
+
+
+if __name__ == '__main__':
+    import asyncio
+    asyncio.run(server())`}
               />
             </div>
           </div>
@@ -117,387 +447,35 @@ export default function UsagePage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr RAG</h2>
               <p className="text-gray-400 mb-4">
-                Agentstr SDK provides powerful RAG (Retrieval-Augmented Generation) capabilities integrated with Nostr. This allows you to build intelligent agents that can search and retrieve relevant information from Nostr notes. Integrate with <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> for decentralized, private LLM access.
+                Agentstr SDK provides powerful RAG (Retrieval-Augmented Generation) capabilities integrated with Nostr. This allows you to build intelligent agents that can search and retrieve relevant information from Nostr notes.
               </p>
               <CodeBlock
                 language="python"
-                value={`from agentstr import NostrRAG
+                value={`import os
+from agentstr import NostrRAG
+from langchain_openai import ChatOpenAI
 
 # Define relays
-relays   = ['wss://some.relay.io']
+relays   = os.getenv('NOSTR_RELAYS').split(',')
 
-# Define LLM base URL and API key
-base_url = 'https://api.routstr.com/v1'
-api_key  = 'cashuA1DkpMb...'
+# Define LLM
+model = ChatOpenAI(temperature=0,
+                   base_url=os.getenv('LLM_BASE_URL'),
+                   api_key=os.getenv('LLM_API_KEY'),
+                   model_name=os.getenv('LLM_MODEL_NAME'))
 
 # Create the RAG instance
 rag = NostrRAG(relays=relays,
-               llm_model_name='qwen/qwen3-14b',
-               llm_base_url=base_url,
-               llm_api_key=api_key)
+               llm=model)
 
-# Query the RAG
-print(rag.query(question="What's new with Bitcoin?"))`}
-              />
-            </div>
-          </div>
-        </div>
+# Run a RAG query
+async def run():
+    result = await rag.query(question="What's new with Bitcoin?")
+    print(result)
 
-        <div id="nostr-mcp-servers" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Server</h2>
-              <p className="text-gray-400 mb-4">
-                Create servers that provide tools and services to other Nostr clients.
-              </p>
-              <CodeBlock
-                language="python"
-                value={`from agentstr import NostrMCPServer
-
-# Define relays and private key
-relays   = ['wss://some.relay.io']
-private_key = 'nsec...'
-
-# Define tools
-def add(a: int, b: int) -> int:
-    """Add two numbers."""
-    return a + b
-
-def multiply(a: int, b: int) -> int:
-    """Multiply two numbers."""
-    return a * b
-
-# Define the server
-server = NostrMCPServer("Math MCP Server", relays=relays, private_key=private_key)
-
-# Add tools
-server.add_tool(add)
-server.add_tool(multiply, name="multiply", description="Multiply two numbers")
-
-# Start the server
-server.start()
-`}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div id="nostr-mcp-clients" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Client</h2>
-              <p className="text-gray-400 mb-4">
-                Create clients that can discover and use tools from MCP servers.
-              </p>
-              <CodeBlock
-                language="python"
-                value={`from agentstr import NostrMCPClient
-
-# Define relays and private key
-relays = ['wss://some.relay.io']
-private_key = 'nsec...'
-
-# Define MCP server public key
-server_public_key = 'npub...'
-
-# Initialize the client
-mcp_client = NostrMCPClient(mcp_pubkey=server_public_key, relays=relays, private_key=private_key)
-
-# List available tools
-tools = mcp_client.list_tools()
-print(f'Found tools: {json.dumps(tools, indent=4)}')
-
-# Call a tool
-result = mcp_client.call_tool("multiply", {"a": 69, "b": 420})
-print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div id="tool-discovery" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Tool Discovery</h2>
-              <p className="text-gray-400 mb-4">
-                Search Nostr for MCP Servers to discover available tools.
-              </p>
-              <CodeBlock
-                language="python"
-                value={`from agentstr import NostrClient
-
-# Initialize Nostr Client
-nostr_client = NostrClient(relays)
-
-# Search for MCP Servers
-mcp_servers = nostr_client.read_posts_by_tag('mcp-tools')
-  
-# Get unique public keys
-mcp_pubkeys = set([server['pubkey'] for server in mcp_servers])
-
-# Iterate through public keys and list tools
-for pubkey in mcp_pubkeys:
-    mcp_client = NostrMCPClient(mcp_pubkey=pubkey, relays=relays)
-    tools = mcp_client.list_tools()
-
-    print(f'Found tools: {json.dumps(tools, indent=4)}')`}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div id="nostr-agent-servers" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr Agent Server</h2>
-              <p className="text-gray-400 mb-4">
-                Create intelligent agents that can both provide and use tools on the Nostr network.
-              </p>
-              <CodeBlock
-                language="python"
-                value={`from agentstr import NostrAgentServer
-
-# Define relays and private key
-relays = ['wss://some.relay.io']
-private_key = 'nsec...'
-
-# Define Nostr Wallet Connect string to support lightning payments
-nwc_str = 'nostr+walletconnect://...'
-
-# Define agent URL
-agent_url = 'http://localhost:8000'
-
-# Create the server
-server = NostrAgentServer(
-    agent_url=agent_url,
-    relays=relays,
-    private_key=private_key,
-    nwc_str=nwc_str)
-
-# Start the server
-server.start()`}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div id="langgraph-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Langgraph MCP Agent</h2>
-              <p className="text-gray-400 mb-4">
-                Integrate Langgraph agents with Nostr MCP servers to enable decentralized tool calling and discovery. Note: this requires a few additional python libraries.
-              </p>
-              <CodeBlock
-                language="bash"
-                value={`pip install nostr-langchain-mcp langchain_openai langgraph`}
-              />
-              <CodeBlock
-                language="python"
-                value={`from langchain_mcp_adapters import MultiServerMCPClient
-from langchain_openai import ChatOpenAI
-from langgraph.prebuilt import create_react_agent
-from langgraph.checkpoint.memory import MemorySaver
-
-# Define relays and private key
-relays = ['wss://some.relay.io']
-private_key = 'nsec...'
-
-# Define Nostr Wallet Connect string to support lightning payments
-nwc_str = 'nostr+walletconnect://...'
-
-# Define MCP server public key
-server_public_key = 'npub...'
-
-# Define LLM base URL and API key
-base_url = 'https://api.routstr.com/v1'
-api_key  = 'cashuA1DkpMb...'
-
-model = ChatOpenAI(temperature=0, 
-                   base_url=base_url,
-                   api_key=api_key,
-                   model_name="gpt-4o")
-
-async def nostr_mcp_agent():
-    # Define MCP Server with Nostr transport
-    async with MultiServerMCPClient(
-        {
-            "nostr-math-mcp": {
-                "relays": relays,
-                "server_public_key": server_public_key,
-                "private_key": private_key,
-                "nwc_str": nwc_str,
-                "transport": "nostr",
-            },
-        }
-    ) as client:
-        # Create the agent
-        agent = create_react_agent(model, client.get_tools(), checkpointer=MemorySaver())
-        yield agent
-    
-if __name__ == '__main__':
+if __name__ == "__main__":
     import asyncio
-
-    # Async function to run the agent
-    async def run():
-        async with nostr_mcp_agent() as agent:
-            async for output in agent.astream({"messages": "what's (4 + 20) * 69?"}, stream_mode="updates"):
-                print(output)
-
-    # Run the agent
     asyncio.run(run())`}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div id="dspy-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">DSPy Agent</h2>
-              <p className="text-gray-400 mb-4">
-                This example shows how to create a DSPy agent that can interact with Nostr.
-              </p>
-              <CodeBlock
-                language="bash"
-                value={"pip install dspy"}
-              />
-              <CodeBlock
-                language="python"
-                value={`import dspy
-from agentstr import NostrAgentServer, NoteFilters
-from agentstr.a2a import AgentCard, Skill, ChatInput
-
-# Define relays and private key
-relays = ['wss://some.relay.io']
-private_key = 'nsec...'
-
-# Define Nostr Wallet Connect string to support lightning payments
-nwc_str = 'nostr+walletconnect://...'
-
-# Define A2A agent info
-agent_info = AgentCard(
-    name='Travel Agent',
-    description=('This agent can help you book and manage flights.'),
-    skills=[Skill(name='book_flight', description='Book a flight on behalf of a user.', satoshis=25),
-            Skill(name='show_itinerary', description='Show the itinerary for the user.', satoshis=0),
-            Skill(name='pick_flight', description='Pick the best flight that matches users\' request.', satoshis=0),
-            Skill(name='cancel_itinerary', description='Cancel an itinerary on behalf of the user.', satoshis=0),
-            ],
-    satoshis=0,
-    nostr_pubkey='npub...',
-)
-
-# Define note filters to listen on
-note_filters = NoteFilters(
-    tags=['travel_agent_ai_request'],
-)
-
-# Define DSPy agent 
-# (see https://dspy.ai/tutorials/customer_service_agent/ for more info)
-agent = dspy.ReAct(
-    DSPyAirlineCustomerSerice,
-    tools = [
-        fetch_flight_info,
-        show_itinerary,
-        pick_flight,
-        book_flight,
-        cancel_itinerary
-    ]
-)
-
-# Configure LLM
-llm_api_key = 'cashuA1DkpMb...'
-llm_base_url = 'https://api.routstr.com'
-llm_model_name = 'gpt-4o'
-
-# Configure DSPy
-dspy.configure(lm=dspy.LM(model=llm_model_name, api_base=llm_base_url, api_key=llm_api_key, model_type='chat'))
-
-
-# Define agent callable
-def agent_callable(chat_input: ChatInput) -> str:
-    return agent(user_request=chat_input.messages[-1]).process_result
-
-# Initialize the server
-server = NostrAgentServer(relays=relays, 
-                          private_key=private_key, 
-                          nwc_str=nwc_str,
-                          agent_info=agent_info,
-                          agent_callable=agent_callable,
-                          note_filters=note_filters)
-
-# Start the server
-server.start()`}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div id="lightning-mcp" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Lightning Enablement</h2>
-              <p className="text-gray-400 mb-4">
-                Create agents and MCP servers with Lightning payment support. When the tool is called, the MCP server will respond with a lightning invoice. Upon payment, the tool will be executed and the result will be sent to the client. This process is handled automatically by the Agentstr SDK.
-              </p>
-              <h3 className="text-lg font-semibold text-white mt-6">Lightning-Enabled MCP Server</h3>
-              <CodeBlock
-                language="python"
-                value={`from agentstr import NostrMCPServer
-
-# Define relays and private key
-relays = ['wss://some.relay.io']
-private_key = 'nsec...'
-
-# Define Nostr Wallet Connect string
-nwc_str = 'nostr+walletconnect://...'
-
-# Create Lightning-enabled MCP Server
-server = NostrMCPServer(
-    "Lightning Math Server",
-    relays=relays,
-    private_key=private_key,
-    nwc_str=nwc_str,  # Enable Lightning payments
-)
-
-# Define a tool that requires payment
-def premium_tool(**kwargs) -> int:
-    """Premium service (requires payment)."""
-    return 42
-
-# Add the tool with payment requirement
-server.add_tool(premium_tool, satoshis=10)
-
-# Start the server
-server.start()`}
-              />
-              <h3 className="text-lg font-semibold text-white mt-6">Client Integration</h3>
-              <CodeBlock
-                language="python"
-                value={`from agentstr import NostrMCPClient
-
-# Define relays and private key
-relays = ['wss://some.relay.io']
-private_key = 'nsec...'
-
-# Define MCP server public key
-server_public_key = 'npub...'
-
-# Define Nostr Wallet Connect string
-nwc_str = 'nostr+walletconnect://...'
-
-# Create Lightning-enabled MCP Client
-client = NostrMCPClient(
-    mcp_pubkey=server_public_key,
-    relays=relays,
-    private_key=private_key,
-    nwc_str=nwc_str  # Enable Lightning payments
-)
-
-# Call a paid tool
-result = client.call_tool("premium_tool", {"a": 100, "b": 200})
-print(f'Result: {result["content"][-1]["text"]}')`}
               />
             </div>
           </div>

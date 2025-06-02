@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="a2a module" href="agentstr.a2a.html" /><link rel="prev" title="Welcome to Agentstr SDK’s documentation!" href="index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Agentstr SDK - Agentstr SDK 0.1.2 documentation</title>
+        <title>Agentstr SDK - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Agentstr SDK 0.1.2 documentation</div></a>
+      <a href="index.html"><div class="brand">Agentstr SDK  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -211,7 +211,9 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_client.html">nwc_client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">relay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a></li>
 </ul>
 </li>
 </ul>
@@ -275,7 +277,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="agentstr.nostr_client.html">nostr_client module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.log_callback"><code class="docutils literal notranslate"><span class="pre">log_callback()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient"><code class="docutils literal notranslate"><span class="pre">NostrClient</span></code></a></li>
 </ul>
 </li>
@@ -291,8 +292,24 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG"><code class="docutils literal notranslate"><span class="pre">NostrRAG</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.nwc_client.html">nwc_client module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_client.html#agentstr.nwc_client.NWCClient"><code class="docutils literal notranslate"><span class="pre">NWCClient</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.pad"><code class="docutils literal notranslate"><span class="pre">pad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.unpad"><code class="docutils literal notranslate"><span class="pre">unpad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.encrypt"><code class="docutils literal notranslate"><span class="pre">encrypt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.decrypt"><code class="docutils literal notranslate"><span class="pre">decrypt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.process_nwc_string"><code class="docutils literal notranslate"><span class="pre">process_nwc_string()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.get_signed_event"><code class="docutils literal notranslate"><span class="pre">get_signed_event()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay"><code class="docutils literal notranslate"><span class="pre">NWCRelay</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.relay.html">relay module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html#agentstr.relay.DecryptedMessage"><code class="docutils literal notranslate"><span class="pre">DecryptedMessage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html#agentstr.relay.create_subscription"><code class="docutils literal notranslate"><span class="pre">create_subscription()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html#agentstr.relay.EventRelay"><code class="docutils literal notranslate"><span class="pre">EventRelay</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager"><code class="docutils literal notranslate"><span class="pre">RelayManager</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -368,7 +385,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=92734c54"></script>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

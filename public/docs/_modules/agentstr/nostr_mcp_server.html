@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>agentstr.nostr_mcp_server - Agentstr SDK 0.0.5 documentation</title>
+        <title>agentstr.nostr_mcp_server - Agentstr SDK documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Agentstr SDK 0.0.5 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Agentstr SDK  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -210,7 +210,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_client.html">nostr_mcp_client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_mcp_server.html">nostr_mcp_server module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.nostr_rag.html">nostr_rag module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_client.html">nwc_client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
 </ul>
 </li>
 </ul>
@@ -248,30 +250,25 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for agentstr.nostr_mcp_server</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp.tools.tool_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="NostrMCPServer">
 <a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NostrMCPServer</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A Model Context Protocol (MCP) server running on the Nostr protocol.</span>
-
-<span class="sd">    This server registers tools that can be called by clients via direct messages.</span>
-<span class="sd">    It supports optional payment requirements in satoshis for tool usage, processed</span>
-<span class="sd">    through Nostr Wallet Connect (NWC).</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        client (NostrClient): Nostr client for communication.</span>
-<span class="sd">        display_name (str): Display name of the server.</span>
-<span class="sd">        tool_to_sats_map (dict): Mapping of tool names to required satoshis.</span>
-<span class="sd">        tool_manager (ToolManager): Manager for registered tools.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Model Context Protocol (MCP) server running on the Nostr protocol.</span>
+<span class="sd">    </span>
+<span class="sd">    Registers and manages tools that can be called by clients via direct messages,</span>
+<span class="sd">    with optional payment requirements handled through NWC.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NostrMCPServer.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.__init__">[docs]</a>
@@ -311,7 +308,7 @@
 
 <div class="viewcode-block" id="NostrMCPServer.list_tools">
 <a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.list_tools">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">list_tools</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_tools</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;List all registered tools and their metadata.</span>
 
 <span class="sd">        Returns:</span>
@@ -330,7 +327,7 @@
 
 <div class="viewcode-block" id="NostrMCPServer.call_tool">
 <a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.call_tool">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">call_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">call_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute a registered tool by name with provided arguments.</span>
 
 <span class="sd">        Args:</span>
@@ -346,10 +343,10 @@
         <span class="n">tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool_manager</span><span class="o">.</span><span class="n">get_tool</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">tool</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ToolError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown tool: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">tool</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="o">**</span><span class="n">arguments</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">tool</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="o">**</span><span class="n">arguments</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_direct_message_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_direct_message_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle incoming direct messages to process tool calls or list requests.</span>
 
 <span class="sd">        Args:</span>
@@ -357,46 +354,43 @@
 <span class="sd">            message: The message content.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Request: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Request: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">request</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">request</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;list_tools&#39;</span><span class="p">:</span>
-                <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_tools</span><span class="p">()</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_tools</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">request</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;call_tool&#39;</span><span class="p">:</span>
                 <span class="n">tool_name</span> <span class="o">=</span> <span class="n">request</span><span class="p">[</span><span class="s1">&#39;tool_name&#39;</span><span class="p">]</span>
                 <span class="n">arguments</span> <span class="o">=</span> <span class="n">request</span><span class="p">[</span><span class="s1">&#39;arguments&#39;</span><span class="p">]</span>
                 <span class="n">satoshis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool_to_sats_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">satoshis</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">invoice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">nwc_client</span><span class="o">.</span><span class="n">make_invoice</span><span class="p">(</span><span class="n">amt</span><span class="o">=</span><span class="n">satoshis</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Payment for tool call&quot;</span><span class="p">)</span>
+                    <span class="n">invoice</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">nwc_relay</span><span class="o">.</span><span class="n">make_invoice</span><span class="p">(</span><span class="n">amount</span><span class="o">=</span><span class="n">satoshis</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Payment for </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2"> tool&quot;</span><span class="p">)</span>
                     <span class="n">response</span> <span class="o">=</span> <span class="n">invoice</span>
 
-                    <span class="k">def</span><span class="w"> </span><span class="nf">on_success</span><span class="p">():</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment succeeded for </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+                    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_success</span><span class="p">():</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment succeeded for </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
                         <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)}]}</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;On success response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="n">thr</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
-                            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message_to_pubkey</span><span class="p">,</span>
-                            <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)),</span>
-                        <span class="p">)</span>
-                        <span class="n">thr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;On success response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">))</span>
 
-                    <span class="k">def</span><span class="w"> </span><span class="nf">on_failure</span><span class="p">():</span>
+                    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_failure</span><span class="p">():</span>
                         <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Payment failed for </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;On failure response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                        <span class="n">thr</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
-                            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message_to_pubkey</span><span class="p">,</span>
-                            <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)),</span>
-                        <span class="p">)</span>
-                        <span class="n">thr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;On failure response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">))</span>
 
-                    <span class="n">thr</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
-                        <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">nwc_client</span><span class="o">.</span><span class="n">on_payment_success</span><span class="p">,</span>
-                        <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;invoice&#39;</span><span class="p">:</span> <span class="n">invoice</span><span class="p">,</span> <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="n">on_success</span><span class="p">,</span> <span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span> <span class="s1">&#39;unsuccess_callback&#39;</span><span class="p">:</span> <span class="n">on_failure</span><span class="p">}</span>
-                    <span class="p">)</span>
-                    <span class="n">thr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                    <span class="c1"># Run in background</span>
+                    <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span>     
+                        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">nwc_relay</span><span class="o">.</span><span class="n">on_payment_success</span><span class="p">(</span>
+                            <span class="n">invoice</span><span class="o">=</span><span class="n">invoice</span><span class="p">,</span>
+                            <span class="n">callback</span><span class="o">=</span><span class="n">on_success</span><span class="p">,</span>
+                            <span class="n">unsuccess_callback</span><span class="o">=</span><span class="n">on_failure</span><span class="p">,</span>
+                            <span class="n">timeout</span><span class="o">=</span><span class="mi">120</span>
+                        <span class="p">)</span>
+                    <span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
                     <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)}]}</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Invalid action: </span><span class="si">{</span><span class="n">request</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
@@ -404,27 +398,22 @@
             <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}]}</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">response</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">thr</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
-            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message_to_pubkey</span><span class="p">,</span>
-            <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">response</span><span class="p">),</span>
-        <span class="p">)</span>
-        <span class="n">thr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MCP Server response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">response</span><span class="p">))</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
 
 <div class="viewcode-block" id="NostrMCPServer.start">
 <a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.start">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the MCP server, updating metadata and listening for direct messages.&quot;&quot;&quot;</span>
-        <span class="n">thr</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
-            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">update_metadata</span><span class="p">,</span>
-            <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;mcp_server&#39;</span><span class="p">,</span> <span class="s1">&#39;display_name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span><span class="p">,</span> <span class="s1">&#39;about&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_tools</span><span class="p">())}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Updating metadata for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">update_metadata</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mcp_server&#39;</span><span class="p">,</span>
+            <span class="n">display_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">display_name</span><span class="p">,</span>
+            <span class="n">about</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_tools</span><span class="p">())</span>
         <span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Updating metadata for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">thr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Starting message listener for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">direct_message_listener</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_direct_message_callback</span><span class="p">)</span></div>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Starting message listener for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">direct_message_listener</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_direct_message_callback</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
@@ -459,7 +448,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=282f96c0"></script>
+</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

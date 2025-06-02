@@ -49,11 +49,11 @@ export default function Home() {
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Python SDK</h3>
-              <p className="text-foreground-light">Leverage our powerful MIT-licensed Python SDK to build complex agentic applications quickly and efficiently.</p>
+              <p className="text-foreground-light">A full-featured, open-source, and asynchronous Python SDK to build performant agentic applications on Nostr.</p>
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
               <h3 className="text-xl font-semibold text-foreground mb-4">Documentation</h3>
-              <p className="text-foreground-light">Comprehensive documentation to help you get started and build amazing decentralized applications.</p>
+              <p className="text-foreground-light">Comprehensive <a className="text-indigo-400 hover:text-white" href="/docs">documentation</a> to help you get started building amazing decentralized applications quickly.</p>
             </div>
           </div>
         </div>
@@ -74,8 +74,8 @@ export default function Home() {
               <p className="text-foreground-light">Leverage <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> for decentralized, private, and secure LLM routing.</p>
             </div>
             <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Langgraph and DSPy Integration</h3>
-              <p className="text-foreground-light">Use popular open-source backends like <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">Langgraph</a> and <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a> to expedite development.</p>
+              <h3 className="text-xl font-semibold text-foreground mb-4">AI Integration</h3>
+              <p className="text-foreground-light">Use popular agentic frameworks like <a className="text-indigo-400 hover:text-white" href="https://docs.agno.com/introduction">Agno</a>, <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">LangGraph</a> and <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a> to expedite development.</p>
             </div>
           </div>
         </div>
