@@ -90,25 +90,7 @@ export default function UsagePage() {
           </div>
         </div>
 
-        <div id="overview" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Overview</h2>
-              <p className="text-gray-400 mb-4">
-                Agentstr SDK is a powerful toolkit for building decentralized agentic applications on the Nostr protocol. 
-              </p>
-              <p className="text-gray-400 mb-4">
-                It provides seamless integration with <a className="text-indigo-400 hover:text-white" href="https://modelcontextprotocol.io/introduction">MCP (Model Context Protocol)</a>, <a className="text-indigo-400 hover:text-white" href="https://google-a2a.github.io/A2A/">A2A (Agent-to-Agent)</a>, and multiple popular agentic frameworks like <a className="text-indigo-400 hover:text-white" href="https://docs.agno.com/introduction">Agno</a>, <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a>, <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">LangGraph</a>, and <a className="text-indigo-400 hover:text-white" href="https://ai.pydantic.dev/">PydanticAI</a>.
-              </p>
-              <p className="text-gray-400 mb-4">
-                To ensure full stack decentralization, it is recommended to use <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> as your LLM provider.
-              </p>
-              <p className="text-gray-400 mb-4">
-                Each of these examples is available in the <a className="text-indigo-400 hover:text-white" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples">Agentstr examples folder</a>.
-              </p>
-            </div>
-          </div>
-        </div>
+
 
         <div id="installation" className="mt-12 max-w-4xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
