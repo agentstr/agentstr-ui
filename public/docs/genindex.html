@@ -212,6 +212,12 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">nwc_relay module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">relay module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">relay_manager module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.agno.html">Agno Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.dspy.html">DSPy Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -287,8 +293,6 @@
 </li>
         <li><a href="agentstr.a2a.html#agentstr.a2a.agent_router">agent_router() (in module agentstr.a2a)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.agent_router_v2">agent_router_v2() (in module agentstr.a2a)</a>
-</li>
         <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard">AgentCard (class in agentstr.a2a)</a>
 </li>
         <li>
@@ -319,8 +323,6 @@
           <li><a href="agentstr.nostr_client.html#module-agentstr.nostr_client">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     agentstr.nostr_mcp_client
 
@@ -335,6 +337,8 @@
           <li><a href="agentstr.nostr_mcp_server.html#module-agentstr.nostr_mcp_server">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     agentstr.nostr_rag
 
@@ -363,6 +367,34 @@
           <li><a href="agentstr.relay_manager.html#module-agentstr.relay_manager">module</a>
 </li>
         </ul></li>
+        <li>
+    agentstr.tools
+
+        <ul>
+          <li><a href="agentstr.tools.html#module-agentstr.tools">module</a>
+</li>
+        </ul></li>
+        <li>
+    agentstr.tools.agno
+
+        <ul>
+          <li><a href="agentstr.tools.agno.html#module-agentstr.tools.agno">module</a>
+</li>
+        </ul></li>
+        <li>
+    agentstr.tools.dspy
+
+        <ul>
+          <li><a href="agentstr.tools.dspy.html#module-agentstr.tools.dspy">module</a>
+</li>
+        </ul></li>
+        <li>
+    agentstr.tools.langgraph
+
+        <ul>
+          <li><a href="agentstr.tools.langgraph.html#module-agentstr.tools.langgraph">module</a>
+</li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -387,7 +419,7 @@
           <li><a href="agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.call_tool">(agentstr.nostr_mcp_server.NostrMCPServer method)</a>
 </li>
         </ul></li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.can_handle">can_handle (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id12">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.can_handle">can_handle (agentstr.a2a.RouterResponse attribute)</a>
 </li>
         <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.chat">chat() (agentstr.nostr_agent_server.NostrAgentServer method)</a>
 </li>
@@ -397,7 +429,7 @@
 </li>
         <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.check_invoice">check_invoice() (agentstr.nwc_relay.NWCRelay method)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.cost_sats">cost_sats (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id13">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.cost_sats">cost_sats (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id9">[1]</a>
 </li>
         <li><a href="agentstr.relay.html#agentstr.relay.create_subscription">create_subscription() (in module agentstr.relay)</a>
 </li>
@@ -415,10 +447,10 @@
 </li>
         <li><a href="agentstr.relay.html#agentstr.relay.DecryptedMessage">DecryptedMessage (class in agentstr.relay)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.description">description (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id4">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.description">description (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id2">[1]</a>
 
         <ul>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.description">(agentstr.a2a.Skill attribute)</a>, <a href="agentstr.a2a.html#id1">[1]</a>
+          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.description">(agentstr.a2a.Skill attribute)</a>, <a href="agentstr.a2a.html#id0">[1]</a>
 </li>
         </ul></li>
     </ul></td>
@@ -457,7 +489,7 @@
         </ul></li>
         <li><a href="agentstr.relay.html#agentstr.relay.EventRelay">EventRelay (class in agentstr.relay)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.extra_inputs">extra_inputs (agentstr.a2a.ChatInput attribute)</a>, <a href="agentstr.a2a.html#id11">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.extra_inputs">extra_inputs (agentstr.a2a.ChatInput attribute)</a>, <a href="agentstr.a2a.html#id8">[1]</a>
 </li>
     </ul></td>
   </tr></table>
@@ -467,7 +499,7 @@
   <h2>F</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.following_only">following_only (agentstr.nostr_agent_server.NoteFilters attribute)</a>, <a href="agentstr.nostr_agent_server.html#id2">[1]</a>
+        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.following_only">following_only (agentstr.nostr_agent_server.NoteFilters attribute)</a>, <a href="agentstr.nostr_agent_server.html#id1">[1]</a>
 </li>
     </ul></td>
   </tr></table>
@@ -533,7 +565,7 @@
 </li>
         <li><a href="agentstr.relay.html#agentstr.relay.DecryptedMessage.message">message (agentstr.relay.DecryptedMessage attribute)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.messages">messages (agentstr.a2a.ChatInput attribute)</a>, <a href="agentstr.a2a.html#id9">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.messages">messages (agentstr.a2a.ChatInput attribute)</a>
 </li>
         <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.model_config">model_config (agentstr.a2a.AgentCard attribute)</a>
 
@@ -573,6 +605,14 @@
 </li>
           <li><a href="agentstr.relay_manager.html#module-agentstr.relay_manager">agentstr.relay_manager</a>
 </li>
+          <li><a href="agentstr.tools.html#module-agentstr.tools">agentstr.tools</a>
+</li>
+          <li><a href="agentstr.tools.agno.html#module-agentstr.tools.agno">agentstr.tools.agno</a>
+</li>
+          <li><a href="agentstr.tools.dspy.html#module-agentstr.tools.dspy">agentstr.tools.dspy</a>
+</li>
+          <li><a href="agentstr.tools.langgraph.html#module-agentstr.tools.langgraph">agentstr.tools.langgraph</a>
+</li>
         </ul></li>
     </ul></td>
   </tr></table>
@@ -582,19 +622,19 @@
   <h2>N</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.name">name (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id3">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.name">name (agentstr.a2a.AgentCard attribute)</a>
 
         <ul>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.name">(agentstr.a2a.Skill attribute)</a>, <a href="agentstr.a2a.html#id0">[1]</a>
+          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.name">(agentstr.a2a.Skill attribute)</a>
 </li>
         </ul></li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.nostr_pubkey">nostr_pubkey (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id7">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.nostr_pubkey">nostr_pubkey (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id5">[1]</a>
 </li>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.nostr_pubkeys">nostr_pubkeys (agentstr.nostr_agent_server.NoteFilters attribute)</a>, <a href="agentstr.nostr_agent_server.html#id0">[1]</a>
+        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.nostr_pubkeys">nostr_pubkeys (agentstr.nostr_agent_server.NoteFilters attribute)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.nostr_relays">nostr_relays (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id8">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.nostr_relays">nostr_relays (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id6">[1]</a>
 </li>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.nostr_tags">nostr_tags (agentstr.nostr_agent_server.NoteFilters attribute)</a>, <a href="agentstr.nostr_agent_server.html#id1">[1]</a>
+        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.nostr_tags">nostr_tags (agentstr.nostr_agent_server.NoteFilters attribute)</a>, <a href="agentstr.nostr_agent_server.html#id0">[1]</a>
 </li>
         <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer">NostrAgentServer (class in agentstr.nostr_agent_server)</a>
 </li>
@@ -633,10 +673,6 @@
 <section id="P" class="genindex-section">
   <h2>P</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.pad">pad() (in module agentstr.nwc_relay)</a>
-</li>
-    </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.process_nwc_string">process_nwc_string() (in module agentstr.nwc_relay)</a>
 </li>
@@ -688,10 +724,10 @@
   <h2>S</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.satoshis">satoshis (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id6">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.satoshis">satoshis (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id4">[1]</a>
 
         <ul>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.satoshis">(agentstr.a2a.Skill attribute)</a>, <a href="agentstr.a2a.html#id2">[1]</a>
+          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.satoshis">(agentstr.a2a.Skill attribute)</a>, <a href="agentstr.a2a.html#id1">[1]</a>
 </li>
         </ul></li>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.send_direct_message">send_direct_message() (agentstr.nostr_client.NostrClient method)</a>
@@ -722,9 +758,9 @@
 </li>
         <li><a href="agentstr.a2a.html#agentstr.a2a.Skill">Skill (class in agentstr.a2a)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.skills">skills (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id5">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.skills">skills (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id3">[1]</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.skills_used">skills_used (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id15">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.skills_used">skills_used (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id11">[1]</a>
 </li>
         <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.start">start() (agentstr.nostr_agent_server.NostrAgentServer method)</a>
 
@@ -740,10 +776,16 @@
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.thread_id">thread_id (agentstr.a2a.ChatInput attribute)</a>, <a href="agentstr.a2a.html#id10">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.thread_id">thread_id (agentstr.a2a.ChatInput attribute)</a>, <a href="agentstr.a2a.html#id7">[1]</a>
+</li>
+        <li><a href="agentstr.tools.agno.html#agentstr.tools.agno.to_agno_tools">to_agno_tools() (in module agentstr.tools.agno)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="agentstr.tools.dspy.html#agentstr.tools.dspy.to_dspy_tools">to_dspy_tools() (in module agentstr.tools.dspy)</a>
+</li>
+        <li><a href="agentstr.tools.langgraph.html#agentstr.tools.langgraph.to_langgraph_tools">to_langgraph_tools() (in module agentstr.tools.langgraph)</a>
+</li>
         <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.try_pay_invoice">try_pay_invoice() (agentstr.nwc_relay.NWCRelay method)</a>
 </li>
     </ul></td>
@@ -754,13 +796,11 @@
   <h2>U</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.unpad">unpad() (in module agentstr.nwc_relay)</a>
+        <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.update_metadata">update_metadata() (agentstr.nostr_client.NostrClient method)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.update_metadata">update_metadata() (agentstr.nostr_client.NostrClient method)</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.user_message">user_message (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id14">[1]</a>
+        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.user_message">user_message (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id10">[1]</a>
 </li>
     </ul></td>
   </tr></table>

@@ -213,6 +213,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.agno.html">Agno Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.dspy.html">DSPy Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -251,12 +257,15 @@
         <article role="main" id="furo-main-content">
           <h1>Source code for agentstr.nostr_agent_server</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.a2a</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">ChatInput</span><span class="p">,</span> <span class="n">agent_router_v2</span><span class="p">,</span> <span class="n">RouterResponse</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.a2a</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">ChatInput</span><span class="p">,</span> <span class="n">RouterResponse</span><span class="p">,</span> <span class="n">agent_router</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -265,7 +274,6 @@
 <a class="viewcode-back" href="../../agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NoteFilters</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Filters for filtering Nostr notes/events.</span>
-<span class="sd">    </span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        nostr_pubkeys: Filter by specific public keys</span>
 <span class="sd">        nostr_tags: Filter by specific tags</span>
@@ -281,22 +289,20 @@
 <a class="viewcode-back" href="../../agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NostrAgentServer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Server that integrates an external agent with the Nostr network.</span>
-<span class="sd">    </span>
 <span class="sd">    Handles direct messages and optional payments, routing them to an external agent.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NostrAgentServer.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
-                 <span class="n">nostr_client</span><span class="p">:</span> <span class="n">NostrClient</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">relays</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
-                 <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
-                 <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
-                 <span class="n">agent_info</span><span class="p">:</span> <span class="n">AgentCard</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
-                 <span class="n">agent_callable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ChatInput</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">note_filters</span><span class="p">:</span> <span class="n">NoteFilters</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
-                 <span class="n">router_llm</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the agent server. If agent_info and agent_callable are provided, agent_url, chat_url_path, and info_url_path are ignored.</span>
-
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">nostr_client</span><span class="p">:</span> <span class="n">NostrClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">relays</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">agent_info</span><span class="p">:</span> <span class="n">AgentCard</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">agent_callable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ChatInput</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">note_filters</span><span class="p">:</span> <span class="n">NoteFilters</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">router_llm</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the agent server.</span>
 <span class="sd">        Args:</span>
 <span class="sd">            nostr_client: Existing NostrClient instance (optional).</span>
 <span class="sd">            relays: List of Nostr relay URLs (if no client provided).</span>
@@ -316,13 +322,11 @@
 
 <div class="viewcode-block" id="NostrAgentServer.chat">
 <a class="viewcode-back" href="../../agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.chat">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a message to the agent and retrieve the response.</span>
-
 <span class="sd">        Args:</span>
 <span class="sd">            message: The message to send to the agent.</span>
 <span class="sd">            thread_id: Optional thread ID for conversation context.</span>
-
 <span class="sd">        Returns:</span>
 <span class="sd">            Response from the agent, or an error message.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -332,29 +336,28 @@
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_handle_paid_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">router_response</span><span class="p">:</span> <span class="n">RouterResponse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a paid invoice.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">router_response</span><span class="p">:</span>
-            <span class="n">skills_used</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">router_response</span><span class="o">.</span><span class="n">skills_used</span><span class="p">)</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;I&#39;d like to follow up on our previous exchange:</span>
+            <span class="n">skills_used</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">router_response</span><span class="o">.</span><span class="n">skills_used</span><span class="p">)</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;I&#39;d like to follow up on our previous exchange:</span>
 
-<span class="s1">Your Request:</span>
+<span class="s2">Your Request:</span>
 <span class="si">{</span><span class="n">message</span><span class="si">}</span>
 
-<span class="s1">Your Response:</span>
+<span class="s2">Your Response:</span>
 <span class="si">{</span><span class="n">router_response</span><span class="o">.</span><span class="n">user_message</span><span class="si">}</span>
 
-<span class="s1">Could you please proceed with the next steps or provide an update on this matter?</span>
+<span class="s2">Could you please proceed with the next steps or provide an update on this matter?</span>
 
-<span class="s1">Only use the following tools: [</span><span class="si">{</span><span class="n">skills_used</span><span class="si">}</span><span class="s1">]</span>
-<span class="s1">&#39;&#39;&#39;</span>
+<span class="s2">Only use the following tools: [</span><span class="si">{</span><span class="n">skills_used</span><span class="si">}</span><span class="s2">]</span>
+<span class="s2">&quot;&quot;&quot;</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Handling paid invoice&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Handling paid invoice&quot;</span><span class="p">)</span>
 
         <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_success</span><span class="p">():</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Payment succeeded for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
             <span class="n">response</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;On success response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;On success response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
-
 
         <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_failure</span><span class="p">():</span>
             <span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;Payment failed. Please try again.&quot;</span>
@@ -365,22 +368,21 @@
             <span class="n">invoice</span><span class="o">=</span><span class="n">invoice</span><span class="p">,</span>
             <span class="n">callback</span><span class="o">=</span><span class="n">on_success</span><span class="p">,</span>
             <span class="n">timeout</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>
-            <span class="n">unsuccess_callback</span><span class="o">=</span><span class="n">on_failure</span>
+            <span class="n">unsuccess_callback</span><span class="o">=</span><span class="n">on_failure</span><span class="p">,</span>
         <span class="p">)</span>
 
 
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_direct_message_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle incoming direct messages for agent interaction.</span>
-
 <span class="sd">        Args:</span>
 <span class="sd">            event: The Nostr event containing the message.</span>
 <span class="sd">            message: The message content.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">):</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Ignoring JSON messages&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ignoring JSON messages&quot;</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="k">elif</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;lnbc&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39; &#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Ignoring lightning invoices&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;lnbc&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot; &quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ignoring lightning invoices&quot;</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="n">invoice</span> <span class="o">=</span> <span class="kc">None</span>
@@ -390,7 +392,7 @@
             <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">cost_sats</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span><span class="p">:</span>
-                <span class="n">router_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent_router_v2</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
+                <span class="n">router_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent_router</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
                 <span class="n">response</span> <span class="o">=</span> <span class="n">router_response</span><span class="o">.</span><span class="n">user_message</span>
                 <span class="k">if</span> <span class="n">router_response</span><span class="o">.</span><span class="n">can_handle</span><span class="p">:</span>
                     <span class="n">cost_sats</span> <span class="o">=</span> <span class="n">router_response</span><span class="o">.</span><span class="n">cost_sats</span>
@@ -402,16 +404,16 @@
             <span class="k">if</span> <span class="n">cost_sats</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">invoice</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">nwc_relay</span><span class="o">.</span><span class="n">make_invoice</span><span class="p">(</span><span class="n">amount</span><span class="o">=</span><span class="n">cost_sats</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Payment for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">Please pay </span><span class="si">{</span><span class="n">cost_sats</span><span class="si">}</span><span class="s1"> sats: </span><span class="si">{</span><span class="n">invoice</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Please pay </span><span class="si">{</span><span class="n">cost_sats</span><span class="si">}</span><span class="s2"> sats: </span><span class="si">{</span><span class="n">invoice</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">response</span> <span class="o">=</span> <span class="n">invoice</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
                 <span class="n">response</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Error in direct message callback: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span>
-            
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Agent response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error in direct message callback: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">response</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">invoice</span><span class="p">:</span>
@@ -421,15 +423,14 @@
 
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_note_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle incoming notes that match the filters.</span>
-<span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            event: The Nostr event containing the note.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">content</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">content</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received note from </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            
-            <span class="n">router_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent_router_v2</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
+
+            <span class="n">router_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent_router</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Router response: </span><span class="si">{</span><span class="n">router_response</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">router_response</span><span class="o">.</span><span class="n">can_handle</span><span class="p">:</span>
@@ -438,12 +439,12 @@
                 <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">if</span> <span class="n">router_response</span><span class="o">.</span><span class="n">cost_sats</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">invoice</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">nwc_relay</span><span class="o">.</span><span class="n">make_invoice</span><span class="p">(</span><span class="n">amount</span><span class="o">=</span><span class="n">router_response</span><span class="o">.</span><span class="n">cost_sats</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Payment to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">Please pay </span><span class="si">{</span><span class="n">router_response</span><span class="o">.</span><span class="n">cost_sats</span><span class="si">}</span><span class="s1"> sats: </span><span class="si">{</span><span class="n">invoice</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Please pay </span><span class="si">{</span><span class="n">router_response</span><span class="o">.</span><span class="n">cost_sats</span><span class="si">}</span><span class="s2"> sats: </span><span class="si">{</span><span class="n">invoice</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_paid_invoice</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">invoice</span><span class="p">,</span> <span class="n">router_response</span><span class="p">))</span>
 
                 <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">event_ref</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
                 <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
-            
+
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing note: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -451,31 +452,31 @@
 <a class="viewcode-back" href="../../agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.start">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the agent server, updating metadata and listening for direct messages and notes.&quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Updating metadata for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Updating metadata for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">update_metadata</span><span class="p">(</span>
-                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;agent_server&#39;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;agent_server&quot;</span><span class="p">,</span>
                 <span class="n">display_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                <span class="n">about</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">()</span>
+                <span class="n">about</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(),</span>
             <span class="p">)</span>
-        
+
         <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># Start note listener if filters are provided (in new thread)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Starting note listener with filters: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting note listener with filters: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">note_listener</span><span class="p">(</span>
                     <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_note_callback</span><span class="p">,</span>
                     <span class="n">pubkeys</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span><span class="o">.</span><span class="n">nostr_pubkeys</span><span class="p">,</span>
                     <span class="n">tags</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span><span class="o">.</span><span class="n">nostr_tags</span><span class="p">,</span>
-                    <span class="n">following_only</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span><span class="o">.</span><span class="n">following_only</span>
-                <span class="p">)</span>
+                    <span class="n">following_only</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span><span class="o">.</span><span class="n">following_only</span><span class="p">,</span>
+                <span class="p">),</span>
             <span class="p">)</span>
-        
+
         <span class="c1"># Start direct message listener</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Starting message listener for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting message listener for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">direct_message_listener</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_direct_message_callback</span><span class="p">))</span>
-        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span> </div>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

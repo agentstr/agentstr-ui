@@ -213,6 +213,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.nwc_relay.html">nwc_relay module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay.html">relay module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">relay_manager module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agentstr.tools.html">Tools Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tools Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.agno.html">Agno Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.dspy.html">DSPy Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agentstr.tools.langgraph.html">LangGraph Tool</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -250,87 +256,40 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for agentstr.nwc_relay</h1><div class="highlight"><pre>
-<span></span>
-<span class="sd">&quot;&quot;&quot;Nostr Wallet Connect (NWC) relay implementation for handling payments.&quot;&quot;&quot;</span>
-
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">bolt11.decode</span><span class="w"> </span><span class="kn">import</span> <span class="n">decode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.encrypted_dm</span><span class="w"> </span><span class="kn">import</span> <span class="n">EncryptedDirectMessage</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filters</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.key</span><span class="w"> </span><span class="kn">import</span> <span class="n">PrivateKey</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">secp256k1</span><span class="w"> </span><span class="kn">import</span> <span class="n">PublicKey</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">Crypto</span><span class="w"> </span><span class="kn">import</span> <span class="n">Random</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">Crypto.Cipher</span><span class="w"> </span><span class="kn">import</span> <span class="n">AES</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.relay</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventRelay</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.relay</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventRelay</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
-<span class="c1"># AES encryption constants</span>
-<span class="n">BS</span> <span class="o">=</span> <span class="mi">16</span>
-<span class="n">pad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">BS</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="n">BS</span><span class="p">)</span> <span class="o">*</span> <span class="nb">chr</span><span class="p">(</span><span class="n">BS</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="n">BS</span><span class="p">)</span>
-<span class="n">unpad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="nb">ord</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:])]</span>
 
 
 <div class="viewcode-block" id="encrypt">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.encrypt">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">encrypt</span><span class="p">(</span><span class="n">privkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pubkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">plaintext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encrypt plaintext using ECDH shared secret.</span>
-<span class="sd">    </span>
-<span class="sd">    Returns:</span>
-<span class="sd">        Base64-encoded ciphertext with IV as URL parameter</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="n">PublicKey</span><span class="p">(</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">&quot;02&quot;</span> <span class="o">+</span> <span class="n">pubkey</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tweak_mul</span><span class="p">(</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">privkey</span><span class="p">))</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">()[</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="n">key_bytes</span> <span class="o">=</span> <span class="mi">32</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">pad</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span>
-    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="n">key_bytes</span>
-
-    <span class="c1"># Choose a random, 16-byte IV.</span>
-    <span class="n">iv</span> <span class="o">=</span> <span class="n">Random</span><span class="o">.</span><span class="n">new</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">)</span>
-
-    <span class="c1"># Create AES-CTR cipher.</span>
-    <span class="n">aes</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
-
-    <span class="c1"># Encrypt and return IV and ciphertext.</span>
-    <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">aes</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span>
-
-    <span class="c1"># Convert to base64</span>
-    <span class="n">cipher_b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
-    <span class="n">cipher_iv</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">iv</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">cipher_b64</span> <span class="o">+</span> <span class="s2">&quot;?iv=&quot;</span> <span class="o">+</span> <span class="n">cipher_iv</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encrypt plaintext using ECDH shared secret.&quot;&quot;&quot;</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">EncryptedDirectMessage</span><span class="p">()</span>
+    <span class="n">dm</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">privkey</span><span class="p">,</span> <span class="n">cleartext_content</span><span class="o">=</span><span class="n">plaintext</span><span class="p">,</span> <span class="n">recipient_pubkey</span><span class="o">=</span><span class="n">pubkey</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dm</span><span class="o">.</span><span class="n">encrypted_message</span></div>
 
 
 
 <div class="viewcode-block" id="decrypt">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.decrypt">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">decrypt</span><span class="p">(</span><span class="n">privkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pubkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decrypt ciphertext using ECDH shared secret.</span>
-<span class="sd">    </span>
-<span class="sd">    Args:</span>
-<span class="sd">        ciphertext: Base64-encoded ciphertext with IV as URL parameter</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="n">PublicKey</span><span class="p">(</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s2">&quot;02&quot;</span> <span class="o">+</span> <span class="n">pubkey</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tweak_mul</span><span class="p">(</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">privkey</span><span class="p">))</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">()[</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="n">key_bytes</span> <span class="o">=</span> <span class="mi">32</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span> <span class="o">=</span> <span class="n">ciphertext</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;?iv=&quot;</span><span class="p">)</span>
-    <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">ciphertext</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
-    <span class="n">iv</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">iv</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="n">key_bytes</span>
-
-    <span class="c1"># Create AES-CTR cipher.</span>
-    <span class="n">aes</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
-
-    <span class="c1"># Decrypt and return the plaintext.</span>
-    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">aes</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
-    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">unpad</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">plaintext</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decrypt ciphertext using ECDH shared secret.&quot;&quot;&quot;</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">EncryptedDirectMessage</span><span class="p">()</span>
+    <span class="n">dm</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">privkey</span><span class="p">,</span> <span class="n">encrypted_message</span><span class="o">=</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">public_key_hex</span><span class="o">=</span><span class="n">pubkey</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dm</span><span class="o">.</span><span class="n">cleartext_content</span></div>
 
 
 
@@ -338,12 +297,11 @@
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.process_nwc_string">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">process_nwc_string</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse Nostr Wallet Connect connection string into its components.</span>
-<span class="sd">    </span>
 <span class="sd">    Returns:</span>
 <span class="sd">        Dictionary containing connection parameters</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">22</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;nostr+walletconnect://&quot;</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Your pairing string was invalid, try one that starts with this: nostr+walletconnect://&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Your pairing string was invalid, try one that starts with this: nostr+walletconnect://&quot;</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="mi">22</span><span class="p">:]</span>
     <span class="n">arr</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">)</span>
@@ -383,28 +341,26 @@
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NWCRelay</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Client for interacting with Nostr Wallet Connect (NWC) relays.</span>
-<span class="sd">    </span>
 <span class="sd">    Handles encrypted communication with wallet services over the Nostr network.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NWCRelay.__init__">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nwc_connection_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">relay</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nwc_connection_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">relay</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize NWC client with connection string and optional relay URL.</span>
-<span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            nwc_connection_string: NWC connection string (starts with &#39;nostr+walletconnect://&#39;)</span>
 <span class="sd">            relay: Optional relay URL override</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Initializing NWCRelay with connection string: </span><span class="si">{</span><span class="n">nwc_connection_string</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initializing NWCRelay with connection string: </span><span class="si">{</span><span class="n">nwc_connection_string</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span> <span class="o">=</span> <span class="n">process_nwc_string</span><span class="p">(</span><span class="n">nwc_connection_string</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">relay</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">relay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s1">&#39;relay&#39;</span><span class="p">]</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using relay: </span><span class="si">{</span><span class="n">relay</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">relay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;relay&quot;</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using relay: </span><span class="si">{</span><span class="n">relay</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">event_relay</span> <span class="o">=</span> <span class="n">EventRelay</span><span class="p">(</span><span class="n">relay</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">PrivateKey</span><span class="o">.</span><span class="n">from_hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">]))</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;NWCRelay initialized successfully&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;NWCRelay initialized successfully&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to initialize NWCRelay: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to initialize NWCRelay: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">raise</span></div>
 
 
@@ -416,9 +372,9 @@
             <span class="n">event_refs</span><span class="o">=</span><span class="p">[</span><span class="n">event_id</span><span class="p">],</span>
             <span class="n">pubkey_refs</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_pubkey&quot;</span><span class="p">]],</span>
             <span class="n">kinds</span><span class="o">=</span><span class="p">[</span><span class="mi">23195</span><span class="p">],</span>
-            <span class="n">limit</span><span class="o">=</span><span class="mi">1</span>
+            <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
             <span class="n">event</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_relay</span><span class="o">.</span><span class="n">get_event</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">close_on_eose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">event</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">event</span>
@@ -430,7 +386,6 @@
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.make_invoice">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">make_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new payment request.</span>
-<span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            Dictionary containing invoice details</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -441,7 +396,7 @@
                 <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
             <span class="p">}</span> <span class="k">if</span> <span class="n">amount</span> <span class="k">else</span> <span class="p">{</span>
                 <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
-            <span class="p">}</span>
+            <span class="p">},</span>
         <span class="p">})</span>
         <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
@@ -459,12 +414,12 @@
         <span class="n">ersp</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
         <span class="n">drsp</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">ersp</span><span class="p">)</span>
         <span class="n">dobj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">drsp</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dobj</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">][</span><span class="s1">&#39;invoice&#39;</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">dobj</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">][</span><span class="s2">&quot;invoice&quot;</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="NWCRelay.check_invoice">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.check_invoice">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">payment_hash</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">payment_hash</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check the status of an invoice by its payment hash or invoice string.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">invoice</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">payment_hash</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either &#39;invoice&#39; or &#39;payment_hash&#39; must be provided&quot;</span><span class="p">)</span>
@@ -477,9 +432,9 @@
 
         <span class="n">msg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
             <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;lookup_invoice&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">params</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span>
         <span class="p">})</span>
-        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">);</span>
+        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="mi">23194</span><span class="p">,</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">emsg</span><span class="p">,</span>
@@ -503,12 +458,11 @@
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.did_payment_succeed">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">did_payment_succeed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a payment was successful.</span>
-<span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            True if payment was successful, False otherwise</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">invoice_info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_invoice</span><span class="p">(</span><span class="n">invoice</span><span class="o">=</span><span class="n">invoice</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">invoice_info</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="s2">&quot;error&quot;</span> <span class="ow">in</span> <span class="n">invoice_info</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;result&quot;</span> <span class="ow">in</span> <span class="n">invoice_info</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">invoice_info</span> <span class="ow">and</span> <span class="s2">&quot;error&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">invoice_info</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;result&quot;</span> <span class="ow">in</span> <span class="n">invoice_info</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
                 <span class="s2">&quot;preimage&quot;</span> <span class="ow">in</span> <span class="n">invoice_info</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">])):</span>
             <span class="k">return</span> <span class="n">invoice_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;settled_at&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="kc">False</span></div>
@@ -516,27 +470,27 @@
 
 <div class="viewcode-block" id="NWCRelay.try_pay_invoice">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.try_pay_invoice">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">try_pay_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">try_pay_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Attempt to pay a BOLT11 invoice.</span>
-<span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            Dictionary with payment status and details</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">decoded</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">invoice</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">decoded</span><span class="o">.</span><span class="n">amount_msat</span> <span class="ow">and</span> <span class="n">amount</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">decoded</span><span class="o">.</span><span class="n">amount_msat</span> <span class="o">!=</span> <span class="n">amount</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">:</span>  <span class="c1"># convert to msats</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Amount in invoice [</span><span class="si">{</span><span class="n">decoded</span><span class="o">.</span><span class="n">amount_msat</span><span class="si">}</span><span class="s1">] does not match amount provided [</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Amount in invoice [</span><span class="si">{</span><span class="n">decoded</span><span class="o">.</span><span class="n">amount_msat</span><span class="si">}</span><span class="s2">] does not match amount provided [</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">decoded</span><span class="o">.</span><span class="n">amount_msat</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">amount</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;No amount provided in invoice and no amount provided to pay&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No amount provided in invoice and no amount provided to pay&quot;</span><span class="p">)</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;pay_invoice&quot;</span><span class="p">,</span>
             <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;invoice&quot;</span><span class="p">:</span> <span class="n">invoice</span><span class="p">,</span>
-            <span class="p">}</span>
+            <span class="p">},</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">amount</span><span class="p">):</span> <span class="n">msg</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">][</span><span class="s2">&quot;amount&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">amount</span> <span class="o">*</span> <span class="mi">1000</span>
+        <span class="k">if</span> <span class="n">amount</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">][</span><span class="s2">&quot;amount&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">amount</span> <span class="o">*</span> <span class="mi">1000</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">);</span>
+        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="mi">23194</span><span class="p">,</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">emsg</span><span class="p">,</span>
@@ -553,10 +507,10 @@
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get wallet service information and capabilities.&quot;&quot;&quot;</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;get_info&quot;</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;get_info&quot;</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">);</span>
+        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="mi">23194</span><span class="p">,</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">emsg</span><span class="p">,</span>
@@ -577,16 +531,16 @@
 
 <div class="viewcode-block" id="NWCRelay.list_transactions">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.list_transactions">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_transactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;List recent transactions matching the given parameters.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;list_transactions&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">params</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">);</span>
+        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="mi">23194</span><span class="p">,</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">emsg</span><span class="p">,</span>
@@ -602,7 +556,7 @@
         <span class="n">ersp</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
         <span class="n">drsp</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">ersp</span><span class="p">)</span>
         <span class="n">dobj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">drsp</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dobj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;transactions&#39;</span><span class="p">,</span> <span class="p">[])</span></div>
+        <span class="k">return</span> <span class="n">dobj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;transactions&quot;</span><span class="p">,</span> <span class="p">[])</span></div>
 
 
 <div class="viewcode-block" id="NWCRelay.get_balance">
@@ -610,10 +564,10 @@
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current wallet balance.&quot;&quot;&quot;</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;get_balance&quot;</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;get_balance&quot;</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">);</span>
+        <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="mi">23194</span><span class="p">,</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">emsg</span><span class="p">,</span>
@@ -629,7 +583,7 @@
         <span class="n">ersp</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
         <span class="n">drsp</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">ersp</span><span class="p">)</span>
         <span class="n">dobj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">drsp</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dobj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;balance&#39;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">dobj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;balance&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="NWCRelay.on_payment_success">
@@ -637,17 +591,14 @@
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_payment_success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unsuccess_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Listen for payment success for a given invoice.</span>
-
 <span class="sd">        This method continuously checks for payment success until either the payment</span>
 <span class="sd">        is confirmed or the timeout is reached.</span>
-
 <span class="sd">        Args:</span>
 <span class="sd">            invoice (str): The BOLT11 invoice string to listen for.</span>
 <span class="sd">            callback (callable, optional): A function to call when payment succeeds.</span>
 <span class="sd">            unsuccess_callback (callable, optional): A function to call if payment fails.</span>
 <span class="sd">            timeout (int, optional): Maximum time to wait in seconds (default: 300).</span>
 <span class="sd">            interval (int, optional): Time between checks in seconds (default: 2).</span>
-
 <span class="sd">        Raises:</span>
 <span class="sd">            Exception: If the callback function raises an exception.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
