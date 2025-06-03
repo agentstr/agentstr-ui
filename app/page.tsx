@@ -164,7 +164,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="text-center mb-8 mt-16">
+          <div className="text-center mb-4 mt-16">
             <h2 className="text-3xl font-bold text-white mb-4">AI Agnostic</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
@@ -172,7 +172,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-14 max-w-2xl mx-auto">
+          <div className="mt-8 max-w-2xl mx-auto">
             <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
               <h4 className="text-xl mb-6 font-bold text-foreground text-center w-full">Protocols</h4>
 
