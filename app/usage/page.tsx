@@ -548,7 +548,7 @@ if __name__ == "__main__":
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr OpenAI Agent</h2>
               <p className="text-gray-400 mb-4">
-                Use OpenAI's <a className="text-indigo-400 hover:text-white" href="https://openai.github.io/openai-agents-python/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+                Use OpenAI&apos;s <a className="text-indigo-400 hover:text-white" href="https://openai.github.io/openai-agents-python/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
