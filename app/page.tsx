@@ -138,15 +138,13 @@ export default function Home() {
               See the <a className="text-primary hover:underline" href="/usage">usage</a> page for code samples.
             </p>
           </div>
-          <div className="mt-16">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-white mb-4">Additional Benefits</h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
-              </div>
+          <div className="mt-16 bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-white mb-4">Additional Benefits</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
             </div>
             
-            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
                 <div className="flex items-center mb-6">
