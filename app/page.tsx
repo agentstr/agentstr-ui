@@ -180,7 +180,7 @@ export default function Home() {
                 <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
                 <a href="https://google-a2a.github.io/A2A/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">A2A</a>
               </div>
-              <h4 className="text-xl mb-4 mt-8 font-bold text-foreground text-center w-full">Frameworks</h4>
+              <h4 className="text-xl mb-4 mt-6 font-bold text-foreground text-center w-full">Frameworks</h4>
               <div className="flex flex-wrap gap-3 justify-center">
                 <a href="https://docs.agno.com/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agno</a>
                 <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
