@@ -9,7 +9,7 @@ export default function Home() {
           </h1>
 
           <p className="mt-3 text-base text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
-            A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, and integrates seamlessly with leading AI frameworks.
+            A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, Agentstr provides a framework to participate in a future economy.
           </p>
 
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
@@ -38,6 +38,7 @@ export default function Home() {
           </div>
           <div className="mt-16 max-w-4xl mx-auto">
 
+            <h2 className="text-2xl font-bold text-foreground mb-8 text-center">What is Agentstr?</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="bg-card/95 p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
@@ -71,28 +72,55 @@ export default function Home() {
               </div>
             </div>
 
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-white mb-4">Features</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
+              <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Powerful capabilities to build fully autonomous decentralized agents
+              </p>
+            </div>
             <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50">
-              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Agentic Frameworks</h3>
-              <p className="text-foreground-light mb-6 text-center">
-                Agentstr SDK seamlessly connects with leading AI frameworks:
-              </p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
-                <a href="https://google-a2a.github.io/A2A/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">A2A</a>
-                <a href="https://docs.agno.com/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agno</a>
-                <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
-                <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
-                <a href="https://ai.pydantic.dev/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">PydanticAI</a>
+              <h3 className="text-2xl font-bold text-foreground mb-8 text-center">Full-Stack Decentralization</h3>
+              
+              <div className="max-w-2xl mx-auto space-y-6">
+                {/* AI Routing Layer */}
+                <div className="bg-card/50 p-4 rounded-lg border border-border/30">
+                  <h4 className="font-semibold text-foreground text-center mb-2">Routstr - LLM Routing Layer</h4>
+                  <p className="text-foreground-light text-center">
+                    <a href="https://www.routstr.com/" className="text-primary hover:underline">Routstr</a> provides decentralized, private LLM routing and access.
+                  </p>
+                </div>
+                
+                {/* Transaction Layer */}
+                <div className="bg-card/50 p-4 rounded-lg border border-border/30">
+                  <h4 className="font-semibold text-foreground text-center mb-2">Lightning - Transaction Layer</h4>
+                  <p className="text-foreground-light text-center">
+                    <a href="https://lightning.network/" className="text-primary hover:underline">Lightning</a> enables instant, low-cost microtransactions between users, agents, and tools.
+                  </p>
+                </div>
+
+                {/* Communication Layer */}
+                <div className="bg-card/50 p-4 rounded-lg border border-border/30">
+                  <h4 className="font-semibold text-foreground text-center mb-2">Nostr - Communication Layer</h4>
+                  <p className="text-foreground-light text-center">
+                    <a href="https://nostr.com/" className="text-primary hover:underline">Nostr</a> enables decentralized, censorship-resistant messaging between users, agents, and tools.
+                  </p>
+                </div>              
+                
+                {/* Settlement Layer */}
+                <div className="bg-card/50 p-4 rounded-lg border border-border/30">
+                  <h4 className="font-semibold text-foreground text-center mb-2">Bitcoin - Settlement Layer</h4>
+                  <p className="text-foreground-light text-center">
+                    <a href="https://bitcoin.org/" className="text-primary hover:underline">Bitcoin</a> provides the ultimate settlement layer with unmatched security and decentralization.
+                  </p>
+                </div>
               </div>
-              <p className="text-foreground-light mt-6 text-center">
-                To ensure full stack decentralization, it is recommended to use <a className="text-primary hover:text-white" href="https://www.routstr.com/">Routstr</a> as your LLM provider.
-              </p>
             </div>
 
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50">
-              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Full Stack Decentralization</h3>
+            <div className="mt-8 bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50">
+              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Agentic Frameworks</h3>
               <p className="text-foreground-light mb-6 text-center">
-                Agentstr SDK seamlessly connects with leading AI frameworks:
+                Agentstr SDK seamlessly connects with leading AI protocols and frameworks:
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
@@ -102,21 +130,12 @@ export default function Home() {
                 <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
                 <a href="https://ai.pydantic.dev/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">PydanticAI</a>
               </div>
-              <p className="text-foreground-light mt-6 text-center">
-                To ensure full stack decentralization, it is recommended to use <a className="text-primary hover:text-white" href="https://www.routstr.com/">Routstr</a> as your LLM provider.
-              </p>
             </div>
+                        
           </div>          
         </div>
 
         <div className="mt-24 max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">Features</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Powerful capabilities to build fully autonomous decentralized agents
-            </p>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
@@ -152,7 +171,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold text-foreground">Python SDK</h3>
               </div>
-              <p className="text-foreground-light flex-grow">A full-featured, open-source, and asynchronous <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk">Python SDK</a> that makes it easy to build performant agentic applications on Nostr and Lightning with minimal boilerplate.</p>
+              <p className="text-foreground-light flex-grow">A full-featured, open-source, and asynchronous <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk">Python SDK</a> that makes it easy to build performant agentic applications on Nostr and Lightning.</p>
             </div>
 
             <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
