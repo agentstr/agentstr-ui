@@ -68,6 +68,9 @@ export default function UsagePage() {
                   <a href="#nostr-mcp-client" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Client</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#lightning-integration" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Lightning Integration</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-tool-discovery" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Tool Discovery</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
@@ -217,6 +220,77 @@ async def run()   :
 if __name__ == "__main__":
     import asyncio
     asyncio.run(run())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="lightning-integration" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Lightning Integration</h2>
+              <p className="text-gray-400 mb-4">
+                Nostr MCP servers and agents can require Lightning payments to pay for various tools and services. Agentstr leverages <a className="text-indigo-400 hover:text-white" href="https://nwc.dev/">Nostr Wallet Connect</a> to streamline this process.
+              </p>
+              <p className="text-gray-400 mb-4">
+                Each tool can specify a <code>satoshis</code> parameter to indicate the amount of sats required to use the tool.
+              </p>  
+
+              <p className="text-gray-400 mb-4"></p>
+              <CodeBlock
+                language="python"
+                value={`# To enable Nostr Wallet Connect
+nwc_str = os.getenv('MCP_SERVER_NWC_CONN_STR')
+
+# Define premium tool
+async def premium_tool(a: int, b: int) -> str:
+    """Do something awesome."""
+    return "bar"
+
+# Define the server
+server = NostrMCPServer(
+    "My Premium Tools", 
+    relays=...,
+    private_key=...,
+    nwc_str=nwc_str
+)
+
+# Add tools
+server.add_tool(premium_tool, satoshis=100) # Premium tool`}
+              />
+              <p className="text-gray-400 mb-4 mt-4">
+                Agents can also specify a <code>satoshis</code> parameter to indicate the amount of sats required to use a particular skill of the agent.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`# To enable Nostr Wallet Connect
+nwc_str = os.getenv('AGENT_NWC_CONN_STR')
+
+# Define agent info
+agent_info = AgentCard(
+    name='Travel Agent',
+    description=('This agent can help you find, book, and manage flights.'),
+    skills=[Skill(name='book_flight',
+                  description='Book a flight on behalf of a user.', 
+                  satoshis=25),
+            Skill(name='show_itinerary', 
+                  description='Show the itinerary for the user.', 
+                  satoshis=0),
+            Skill(name='search_flights', 
+                  description='Search for flights that matches users\' request.', 
+                  satoshis=0),
+            Skill(name='cancel_itinerary', 
+                  description='Cancel an itinerary on behalf of the user.', 
+                  satoshis=0),
+            ],
+    satoshis=0,
+    nostr_pubkey=...,
+)
+
+# Define the server
+server = NostrAgentServer(nwc_str=nwc_str,
+                          agent_info=agent_info,
+                          ...)`}
               />
             </div>
           </div>
