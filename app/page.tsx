@@ -9,7 +9,7 @@ export default function Home() {
           </h1>
 
           <p className="mt-3 text-base text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
-            A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, Agentstr empowers every entity (AI and Human) to produce and consume value in the Internet economy.
+            A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, Agentstr empowers every entity (AI and Human) to produce and consume value in the online economy.
           </p>
 
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
@@ -39,7 +39,7 @@ export default function Home() {
         </div>
         <div className="mt-16 text-center max-w-4xl mx-auto">
 
-          <h2 className="text-3xl font-bold text-white mb-4">What is Agentstr?</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-10 rounded-full"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -50,7 +50,7 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Decentralized</h3>
-              <p className="text-foreground-light text-center">Built on the Nostr protocol and Lightning network for permissionless agents.</p>
+              <p className="text-foreground-light text-center">Built on the Nostr protocol and Lightning network to create truly permissionless agents.</p>
             </div>
 
             <div className="bg-card/95 p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
@@ -60,7 +60,7 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Multi-Framework</h3>
-              <p className="text-foreground-light text-center">Supports Agno, DSPy, LangGraph, and PydanticAI for flexible agent development.</p>
+              <p className="text-foreground-light text-center">Supports Agno, DSPy, LangGraph, and more for flexible agent development.</p>
             </div>
 
             <div className="bg-card/95 p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
@@ -98,7 +98,7 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="text-foreground-light text-center">
-                  Routstr provides decentralized, private LLM routing and access.
+                  Routstr provides decentralized, private LLM routing and access. Get started at <a className="text-primary hover:text-white" href="https://routstr.com">routstr.com</a>.
                 </p>
               </div>
               
@@ -201,29 +201,6 @@ export default function Home() {
             
             <div className="max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">Agentic Architecture</h3>
-                </div>
-                <p className="text-foreground-light flex-grow">Build intelligent, autonomous agents that interact with the decentralized world. Supports <a className="text-primary hover:text-white" href="https://docs.anthropic.com/en/docs/agents-and-tools/mcp">MCP</a> and <a className="text-primary hover:text-white" href="https://google-a2a.github.io/A2A/">A2A</a> protocols for seamless integration.</p>
-              </div>
-
-              <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">Censorship Resistance</h3>
-                </div>
-                <p className="text-foreground-light flex-grow">Built on decentralized protocols like <a className="text-primary hover:text-white" href="https://nostr.com/">Nostr</a>, <a className="text-primary hover:text-white" href="https://lightning.network/">Lightning</a>, and <a href="https://www.routstr.com/" className="text-primary hover:underline">Routstr</a>, Agentstr is designed for censorship resistance and privacy.</p>
-              </div>
 
               <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
                 <div className="flex items-center mb-6">
