@@ -178,6 +178,7 @@ export default function Home() {
                 <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
                 <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
                 <a href="https://ai.pydantic.dev/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">PydanticAI</a>
+                <a href="https://openai.github.io/openai-agents-python/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agents SDK</a>               
               </div>
               <p className="text-foreground-light mt-6 text-center">
                 See the <a className="text-primary hover:underline" href="/usage">usage</a> page for code samples.

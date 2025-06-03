@@ -83,6 +83,9 @@ export default function UsagePage() {
                   <a href="#nostr-pydantic-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr PydanticAI Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-openai-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr OpenAI Agent</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-rag" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
                 </div>
               </div>
@@ -527,6 +530,80 @@ async def agent_server():
     server = NostrAgentServer(relays=relays,
                               private_key=private_key,
                               agent_callable=agent_callable)
+
+    # Start server
+    await server.start()
+
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(agent_server())`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="nostr-openai-agent" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr OpenAI Agent</h2>
+              <p className="text-gray-400 mb-4">
+                Use OpenAI's <a className="text-indigo-400 hover:text-white" href="https://openai.github.io/openai-agents-python/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`import os
+
+from agents import Runner, Agent, AsyncOpenAI, OpenAIChatCompletionsModel
+from agentstr import ChatInput, NostrAgentServer, NostrMCPClient
+from agentstr.mcp.openai import to_openai_tools
+
+# Get the environment variables
+relays = os.getenv("NOSTR_RELAYS").split(",")
+private_key = os.getenv("EXAMPLE_OPENAI_AGENT_NSEC")
+mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
+
+# Enable lightning payments
+nwc_str = os.getenv("MCP_CLIENT_NWC_CONN_STR")
+
+# Create Nostr MCP client
+nostr_mcp_client = NostrMCPClient(relays=relays,
+                                  private_key=private_key,
+                                  mcp_pubkey=mcp_server_pubkey,
+                                  nwc_str=nwc_str)
+
+
+async def agent_server():
+    # Define tools
+    openai_tools = await to_openai_tools(nostr_mcp_client)
+
+    for tool in openai_tools:
+        print(f'Found {tool.name}: {tool.description}')
+
+    # Define OpenAI agent
+    agent = Agent(
+        name="OpenAI Agent",
+        instructions="You are a helpful assistant.",
+        model=OpenAIChatCompletionsModel(
+            model=os.getenv("LLM_MODEL_NAME"),
+            openai_client=AsyncOpenAI(
+                base_url=os.getenv("LLM_BASE_URL"),
+                api_key=os.getenv("LLM_API_KEY"),
+            )
+        ),
+        tools=openai_tools,
+    )
+
+    # Define agent callable
+    async def agent_callable(input: ChatInput) -> str:
+        result = await Runner.run(agent, input=input.messages[-1])
+        return result.final_output
+
+    # Create Nostr Agent Server
+    server = NostrAgentServer(relays=relays,
+                              private_key=private_key,
+                              agent_callable=agent_callable,
+                              nwc_str=nwc_str)
 
     # Start server
     await server.start()
