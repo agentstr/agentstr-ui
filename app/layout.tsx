@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeWrapper from "../components/ThemeWrapper";
+import ScrollFooter from "../components/ScrollFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,12 @@ export default function RootLayout({
     <html lang="en" className="dark" style={{colorScheme: "dark"}}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}>
         <ThemeWrapper>
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-grow">
+              {children}
+            </main>
+            <ScrollFooter />
+          </div>
         </ThemeWrapper>
       </body>
     </html>
