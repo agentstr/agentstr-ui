@@ -75,20 +75,12 @@ export default function Home() {
           </div>
 
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Full-Stack Decentralization</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Powerful capabilities to build fully autonomous decentralized agents
+            Every layer of the stack is decentralized, from the AI routing layer to the transaction settlement layer.
             </p>
           </div>
-          <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
-            <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Full-Stack Decentralization</h3>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
-
-            <p className="text-foreground-light text-center mt-8 mb-8">
-              Every layer of the stack is decentralized, from the AI routing layer to the transaction settlement layer.
-            </p>
-
             <div className="max-w-2xl mx-auto space-y-6">
               {/* AI Routing Layer */}
               <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
@@ -152,25 +144,27 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
-            <h3 className="text-2xl font-bold text-foreground mb-4 text-center">AI Agnostic</h3>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-10 rounded-full"></div>
-            <p className="text-foreground-light mb-6 text-center">
-              Agentstr SDK seamlessly connects with leading AI protocols and frameworks:
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
-              <a href="https://google-a2a.github.io/A2A/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">A2A</a>
-              <a href="https://docs.agno.com/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agno</a>
-              <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
-              <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
-              <a href="https://ai.pydantic.dev/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">PydanticAI</a>
+          <div className="mt-8 max-w-3xl mx-auto">
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">AI Agnostic</h3>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
+              <p className="text-foreground-light mb-6 text-center">
+                Agentstr SDK seamlessly connects with leading AI protocols and frameworks:
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
+                <a href="https://google-a2a.github.io/A2A/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">A2A</a>
+                <a href="https://docs.agno.com/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agno</a>
+                <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
+                <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
+                <a href="https://ai.pydantic.dev/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">PydanticAI</a>
+              </div>
+              <p className="text-foreground-light mt-6 text-center">
+                See the <a className="text-primary hover:underline" href="/usage">usage</a> page for code samples.
+              </p>
             </div>
-            <p className="text-foreground-light mt-6 text-center">
-              See the <a className="text-primary hover:underline" href="/usage">usage</a> page for code samples.
-            </p>
           </div>
-          <div className="mt-16 bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+          <div className="mt-16 bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">Additional Benefits</h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
@@ -229,7 +223,6 @@ export default function Home() {
           </div>
         </div>
         </div>
-      </div>
     </main>
   );
 }
