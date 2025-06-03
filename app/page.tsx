@@ -164,7 +164,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="mt-16 bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+          <div className="mt-16 bg-gradient-to-r from-card to-card/80 rounded-2xl border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">Additional Benefits</h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
