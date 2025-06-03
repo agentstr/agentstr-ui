@@ -82,8 +82,12 @@ export default function Home() {
             </p>
           </div>
           <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
-            <h3 className="text-2xl font-bold text-foreground mb-8 text-center">Full-Stack Decentralization</h3>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-10 rounded-full"></div>
+            <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Full-Stack Decentralization</h3>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
+
+            <p className="text-foreground-light text-center mt-8 mb-8">
+              Every layer of the stack is decentralized, from the AI routing layer to the transaction settlement layer.
+            </p>
 
             <div className="max-w-2xl mx-auto space-y-6">
               {/* AI Routing Layer */}
