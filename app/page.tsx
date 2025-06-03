@@ -173,20 +173,21 @@ export default function Home() {
           </div>
 
           <div className="mt-8 max-w-2xl mx-auto">
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
-              <h4 className="text-xl mb-6 font-bold text-foreground text-center w-full">Protocols</h4>
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 pt-6 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+              <h4 className="text-xl mb-4 font-bold text-foreground text-center w-full">Protocols</h4>
 
               <div className="flex flex-wrap gap-3 justify-center">
                 <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
                 <a href="https://google-a2a.github.io/A2A/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">A2A</a>
               </div>
-              <h4 className="text-xl mb-6 mt-8 font-bold text-foreground text-center w-full">Frameworks</h4>
+              <h4 className="text-xl mb-4 mt-8 font-bold text-foreground text-center w-full">Frameworks</h4>
               <div className="flex flex-wrap gap-3 justify-center">
                 <a href="https://docs.agno.com/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agno</a>
                 <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
                 <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
                 <a href="https://ai.pydantic.dev/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">PydanticAI</a>
                 <a href="https://openai.github.io/openai-agents-python/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agents SDK</a>               
+                <a href="https://google.github.io/adk-docs/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Google ADK</a>               
               </div>
               <p className="text-foreground-light mt-6 text-center">
                 See the <a className="text-primary hover:underline" href="/usage">usage</a> page for code samples.
