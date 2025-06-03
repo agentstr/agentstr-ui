@@ -84,13 +84,13 @@ export default function Home() {
             <div className="max-w-2xl mx-auto space-y-6">
               {/* AI Routing Layer */}
               <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                <div className="flex items-center justify-center mb-1">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="flex flex-col items-center mb-1">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <h4 className="text-xl font-bold text-foreground">Routstr</h4>
+                  <h4 className="text-xl font-bold text-foreground text-center w-full">Routstr</h4>
                 </div>
                 <div className="text-center mb-3">
                   <span className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">
@@ -104,13 +104,13 @@ export default function Home() {
               
               {/* Transaction Layer */}
               <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                <div className="flex items-center justify-center mb-1">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="flex flex-col items-center mb-1">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
-                  <h4 className="text-xl font-bold text-foreground">Lightning</h4>
+                  <h4 className="text-xl font-bold text-foreground text-center w-full">Lightning</h4>
                 </div>
                 <div className="text-center mb-3">
                   <span className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">
@@ -124,13 +124,13 @@ export default function Home() {
 
               {/* Communication Layer */}
               <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                <div className="flex items-center justify-center mb-1">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="flex flex-col items-center mb-1">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                     </svg>
                   </div>
-                  <h4 className="text-xl font-bold text-foreground">Nostr</h4>
+                  <h4 className="text-xl font-bold text-foreground text-center w-full">Nostr</h4>
                 </div>
                 <div className="text-center mb-3">
                   <span className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">
@@ -144,13 +144,13 @@ export default function Home() {
               
               {/* Settlement Layer */}
               <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                <div className="flex items-center justify-center mb-1">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                <div className="flex flex-col items-center mb-1">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h4 className="text-xl font-bold text-foreground">Bitcoin</h4>
+                  <h4 className="text-xl font-bold text-foreground text-center w-full">Bitcoin</h4>
                 </div>
                 <div className="text-center mb-3">
                   <span className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">
@@ -164,16 +164,24 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 max-w-3xl mx-auto">
+          <div className="text-center mb-8 mt-16">
+            <h2 className="text-3xl font-bold text-white mb-4">AI Agnostic</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Agentstr SDK seamlessly integrates with popular AI protocols and frameworks.
+            </p>
+          </div>
+
+          <div className="mt-14 max-w-2xl mx-auto">
             <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
-              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">AI Agnostic</h3>
-              <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
-              <p className="text-foreground-light mb-6 text-center">
-                Agentstr SDK seamlessly connects with leading AI protocols and frameworks:
-              </p>
+              <h4 className="text-xl mb-6 font-bold text-foreground text-center w-full">Protocols</h4>
+
               <div className="flex flex-wrap gap-3 justify-center">
                 <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
                 <a href="https://google-a2a.github.io/A2A/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">A2A</a>
+              </div>
+              <h4 className="text-xl mb-6 mt-8 font-bold text-foreground text-center w-full">Frameworks</h4>
+              <div className="flex flex-wrap gap-3 justify-center">
                 <a href="https://docs.agno.com/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agno</a>
                 <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
                 <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
