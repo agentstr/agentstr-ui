@@ -208,6 +208,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.agno.html">Agno Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.google.html">Google Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.openai.html">OpenAI Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
@@ -274,8 +275,6 @@
 
 
 
-<div class="viewcode-block" id="_convert_call_tool_result">
-<a class="viewcode-back" href="../../../agentstr.mcp.langgraph.html#agentstr.mcp.langgraph._convert_call_tool_result">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_convert_call_tool_result</span><span class="p">(</span>
     <span class="n">call_tool_result</span><span class="p">:</span> <span class="n">CallToolResult</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="n">NonTextContent</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
@@ -309,8 +308,7 @@
     <span class="k">if</span> <span class="n">call_tool_result</span><span class="o">.</span><span class="n">isError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">ToolException</span><span class="p">(</span><span class="n">tool_content</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">tool_content</span><span class="p">,</span> <span class="n">non_text_contents</span> <span class="ow">or</span> <span class="kc">None</span></div>
-
+    <span class="k">return</span> <span class="n">tool_content</span><span class="p">,</span> <span class="n">non_text_contents</span> <span class="ow">or</span> <span class="kc">None</span>
 
 
 <div class="viewcode-block" id="to_langgraph_tools">

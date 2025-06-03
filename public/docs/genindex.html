@@ -207,6 +207,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.agno.html">Agno Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.dspy.html">DSPy Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.google.html">Google Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.openai.html">OpenAI Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
@@ -265,9 +266,11 @@
   <h2>_</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.__init__">__init__() (agentstr.nostr_agent_server.NostrAgentServer method)</a>
+        <li><a href="agentstr.mcp.google.html#agentstr.mcp.google.NostrMCPTool.__init__">__init__() (agentstr.mcp.google.NostrMCPTool method)</a>
 
         <ul>
+          <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.__init__">(agentstr.nostr_agent_server.NostrAgentServer method)</a>
+</li>
           <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.__init__">(agentstr.nostr_client.NostrClient method)</a>
 </li>
           <li><a href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient.__init__">(agentstr.nostr_mcp_client.NostrMCPClient method)</a>
@@ -283,10 +286,6 @@
           <li><a href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.__init__">(agentstr.relay_manager.RelayManager method)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.mcp.langgraph.html#agentstr.mcp.langgraph._convert_call_tool_result">_convert_call_tool_result() (in module agentstr.mcp.langgraph)</a>
-</li>
     </ul></td>
   </tr></table>
 </section>
@@ -334,6 +333,13 @@
 
         <ul>
           <li><a href="agentstr.mcp.dspy.html#module-agentstr.mcp.dspy">module</a>
+</li>
+        </ul></li>
+        <li>
+    agentstr.mcp.google
+
+        <ul>
+          <li><a href="agentstr.mcp.google.html#module-agentstr.mcp.google">module</a>
 </li>
         </ul></li>
         <li>
@@ -615,6 +621,8 @@
 </li>
           <li><a href="agentstr.mcp.dspy.html#module-agentstr.mcp.dspy">agentstr.mcp.dspy</a>
 </li>
+          <li><a href="agentstr.mcp.google.html#module-agentstr.mcp.google">agentstr.mcp.google</a>
+</li>
           <li><a href="agentstr.mcp.langgraph.html#module-agentstr.mcp.langgraph">agentstr.mcp.langgraph</a>
 </li>
           <li><a href="agentstr.mcp.openai.html#module-agentstr.mcp.openai">agentstr.mcp.openai</a>
@@ -662,13 +670,15 @@
 </li>
         <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer">NostrAgentServer (class in agentstr.nostr_agent_server)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient">NostrClient (class in agentstr.nostr_client)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient">NostrMCPClient (class in agentstr.nostr_mcp_client)</a>
 </li>
         <li><a href="agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer">NostrMCPServer (class in agentstr.nostr_mcp_server)</a>
+</li>
+        <li><a href="agentstr.mcp.google.html#agentstr.mcp.google.NostrMCPTool">NostrMCPTool (class in agentstr.mcp.google)</a>
 </li>
         <li><a href="agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG">NostrRAG (class in agentstr.nostr_rag)</a>
 </li>
@@ -728,10 +738,10 @@
           <li><a href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.receive_message">(agentstr.relay_manager.RelayManager method)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.relay_manager">relay_manager (agentstr.nostr_client.NostrClient property)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager">RelayManager (class in agentstr.relay_manager)</a>
 </li>
         <li><a href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.relays">relays (agentstr.relay_manager.RelayManager property)</a>
@@ -739,6 +749,8 @@
         <li><a href="agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.retrieve">retrieve() (agentstr.nostr_rag.NostrRAG method)</a>
 </li>
         <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse">RouterResponse (class in agentstr.a2a)</a>
+</li>
+        <li><a href="agentstr.mcp.google.html#agentstr.mcp.google.NostrMCPTool.run_async">run_async() (agentstr.mcp.google.NostrMCPTool method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -805,6 +817,8 @@
         <li><a href="agentstr.mcp.agno.html#agentstr.mcp.agno.to_agno_tools">to_agno_tools() (in module agentstr.mcp.agno)</a>, <a href="agentstr.mcp.agno.html#id0">[1]</a>
 </li>
         <li><a href="agentstr.mcp.dspy.html#agentstr.mcp.dspy.to_dspy_tools">to_dspy_tools() (in module agentstr.mcp.dspy)</a>, <a href="agentstr.mcp.dspy.html#id0">[1]</a>
+</li>
+        <li><a href="agentstr.mcp.google.html#agentstr.mcp.google.to_google_tools">to_google_tools() (in module agentstr.mcp.google)</a>, <a href="agentstr.mcp.google.html#id0">[1]</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
