@@ -365,7 +365,8 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A signed Nostr event.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Signing event in nwc_relay: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="o">**</span><span class="n">event</span><span class="p">)</span>
     <span class="n">event</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">private_key</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">event</span></div>
 
@@ -443,14 +444,17 @@
             <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()),</span>
             <span class="s2">&quot;pubkey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_pubkey&quot;</span><span class="p">],</span>
         <span class="p">}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sending invoice request: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">event</span> <span class="o">=</span> <span class="n">get_signed_event</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">])</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_relay</span><span class="o">.</span><span class="n">send_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to receive invoice response&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">ersp</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
         <span class="n">drsp</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">ersp</span><span class="p">)</span>
         <span class="n">dobj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">drsp</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received invoice response: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dobj</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">dobj</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">][</span><span class="s2">&quot;invoice&quot;</span><span class="p">]</span></div>
 
 
