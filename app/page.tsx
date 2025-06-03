@@ -37,10 +37,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-16 max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">Agentstr SDK Overview</h2>
 
-            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="bg-card/95 p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
@@ -75,9 +72,27 @@ export default function Home() {
             </div>
 
             <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50">
-              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Key Integrations</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Agentic Frameworks</h3>
               <p className="text-foreground-light mb-6 text-center">
-                Agentstr SDK seamlessly connects with leading protocols and frameworks:
+                Agentstr SDK seamlessly connects with leading AI frameworks:
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
+                <a href="https://google-a2a.github.io/A2A/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">A2A</a>
+                <a href="https://docs.agno.com/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agno</a>
+                <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
+                <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
+                <a href="https://ai.pydantic.dev/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">PydanticAI</a>
+              </div>
+              <p className="text-foreground-light mt-6 text-center">
+                To ensure full stack decentralization, it is recommended to use <a className="text-primary hover:text-white" href="https://www.routstr.com/">Routstr</a> as your LLM provider.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 border border-border/50">
+              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Full Stack Decentralization</h3>
+              <p className="text-foreground-light mb-6 text-center">
+                Agentstr SDK seamlessly connects with leading AI frameworks:
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
@@ -94,49 +109,66 @@ export default function Home() {
           </div>          
         </div>
 
-        <div className="mt-20">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-12">Key Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Agentic Architecture</h3>
-              <p className="text-foreground-light">Build intelligent, autonomous agents that interact with the decentralized world.  <a className="text-indigo-400 hover:text-white" href="https://docs.anthropic.com/en/docs/agents-and-tools/mcp">MCP</a> and <a className="text-indigo-400 hover:text-white" href="https://google-a2a.github.io/A2A/">A2A</a> enabled.</p>
+        <div className="mt-24 max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-white mb-4">Features</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Powerful capabilities to build fully autonomous decentralized agents
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">Agentic Architecture</h3>
+              </div>
+              <p className="text-foreground-light flex-grow">Build intelligent, autonomous agents that interact with the decentralized world. Supports <a className="text-primary hover:text-white" href="https://docs.anthropic.com/en/docs/agents-and-tools/mcp">MCP</a> and <a className="text-primary hover:text-white" href="https://google-a2a.github.io/A2A/">A2A</a> protocols for seamless agent communication and tool use.</p>
             </div>
-            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Censorship Resistance</h3>
-              <p className="text-foreground-light">Built entirely on decentralized protocols, Agentstr provides robust censorship resistance and privacy.</p>
+
+            <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">Censorship Resistance</h3>
+              </div>
+              <p className="text-foreground-light flex-grow">Built on decentralized protocols like <a className="text-primary hover:text-white" href="https://nostr.com/">Nostr</a> and <a className="text-primary hover:text-white" href="https://lightning.network/">Lightning</a>, Agentstr provides robust censorship resistance and privacy by design, ensuring your applications remain accessible and secure.</p>
             </div>
-            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Python SDK</h3>
-              <p className="text-foreground-light">A full-featured, open-source, and asynchronous <a className="text-indigo-400 hover:text-white" href="https://github.com/agentstr/agentstr-sdk">Python SDK</a> to build performant agentic applications on Nostr.</p>
+
+            <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">Python SDK</h3>
+              </div>
+              <p className="text-foreground-light flex-grow">A full-featured, open-source, and asynchronous <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk">Python SDK</a> that makes it easy to build performant agentic applications on Nostr and Lightning with minimal boilerplate.</p>
             </div>
-            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Documentation</h3>
-              <p className="text-foreground-light">Comprehensive <a className="text-indigo-400 hover:text-white" href="/docs">documentation</a> to help you get started building decentralized applications quickly.</p>
+
+            <div className="bg-card/95 p-8 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">Comprehensive Docs</h3>
+              </div>
+              <p className="text-foreground-light flex-grow">Extensive <a className="text-primary hover:text-white" href="/docs">documentation</a>, guides, and examples to help you quickly get started building decentralized applications with Agentstr.</p>
             </div>
           </div>
         </div>
 
-        <div className="mt-20">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-12">Integrations</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Nostr Integration</h3>
-              <p className="text-foreground-light">Seamlessly integrate with the <a className="text-indigo-400 hover:text-white" href="https://nostr.com/">Nostr</a> protocol to build decentralized agents and tools.</p>
-            </div>
-            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Lightning Integration</h3>
-              <p className="text-foreground-light">Integrate with the <a className="text-indigo-400 hover:text-white" href="https://lightning.network/">Lightning Network</a> for fast, low-cost micropayments and instant transactions.</p>
-            </div>
-            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Routstr Integration</h3>
-              <p className="text-foreground-light">Leverage <a className="text-indigo-400 hover:text-white" href="https://www.routstr.com/">Routstr</a> for decentralized, private, and secure LLM routing.</p>
-            </div>
-            <div className="bg-gray-800 bg-card/95 p-6 rounded-lg border border-border shadow-md hover:shadow-lg transition-all duration-300 hover:border-primary/20 hover:bg-gradient-to-br hover:from-card hover:to-primary/5">
-              <h3 className="text-xl font-semibold text-foreground mb-4">AI Integration</h3>
-              <p className="text-foreground-light">Use popular agentic frameworks like <a className="text-indigo-400 hover:text-white" href="https://docs.agno.com/introduction">Agno</a>, <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">LangGraph</a>, <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a>, and <a className="text-indigo-400 hover:text-white" href="https://ai.pydantic.dev/">PydanticAI</a> to expedite development.</p>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
   );
