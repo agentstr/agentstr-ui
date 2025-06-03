@@ -87,32 +87,60 @@ export default function Home() {
 
             <div className="max-w-2xl mx-auto space-y-6">
               {/* AI Routing Layer */}
-              <div className="bg-card/50 p-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                <h4 className="font-semibold text-foreground text-center mb-2">Routstr - LLM Routing Layer</h4>
+              <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-bold text-foreground">Routstr - LLM Layer</h4>
+                </div>
                 <p className="text-foreground-light text-center">
                   <a href="https://www.routstr.com/" className="text-primary hover:underline">Routstr</a> provides decentralized, private LLM routing and access.
                 </p>
               </div>
               
               {/* Transaction Layer */}
-              <div className="bg-card/50 p-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                <h4 className="font-semibold text-foreground text-center mb-2">Lightning - Transaction Layer</h4>
+              <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-bold text-foreground">Lightning - Transaction Layer</h4>
+                </div>
                 <p className="text-foreground-light text-center">
                   <a href="https://lightning.network/" className="text-primary hover:underline">Lightning</a> enables instant, low-cost microtransactions between users, agents, and tools.
                 </p>
               </div>
 
               {/* Communication Layer */}
-              <div className="bg-card/50 p-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                <h4 className="font-semibold text-foreground text-center mb-2">Nostr - Communication Layer</h4>
+              <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-bold text-foreground">Nostr - Communication Layer</h4>
+                </div>
                 <p className="text-foreground-light text-center">
                   <a href="https://nostr.com/" className="text-primary hover:underline">Nostr</a> enables decentralized, censorship-resistant messaging between users, agents, and tools.
                 </p>
               </div>              
               
               {/* Settlement Layer */}
-              <div className="bg-card/50 p-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
-                <h4 className="font-semibold text-foreground text-center mb-2">Bitcoin - Settlement Layer</h4>
+              <div className="bg-card/50 p-6 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-bold text-foreground">Bitcoin - Settlement Layer</h4>
+                </div>
                 <p className="text-foreground-light text-center">
                   <a href="https://bitcoin.org/" className="text-primary hover:underline">Bitcoin</a> provides the ultimate settlement layer with unmatched security and decentralization.
                 </p>
