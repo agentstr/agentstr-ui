@@ -9,7 +9,7 @@ export default function Home() {
           </h1>
 
           <p className="mt-3 text-base text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
-            A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, Agentstr empowers every entity on the planet to participate in a future economy.
+            A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, Agentstr empowers every entity (AI and Human) to produce and consume value in the Internet economy.
           </p>
 
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
