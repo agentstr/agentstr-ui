@@ -1,3 +1,5 @@
+import { ArrowsRightLeftIcon, CubeIcon } from '@heroicons/react/24/outline';
+
 export default function Home() {
   return (
     <div className="bg-background">
@@ -168,31 +170,40 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-white mb-4">AI Agnostic</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Agentstr SDK seamlessly integrates with popular AI protocols and frameworks.
+            Agentstr SDK seamlessly integrates with popular AI protocols and frameworks. See the <a className="text-primary hover:underline" href="/usage">usage</a> page for code samples.
+
             </p>
           </div>
 
           <div className="mt-8 max-w-2xl mx-auto">
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 pt-6 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
-              <h4 className="text-xl mb-4 font-bold text-foreground text-center w-full">Protocols</h4>
-
-              <div className="flex flex-wrap gap-3 justify-center">
-                <a href="https://modelcontextprotocol.io/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">MCP</a>
-                <a href="https://google-a2a.github.io/A2A/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">A2A</a>
+            {/* Protocols Card */}
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 pt-6 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg mb-6">
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <ArrowsRightLeftIcon className="w-6 h-6 text-primary" />
               </div>
-              <h4 className="text-xl mb-4 mt-6 font-bold text-foreground text-center w-full">Frameworks</h4>
+              <h4 className="text-xl mb-4 font-bold text-foreground text-center w-full">Agentic Protocols</h4>
               <div className="flex flex-wrap gap-3 justify-center">
-                <a href="https://docs.agno.com/introduction" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agno</a>
-                <a href="https://dspy.ai/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">DSPy</a>
-                <a href="https://www.langchain.com/langgraph" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">LangGraph</a>
-                <a href="https://ai.pydantic.dev/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">PydanticAI</a>
-                <a href="https://openai.github.io/openai-agents-python/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Agents SDK</a>               
-                <a href="https://google.github.io/adk-docs/" className="px-4 py-2 bg-card hover:bg-card/80 rounded-full text-sm font-medium text-foreground border border-border hover:border-primary/50 transition-colors">Google ADK</a>               
+                <a href="https://modelcontextprotocol.io/introduction" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">MCP</a>
+                <a href="https://google-a2a.github.io/A2A/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">A2A</a>
               </div>
-              <p className="text-foreground-light mt-6 text-center">
-                See the <a className="text-primary hover:underline" href="/usage">usage</a> page for code samples.
-              </p>
             </div>
+
+            {/* Frameworks Card */}
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 pt-6 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <CubeIcon className="w-6 h-6 text-primary" />
+              </div>
+              <h4 className="text-xl mb-4 font-bold text-foreground text-center w-full">Agentic Frameworks</h4>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <a href="https://docs.agno.com/introduction" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Agno</a>
+                <a href="https://dspy.ai/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">DSPy</a>
+                <a href="https://www.langchain.com/langgraph" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">LangGraph</a>
+                <a href="https://ai.pydantic.dev/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">PydanticAI</a>
+                <a href="https://openai.github.io/openai-agents-python/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Agents SDK</a>               
+                <a href="https://google.github.io/adk-docs/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Google ADK</a>               
+              </div>
+            </div>
+
           </div>
           <div className="mt-16 bg-gradient-to-r from-card to-card/80 rounded-2xl border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
             <div className="text-center mb-12">
