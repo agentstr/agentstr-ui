@@ -197,12 +197,12 @@ export default function Home() {
               </div>
               <h4 className="text-xl mb-4 font-bold text-foreground text-center w-full">Agentic Frameworks</h4>
               <div className="flex flex-wrap gap-3 justify-center">
-                <a href="https://docs.agno.com/introduction" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Agno</a>
-                <a href="https://dspy.ai/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">DSPy</a>
-                <a href="https://www.langchain.com/langgraph" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">LangGraph</a>
-                <a href="https://ai.pydantic.dev/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">PydanticAI</a>
-                <a href="https://openai.github.io/openai-agents-python/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Agents SDK</a>               
-                <a href="https://google.github.io/adk-docs/" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Google ADK</a>               
+                <a href="/usage#nostr-agno-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Agno</a>
+                <a href="/usage#nostr-dspy-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">DSPy</a>
+                <a href="/usage#nostr-langgraph-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">LangGraph</a>
+                <a href="/usage#nostr-pydantic-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">PydanticAI</a>
+                <a href="/usage#nostr-agents-sdk-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Agents SDK</a>               
+                <a href="/usage#nostr-google-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Google ADK</a>               
               </div>
             </div>
 
