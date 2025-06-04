@@ -20,7 +20,8 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-xl font-bold text-foreground">
+              <Link href="/" className="flex items-center text-xl font-bold text-foreground">
+                <img src="/favicon.ico" alt="Agentstr SDK Favicon" className="h-6 w-6 mr-2" />
                 Agentstr SDK
               </Link>
             </div>
