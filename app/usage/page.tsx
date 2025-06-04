@@ -660,7 +660,7 @@ llm_api_key = 'cashu...'
 llm_model_name = 'gpt-4'
 nwc_str = 'nostr+walletconnect://...'
 
-# Create Nostr MCP client
+# Initialize Nostr MCP client
 nostr_mcp_client = NostrMCPClient(relays=relays,
                                   private_key=private_key,
                                   mcp_pubkey=mcp_server_pubkey,
