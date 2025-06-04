@@ -21,7 +21,7 @@ export default function Navbar() {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center text-xl font-bold text-foreground">
-                <img src="/favicon.ico" alt="Agentstr SDK Favicon" className="h-6 w-6 mr-2" />
+                <img src="/favicon.ico?v=2" alt="Agentstr SDK Favicon" className="h-6 w-6 mr-2" />
                 Agentstr SDK
               </Link>
             </div>
