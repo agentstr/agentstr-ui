@@ -45,7 +45,7 @@ export default function Home() {
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-10 rounded-full"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-card/95 p-6 pt-4 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+            <div className="bg-card/95 p-6 pt-4 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover-scale">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -55,7 +55,7 @@ export default function Home() {
               <p className="text-foreground-light text-center">Built on the Nostr protocol and Lightning network to create truly permissionless agents.</p>
             </div>
 
-            <div className="bg-card/95 p-6 pt-4 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+            <div className="bg-card/95 p-6 pt-4 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover-scale">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -65,7 +65,7 @@ export default function Home() {
               <p className="text-foreground-light text-center">Supports Agno, DSPy, LangGraph, and more for flexible agent development.</p>
             </div>
 
-            <div className="bg-card/95 p-6 pt-4 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+            <div className="bg-card/95 p-6 pt-4 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover-scale">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -85,7 +85,7 @@ export default function Home() {
           </div>
             <div className="max-w-2xl mx-auto space-y-6">
               {/* AI Routing Layer */}
-              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +105,7 @@ export default function Home() {
               </div>
               
               {/* Transaction Layer */}
-              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -125,7 +125,7 @@ export default function Home() {
               </div>
 
               {/* Communication Layer */}
-              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +145,7 @@ export default function Home() {
               </div>              
               
               {/* Settlement Layer */}
-              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -179,7 +179,7 @@ export default function Home() {
 
           <div className="mt-8 max-w-2xl mx-auto">
             {/* Protocols Card */}
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg mb-6">
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg mb-6 hover-scale">
               <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <ArrowsRightLeftIcon className="w-5 h-5 text-primary" />
               </div>
@@ -191,7 +191,7 @@ export default function Home() {
             </div>
 
             {/* Frameworks Card */}
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover-scale">
               <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <CubeIcon className="w-5 h-5 text-primary" />
               </div>
@@ -216,7 +216,7 @@ export default function Home() {
             <div className="max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-              <div className="bg-card/95 p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+              <div className="bg-card/95 p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full hover-scale">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                     <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -228,7 +228,7 @@ export default function Home() {
                 <p className="text-foreground-light flex-grow">A full-featured, open-source, and asynchronous <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk">Python SDK</a> makes it easy to build performant agentic applications on Nostr and Lightning.</p>
               </div>
 
-              <div className="bg-card/95 p-8 pt-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+              <div className="bg-card/95 p-8 pt-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full hover-scale">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                     <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
