@@ -170,16 +170,18 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-white mb-4">AI Agnostic</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Agentstr SDK seamlessly integrates with popular AI protocols and frameworks. See the <a className="text-primary hover:underline" href="/usage">usage</a> page for code samples.
-
+            Agentstr SDK seamlessly integrates with popular AI protocols and frameworks.
+            </p>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            See the <a className="text-primary hover:underline" href="/usage">usage page</a> for code samples.
             </p>
           </div>
 
           <div className="mt-8 max-w-2xl mx-auto">
             {/* Protocols Card */}
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 pt-6 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg mb-6">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <ArrowsRightLeftIcon className="w-6 h-6 text-primary" />
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg mb-6">
+              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <ArrowsRightLeftIcon className="w-5 h-5 text-primary" />
               </div>
               <h4 className="text-xl mb-4 font-bold text-foreground text-center w-full">Agentic Protocols</h4>
               <div className="flex flex-wrap gap-3 justify-center">
@@ -189,9 +191,9 @@ export default function Home() {
             </div>
 
             {/* Frameworks Card */}
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-8 pt-6 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <CubeIcon className="w-6 h-6 text-primary" />
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <CubeIcon className="w-5 h-5 text-primary" />
               </div>
               <h4 className="text-xl mb-4 font-bold text-foreground text-center w-full">Agentic Frameworks</h4>
               <div className="flex flex-wrap gap-3 justify-center">
