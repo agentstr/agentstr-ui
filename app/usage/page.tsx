@@ -4,7 +4,7 @@ import React from 'react';
 import CodeBlock from "../../components/CodeBlock";
 
 export default function UsagePage() {
-  const [isTocOpen, setIsTocOpen] = React.useState(true);
+  const [isTocOpen, setIsTocOpen] = React.useState(false);
 
   return (
     <main className="min-h-screen bg-background">
@@ -125,15 +125,14 @@ export default function UsagePage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Server</h2>
               <p className="text-gray-400 mb-4">
-                MCP Servers are used to provide tools and services to other Nostr clients. Provide a Nostr Wallet Connect string to enable premium tools.
+                MCP Servers are used to provide tools and services to other Nostr clients. Provide a <a className="text-indigo-400 hover:text-white" href="https://nwc.dev/">Nostr Wallet Connect</a> string to enable premium tools.
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-from agentstr import NostrMCPServer
+                value={`from agentstr import NostrMCPServer
 
 # Define relays and private key
-relays   = os.getenv('NOSTR_RELAYS').split(',')
+relays = os.getenv('NOSTR_RELAYS').split(',')
 private_key = os.getenv('EXAMPLE_MCP_SERVER_NSEC')
 
 # To enable Nostr Wallet Connect
@@ -148,26 +147,24 @@ async def multiply(a: int, b: int) -> int:
     """Multiply two numbers."""
     return a * b
 
-async def run():
-    # Define the server
-    server = NostrMCPServer(
-        "Math MCP Server", 
-        relays=relays,
-        private_key=private_key,
-        nwc_str=nwc_str
-    )
+# Define the server
+server = NostrMCPServer(
+    "Math MCP Server", 
+    relays=relays,
+    private_key=private_key,
+    nwc_str=nwc_str
+)
 
-    # Add tools
-    server.add_tool(add) # Free tool
-    server.add_tool(multiply, satoshis=3) # Premium tool
+# Add tools
+server.add_tool(add) # Free tool
+server.add_tool(multiply, satoshis=3) # Premium tool
 
-    # Start the server
-    await server.start()
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(run())`}
+# Start the server
+await server.start()`}
               />
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_server.py">MCP Server Example</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -177,13 +174,11 @@ if __name__ == "__main__":
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Client</h2>
               <p className="text-gray-400 mb-4">
-                Create clients that can discover and use tools from MCP servers.
+                Create Nostr MCP clients that can discover and use tools from Nostr MCP servers. Provide a <a className="text-indigo-400 hover:text-white" href="https://nwc.dev/">Nostr Wallet Connect</a> string to handle tool payments.
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-import json
-from agentstr import PrivateKey, NostrMCPClient
+                value={`from agentstr import NostrMCPClient
 
 
 # Define relays and private key
@@ -193,34 +188,31 @@ private_key = os.getenv('EXAMPLE_MCP_CLIENT_NSEC')
 # To enable Nostr Wallet Connect
 nwc_str = os.getenv('MCP_CLIENT_NWC_CONN_STR')
 
-# Define MCP server public key
-server_public_key = PrivateKey.from_nsec(os.getenv('EXAMPLE_MCP_SERVER_NSEC')).public_key.bech32()
+# Set MCP server public key
+server_public_key = 'npub...'
 
+# Initialize the client
+mcp_client = NostrMCPClient(mcp_pubkey=server_public_key, 
+                            relays=relays, 
+                            private_key=private_key,
+                            nwc_str=nwc_str)
 
-async def run()   :
-    # Initialize the client
-    mcp_client = NostrMCPClient(mcp_pubkey=server_public_key, 
-                                relays=relays, 
-                                private_key=private_key,
-                                nwc_str=nwc_str)
+# List available tools
+tools = await mcp_client.list_tools()
+print(f'Found tools: {json.dumps(tools, indent=4)}')
 
-    # List available tools
-    tools = await mcp_client.list_tools()
-    print(f'Found tools: {json.dumps(tools, indent=4)}')
+# Call a tool
+result = await mcp_client.call_tool("add", {"a": 69, "b": 420})
+print(f'The result of 69 + 420 is: {result["content"][-1]["text"]}')
 
-    # Call a tool
-    result = await mcp_client.call_tool("add", {"a": 69, "b": 420})
-    print(f'The result of 69 + 420 is: {result["content"][-1]["text"]}')
-
-    # Call a premium tool
-    result = await mcp_client.call_tool("multiply", {"a": 69, "b": 420})
-    print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')
-
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(run())`}
+# Call a premium tool
+result = await mcp_client.call_tool("multiply", {"a": 69, "b": 420})
+print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
               />
+
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_client.py">MCP Client Example</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -230,65 +222,40 @@ if __name__ == "__main__":
             <div className="p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Lightning Integration</h2>
               <p className="text-gray-400 mb-4">
-                Nostr MCP servers and agents can require Lightning payments to pay for various tools and services. Agentstr leverages <a className="text-indigo-400 hover:text-white" href="https://nwc.dev/">Nostr Wallet Connect</a> to streamline this process.
+                Nostr MCP servers and agents can require Lightning payments to pay for various tools and services.
               </p>
               <p className="text-gray-400 mb-4">
-                Each tool can specify a <code>satoshis</code> parameter to indicate the amount of sats required to use the tool.
+                Each tool can specify a <code>satoshis</code> parameter to indicate the amount of sats required to invoke the tool.
               </p>  
 
               <p className="text-gray-400 mb-4"></p>
               <CodeBlock
                 language="python"
-                value={`# To enable Nostr Wallet Connect
-nwc_str = os.getenv('MCP_SERVER_NWC_CONN_STR')
-
-# Define premium tool
-async def premium_tool(a: int, b: int) -> str:
-    """Do something awesome."""
-    return "bar"
-
-# Define the server
-server = NostrMCPServer(
-    "My Premium Tools", 
-    relays=...,
-    private_key=...,
-    nwc_str=nwc_str
-)
-
-# Add tools
-server.add_tool(premium_tool, satoshis=100) # Premium tool`}
+                value={`mcp_server.add_tool(premium_tool, satoshis=100) # Premium tool`}
               />
               <p className="text-gray-400 mb-4 mt-4">
-                Agents can also specify a <code>satoshis</code> parameter to indicate the amount of sats required to use a particular skill of the agent.
+                Agents can also specify <code>satoshis</code> in the <code>AgentCard</code> to indicate the amount of sats required to use a particular skill of the agent.
               </p>
               <CodeBlock
                 language="python"
-                value={`# To enable Nostr Wallet Connect
-nwc_str = os.getenv('AGENT_NWC_CONN_STR')
-
-# Define agent info
+                value={`# Define agent info
 agent_info = AgentCard(
     name='Travel Agent',
     description=('This agent can help you find, book, and manage flights.'),
-    skills=[Skill(name='book_flight',
-                  description='Book a flight on behalf of a user.', 
-                  satoshis=25),
-            Skill(name='show_itinerary', 
-                  description='Show the itinerary for the user.', 
-                  satoshis=0),
-            Skill(name='search_flights', 
-                  description='Search for flights that matches users\' request.', 
-                  satoshis=0),
-            Skill(name='cancel_itinerary', 
-                  description='Cancel an itinerary on behalf of the user.', 
-                  satoshis=0),
-            ],
-    satoshis=0,
-    nostr_pubkey=...,
+    skills=[
+        Skill(name='free_skill',
+              description='A free skill.', 
+              satoshis=0),
+        Skill(name='paid_skill', 
+              description='A paid skill.', 
+              satoshis=100),
+    ],
+    satoshis=5, # Additional satoshis required to use the agent
+    nostr_pubkey='npub...',
 )
 
-# Define the server
-server = NostrAgentServer(nwc_str=nwc_str,
+# Create the agent server
+server = NostrAgentServer(nwc_str=os.getenv('AGENT_NWC_CONN_STR'),
                           agent_info=agent_info,
                           ...)`}
               />
@@ -305,30 +272,29 @@ server = NostrAgentServer(nwc_str=nwc_str,
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-import json
-from agentstr import NostrClient
+                value={`from agentstr import NostrClient
 
 # Define relays
 relays = os.getenv('NOSTR_RELAYS').split(',')
 
+# Initialize the client
+client = NostrClient(relays)
 
-async def run():
-    client = NostrClient(relays)
-    events = await client.read_posts_by_tag('mcp_research_tools', limit=2)
-    for event in events:
-        metadata = await client.get_metadata_for_pubkey(event.pubkey)
-        try:
-            mcp_definition = json.loads(metadata.about)
-            print(json.dumps(mcp_definition, indent=4))
-        except:
-            pass
+# Search for MCP servers by tag
+events = await client.read_posts_by_tag('mcp_research_tools', limit=5)
 
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(run())`}
+# Print MCP server definitions
+for event in events:
+    metadata = await client.get_metadata_for_pubkey(event.pubkey)
+    try:
+        mcp_definition = json.loads(metadata.about)
+        print(json.dumps(mcp_definition, indent=4))
+    except:
+        pass  # invalid definition`}
               />
+            <p className="text-gray-400 mt-4">
+              For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/tool_discovery.py">Tool Discovery Example</a>.
+            </p>
             </div>
           </div>
         </div>
