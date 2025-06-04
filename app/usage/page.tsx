@@ -89,6 +89,9 @@ export default function UsagePage() {
                   <a href="#nostr-openai-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr OpenAI Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#nostr-google-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Google ADK Agent</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-rag" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
                 </div>
               </div>
@@ -132,11 +135,11 @@ export default function UsagePage() {
                 value={`from agentstr import NostrMCPServer
 
 # Define relays and private key
-relays = os.getenv('NOSTR_RELAYS').split(',')
-private_key = os.getenv('EXAMPLE_MCP_SERVER_NSEC')
+relays = ['wss://some.relay']
+private_key = 'nsec...'
 
 # To enable Nostr Wallet Connect
-nwc_str = os.getenv('MCP_SERVER_NWC_CONN_STR')
+nwc_str = 'nostr+walletconnect://...'
 
 # Define tools
 async def add(a: int, b: int) -> int:
@@ -157,7 +160,7 @@ server = NostrMCPServer(
 
 # Add tools
 server.add_tool(add) # Free tool
-server.add_tool(multiply, satoshis=3) # Premium tool
+server.add_tool(multiply, satoshis=10) # Premium tool
 
 # Start the server
 await server.start()`}
@@ -180,13 +183,12 @@ await server.start()`}
                 language="python"
                 value={`from agentstr import NostrMCPClient
 
-
 # Define relays and private key
-relays   = os.getenv('NOSTR_RELAYS').split(',')
-private_key = os.getenv('EXAMPLE_MCP_CLIENT_NSEC')
+relays = ['wss://some.relay']
+private_key = 'nsec...'
 
 # To enable Nostr Wallet Connect
-nwc_str = os.getenv('MCP_CLIENT_NWC_CONN_STR')
+nwc_str = 'nostr+walletconnect://...'
 
 # Set MCP server public key
 server_public_key = 'npub...'
@@ -234,11 +236,13 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
                 value={`mcp_server.add_tool(premium_tool, satoshis=100) # Premium tool`}
               />
               <p className="text-gray-400 mb-4 mt-4">
-                Agents can also specify <code>satoshis</code> in the <code>AgentCard</code> to indicate the amount of sats required to use a particular skill of the agent.
+                Agents specify <code>satoshis</code> in the <code>AgentCard</code> to indicate the number of sats required to use a particular skill.
               </p>
               <CodeBlock
                 language="python"
-                value={`# Define agent info
+                value={`from agentstr import AgentCard, Skill, NostrAgentServer
+
+# Define agent info
 agent_info = AgentCard(
     name='Travel Agent',
     description=('This agent can help you find, book, and manage flights.'),
@@ -275,7 +279,7 @@ server = NostrAgentServer(nwc_str=os.getenv('AGENT_NWC_CONN_STR'),
                 value={`from agentstr import NostrClient
 
 # Define relays
-relays = os.getenv('NOSTR_RELAYS').split(',')
+relays = ['wss://some.relay']
 
 # Initialize the client
 client = NostrClient(relays)
@@ -308,67 +312,59 @@ for event in events:
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-
-from langchain_openai import ChatOpenAI
+                value={`from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
 
 from agentstr import NostrAgentServer, NostrMCPClient, ChatInput
 from agentstr.mcp.langgraph import to_langgraph_tools
 
-
 # Get the environment variables
-relays = os.getenv("NOSTR_RELAYS").split(",")
-private_key = os.getenv("EXAMPLE_LANGGRAPH_AGENT_NSEC")
-mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
+relays = ['wss://some.relay']
+private_key = 'nsec...'
+mcp_server_pubkey = 'npub...'
+nwc_str = 'nostr+walletconnect://...'  # WalletConnect string for payments
 
-
+# Initialize the MCP client
 nostr_mcp_client = NostrMCPClient(relays=relays,
                                   private_key=private_key,
-                                  mcp_pubkey=mcp_server_pubkey)
-
+                                  mcp_pubkey=mcp_server_pubkey,
+                                  nwc_str=nwc_str)
 
 # Define LLM
 model = ChatOpenAI(temperature=0,
-                   base_url=os.getenv("LLM_BASE_URL"),
-                   api_key=os.getenv("LLM_API_KEY"),
-                   model_name=os.getenv("LLM_MODEL_NAME"))
+                   base_url="https://api.routstr.com/v1",
+                   api_key="cashu...",
+                   model_name="gpt-4")
 
+# Convert tools to LangGraph tools
+langgraph_tools = await to_langgraph_tools(nostr_mcp_client)
 
-async def agent_server():
-    # Convert tools to LangGraph tools
-    langgraph_tools = await to_langgraph_tools(nostr_mcp_client)
+# Create LangGraph ReAct agent
+agent = create_react_agent(
+    model=model,
+    tools=langgraph_tools,
+    prompt="You are a helpful assistant",
+)
 
-    for tool in langgraph_tools:
-        print(f'Found {tool.name}: {tool.description}')
-
-    # Create react agent
-    agent = create_react_agent(
-        model=model,
-        tools=langgraph_tools,
-        prompt="You are a helpful assistant",
+# Define agent callable
+async def agent_callable(input: ChatInput) -> str:
+    result = await agent.ainvoke(
+        {"messages": [{"role": "user", "content": input.messages[-1]}]},
     )
+    return result["messages"][-1].content
 
-    # Define agent callable
-    async def agent_callable(input: ChatInput) -> str:
-        result = await agent.ainvoke(
-            {"messages": [{"role": "user", "content": input.messages[-1]}]},
-        )
-        return result["messages"][-1].content
+# Create Nostr Agent Server
+server = NostrAgentServer(relays=relays,
+                          private_key=private_key,
+                          agent_callable=agent_callable,
+                          nwc_str=nwc_str)
 
-    # Create Nostr Agent Server
-    server = NostrAgentServer(relays=relays,
-                              private_key=private_key,
-                              agent_callable=agent_callable)
-
-    # Start server
-    await server.start()
-
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(agent_server())`}
+# Start server
+await server.start()`}
               />
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_langgraph_agent.py">LangGraph Agent Example</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -382,61 +378,55 @@ if __name__ == "__main__":
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-
-import dspy
+                value={`import dspy
 
 from agentstr import NostrAgentServer, NostrMCPClient, ChatInput
 from agentstr.mcp.dspy import to_dspy_tools
 
 # Get the environment variables
-relays = os.getenv("NOSTR_RELAYS").split(",")
-private_key = os.getenv("EXAMPLE_DSPY_AGENT_NSEC")
-mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
-llm_base_url = os.getenv("LLM_BASE_URL").rstrip("/v1")
-llm_api_key = os.getenv("LLM_API_KEY")
-llm_model_name = os.getenv("LLM_MODEL_NAME")
+relays = ['wss://some.relay']
+private_key = 'nsec...'
+mcp_server_pubkey = 'npub...'
+llm_base_url = 'https://api.routstr.com'
+llm_api_key = 'cashu...'
+llm_model_name = 'gpt-4'
+nwc_str = 'nostr+walletconnect://...'
 
-
+# Initialize NostrMCPClient
 nostr_mcp_client = NostrMCPClient(relays=relays,
                                   private_key=private_key,
-                                  mcp_pubkey=mcp_server_pubkey)
+                                  mcp_pubkey=mcp_server_pubkey,
+                                  nwc_str=nwc_str)
 
+# Convert tools to DSPy tools
+dspy_tools = await to_dspy_tools(nostr_mcp_client)
 
-async def agent_server():    
-    # Convert tools to DSPy tools
-    dspy_tools = await to_dspy_tools(nostr_mcp_client)
+# Create ReAct agent
+react = dspy.ReAct("question -> answer: str", tools=dspy_tools)
 
-    for tool in dspy_tools:
-        print(f'Found {tool.name}: {tool.desc}')
+# Configure DSPy
+dspy.configure(lm=dspy.LM(model=llm_model_name, 
+                          api_base=llm_base_url, 
+                          api_key=llm_api_key, 
+                          model_type="chat",
+                          temperature=0))
 
-    # Create ReAct agent
-    react = dspy.ReAct("question -> answer: str", tools=dspy_tools)
+# Define agent callable
+async def agent_callable(chat_input: ChatInput) -> str:
+    return (await react.acall(question=chat_input.messages[-1])).answer
 
-    # Configure DSPy
-    dspy.configure(lm=dspy.LM(model=llm_model_name, 
-                              api_base=llm_base_url, 
-                              api_key=llm_api_key, 
-                              model_type="chat",
-                              temperature=0))
+# Create Nostr Agent Server
+server = NostrAgentServer(relays=relays,
+                          private_key=private_key,
+                          agent_callable=agent_callable,
+                          nwc_str=nwc_str)
 
-    # Define agent callable
-    async def agent_callable(chat_input: ChatInput) -> str:
-        return (await react.acall(question=chat_input.messages[-1])).answer
-
-    # Create Nostr Agent Server
-    server = NostrAgentServer(relays=relays,
-                              private_key=private_key,
-                              agent_callable=agent_callable)
-
-    # Start server
-    await server.start()
-
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(agent_server())`}
+# Start server
+await server.start()`}
               />
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_dspy_agent.py">DSPy Agent Example</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -450,63 +440,58 @@ if __name__ == "__main__":
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-
-from agno.agent import Agent
+                value={`from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 from agentstr import ChatInput, NostrAgentServer, NostrMCPClient
 from agentstr.mcp.agno import to_agno_tools
 
 # Get the environment variables
-relays = os.getenv("NOSTR_RELAYS").split(",")
-private_key = os.getenv("EXAMPLE_AGNO_AGENT_NSEC")
-mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
+relays = ['wss://some.relay']
+private_key = 'nsec...'
+mcp_server_pubkey = 'npub...'
+llm_base_url = 'https://api.routstr.com/v1'
+llm_api_key = 'cashu...'
+llm_model_name = 'gpt-4'
+nwc_str = 'nostr+walletconnect://...'
 
-
+# Initialize NostrMCPClient
 nostr_mcp_client = NostrMCPClient(relays=relays,
                                   private_key=private_key,
-                                  mcp_pubkey=mcp_server_pubkey)
+                                  mcp_pubkey=mcp_server_pubkey,
+                                  nwc_str=nwc_str)
 
+# Define tools
+agno_tools = await to_agno_tools(nostr_mcp_client)
 
+# Define Agno agent
+agent = Agent(
+    model=OpenAIChat(
+        temperature=0,
+        base_url=llm_base_url,
+        api_key=llm_api_key,
+        id=llm_model_name,
+    ),
+    tools=agno_tools,
+)
 
-async def agent_server():
-    # Define tools
-    agno_tools = await to_agno_tools(nostr_mcp_client)
+# Define agent callable
+async def agent_callable(input: ChatInput) -> str:
+    result = await agent.arun(message=input.messages[-1], session_id=input.thread_id)
+    return result.content
 
-    for tool in agno_tools:
-        print(f'Found {tool.name}: {tool.description}')
+# Create Nostr Agent Server
+server = NostrAgentServer(relays=relays,
+                          private_key=private_key,
+                          agent_callable=agent_callable,
+                          nwc_str=nwc_str)
 
-    # Define Agno agent
-    agent = Agent(
-        model=OpenAIChat(
-            temperature=0,
-            base_url=os.getenv("LLM_BASE_URL"),
-            api_key=os.getenv("LLM_API_KEY"),
-            id=os.getenv("LLM_MODEL_NAME"),
-        ),
-        tools=agno_tools,
-    )
-
-    # Define agent callable
-    async def agent_callable(input: ChatInput) -> str:
-        result = await agent.arun(message=input.messages[-1], session_id=input.thread_id)
-        return result.content
-
-    # Create Nostr Agent Server
-    server = NostrAgentServer(relays=relays,
-                              private_key=private_key,
-                              agent_callable=agent_callable)
-
-    # Start server
-    await server.start()
-
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(agent_server())
-`}
+# Start server
+await server.start()`}
               />
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_agno_agent.py">Agno Agent Example</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -520,9 +505,7 @@ if __name__ == "__main__":
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-
-from pydantic_ai import Agent
+                value={`from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIModel
 from pydantic_ai.providers.openai import OpenAIProvider
 
@@ -530,55 +513,56 @@ from agentstr import ChatInput, NostrAgentServer, NostrMCPClient
 from agentstr.mcp.pydantic import to_pydantic_tools
 
 # Get the environment variables
-relays = os.getenv("NOSTR_RELAYS").split(",")
-private_key = os.getenv("EXAMPLE_PYDANTIC_AGENT_NSEC")
-mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
+relays = ['wss://some.relay']
+private_key = 'nsec...'
+mcp_server_pubkey = 'npub...'
+llm_base_url = 'https://api.routstr.com/v1'
+llm_api_key = 'cashu...'
+llm_model_name = 'gpt-4'
+nwc_str = 'nostr+walletconnect://...'
 
-
+# Initialize NostrMCPClient
 nostr_mcp_client = NostrMCPClient(relays=relays,
                                   private_key=private_key,
-                                  mcp_pubkey=mcp_server_pubkey)
+                                  mcp_pubkey=mcp_server_pubkey,
+                                  nwc_str=nwc_str)
 
+# Define tools
+pydantic_tools = await to_pydantic_tools(nostr_mcp_client)
 
+for tool in pydantic_tools:
+    print(f'Found {tool.name}: {tool.description}')
 
-async def agent_server():
-    # Define tools
-    pydantic_tools = await to_pydantic_tools(nostr_mcp_client)
+# Define Pydantic agent
+agent = Agent(
+    system="You are a helpful assistant.",
+    model=OpenAIModel(
+        llm_model_name,
+        provider=OpenAIProvider(
+            base_url=llm_base_url,
+            api_key=llm_api_key,
+        )
+    ),
+    tools=pydantic_tools,
+)
 
-    for tool in pydantic_tools:
-        print(f'Found {tool.name}: {tool.description}')
+# Define agent callable
+async def agent_callable(input: ChatInput) -> str:
+    result = await agent.run(input.messages[-1])
+    return result.output
 
-    # Define Pydantic agent
-    agent = Agent(
-        system="You are a helpful assistant.",
-        model=OpenAIModel(
-            os.getenv("LLM_MODEL_NAME"),
-            provider=OpenAIProvider(
-                base_url=os.getenv("LLM_BASE_URL"),
-                api_key=os.getenv("LLM_API_KEY"),
-            )
-        ),
-        tools=pydantic_tools,
-    )
+# Create Nostr Agent Server
+server = NostrAgentServer(relays=relays,
+                          private_key=private_key,
+                          agent_callable=agent_callable,
+                          nwc_str=nwc_str)
 
-    # Define agent callable
-    async def agent_callable(input: ChatInput) -> str:
-        result = await agent.run(input.messages[-1])
-        return result.output
-
-    # Create Nostr Agent Server
-    server = NostrAgentServer(relays=relays,
-                              private_key=private_key,
-                              agent_callable=agent_callable)
-
-    # Start server
-    await server.start()
-
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(agent_server())`}
+# Start server
+await server.start()`}
               />
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_pydantic_agent.py">PydanticAI Agent Example</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -592,19 +576,89 @@ if __name__ == "__main__":
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-
-from agents import Runner, Agent, AsyncOpenAI, OpenAIChatCompletionsModel
+                value={`from agents import Runner, Agent, AsyncOpenAI, OpenAIChatCompletionsModel
 from agentstr import ChatInput, NostrAgentServer, NostrMCPClient
 from agentstr.mcp.openai import to_openai_tools
 
 # Get the environment variables
-relays = os.getenv("NOSTR_RELAYS").split(",")
-private_key = os.getenv("EXAMPLE_OPENAI_AGENT_NSEC")
-mcp_server_pubkey = os.getenv("EXAMPLE_MCP_SERVER_PUBKEY")
+relays = ['wss://some.relay']
+private_key = 'nsec...'
+mcp_server_pubkey = 'npub...'
+llm_base_url = 'https://api.routstr.com/v1'
+llm_api_key = 'cashu...'
+llm_model_name = 'gpt-4'
+nwc_str = 'nostr+walletconnect://...'
 
-# Enable lightning payments
-nwc_str = os.getenv("MCP_CLIENT_NWC_CONN_STR")
+# Initialize NostrMCPClient
+nostr_mcp_client = NostrMCPClient(relays=relays,
+                                  private_key=private_key,
+                                  mcp_pubkey=mcp_server_pubkey,
+                                  nwc_str=nwc_str)
+
+# Define tools
+openai_tools = await to_openai_tools(nostr_mcp_client)
+
+# Define OpenAI agent
+agent = Agent(
+    name="OpenAI Agent",
+    instructions="You are a helpful assistant.",
+    model=OpenAIChatCompletionsModel(
+        model=llm_model_name,
+        openai_client=AsyncOpenAI(
+            base_url=llm_base_url,
+            api_key=llm_api_key,
+        )
+    ),
+    tools=openai_tools,
+)
+
+# Define agent callable
+async def agent_callable(input: ChatInput) -> str:
+    result = await Runner.run(agent, input=input.messages[-1])
+    return result.final_output
+
+# Create Nostr Agent Server
+server = NostrAgentServer(relays=relays,
+                          private_key=private_key,
+                          agent_callable=agent_callable,
+                          nwc_str=nwc_str)
+
+# Start server
+await server.start()`}
+              />
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_openai_agent.py">OpenAI Agent Example</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div id="nostr-google-agent" className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-white mb-4">Nostr Google Agent</h2>
+              <p className="text-gray-400 mb-4">
+                Use Google&apos;s <a className="text-indigo-400 hover:text-white" href="https://google.github.io/adk-docs/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`from google.adk.agents import Agent
+from google.adk.models.lite_llm import LiteLlm
+from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
+from google.genai import types
+
+from agentstr import ChatInput, NostrAgentServer, NostrMCPClient
+from agentstr.mcp.google import to_google_tools
+
+# Get the environment variables
+relays = ['wss://some.relay']
+private_key = 'nsec...'
+mcp_server_pubkey = 'npub...'
+llm_base_url = 'https://api.routstr.com/v1'
+llm_api_key = 'cashu...'
+llm_model_name = 'gpt-4'
+nwc_str = 'nostr+walletconnect://...'
 
 # Create Nostr MCP client
 nostr_mcp_client = NostrMCPClient(relays=relays,
@@ -612,32 +666,41 @@ nostr_mcp_client = NostrMCPClient(relays=relays,
                                   mcp_pubkey=mcp_server_pubkey,
                                   nwc_str=nwc_str)
 
-
 async def agent_server():
     # Define tools
-    openai_tools = await to_openai_tools(nostr_mcp_client)
+    google_tools = await to_google_tools(nostr_mcp_client)
 
-    for tool in openai_tools:
+    for tool in google_tools:
         print(f'Found {tool.name}: {tool.description}')
 
-    # Define OpenAI agent
+    # Define Google agent
     agent = Agent(
-        name="OpenAI Agent",
-        instructions="You are a helpful assistant.",
-        model=OpenAIChatCompletionsModel(
-            model=os.getenv("LLM_MODEL_NAME"),
-            openai_client=AsyncOpenAI(
-                base_url=os.getenv("LLM_BASE_URL"),
-                api_key=os.getenv("LLM_API_KEY"),
-            )
+        name="google_agent",
+        model=LiteLlm(
+            model=llm_model_name,
+            api_base=llm_base_url.rstrip('/v1'),
+            api_key=llm_api_key
         ),
-        tools=openai_tools,
+        instruction="You are a helpful assistant.",
+        tools=google_tools,
     )
+
+    # Session and Runner
+    session_service = InMemorySessionService()
+    runner = Runner(agent=agent, app_name='nostr_example', session_service=session_service)
 
     # Define agent callable
     async def agent_callable(input: ChatInput) -> str:
-        result = await Runner.run(agent, input=input.messages[-1])
-        return result.final_output
+        content = types.Content(role='user', parts=[types.Part(text=input.messages[-1])])
+        session = await session_service.create_session(app_name='nostr_example', user_id=input.thread_id, session_id=input.thread_id)
+        events_async = runner.run_async(user_id=input.thread_id,
+                                        session_id=input.thread_id,
+                                        new_message=content)
+        async for event in events_async:
+            if event.is_final_response():
+                final_response = event.content.parts[0].text
+                return final_response
+        return None
 
     # Create Nostr Agent Server
     server = NostrAgentServer(relays=relays,
@@ -646,13 +709,11 @@ async def agent_server():
                               nwc_str=nwc_str)
 
     # Start server
-    await server.start()
-
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(agent_server())`}
+    await server.start()`}
               />
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_google_agent.py">Google ADK Agent Example</a>.
+              </p>
             </div>
           </div>
         </div>
@@ -666,32 +727,32 @@ if __name__ == "__main__":
               </p>
               <CodeBlock
                 language="python"
-                value={`import os
-from agentstr import NostrRAG
+                value={`from agentstr import NostrRAG
 from langchain_openai import ChatOpenAI
 
-# Define relays
-relays   = os.getenv('NOSTR_RELAYS').split(',')
+# Get the environment variables
+relays   = ['wss://some.relay']
+llm_base_url = 'https://api.routstr.com/v1'
+llm_api_key = 'cashu...'
+llm_model_name = 'gpt-4'
 
 # Define LLM
 model = ChatOpenAI(temperature=0,
-                   base_url=os.getenv('LLM_BASE_URL'),
-                   api_key=os.getenv('LLM_API_KEY'),
-                   model_name=os.getenv('LLM_MODEL_NAME'))
+                   base_url=llm_base_url,
+                   api_key=llm_api_key,
+                   model_name=llm_model_name)
 
 # Create the RAG instance
 rag = NostrRAG(relays=relays,
                llm=model)
 
 # Run a RAG query
-async def run():
-    result = await rag.query(question="What's new with Bitcoin?")
-    print(result)
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(run())`}
+result = await rag.query(question="What's new with Bitcoin?")
+print(result)`}
               />
+              <p className="text-gray-400 mt-4">
+                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/rag.py">RAG Example</a>.
+              </p>
             </div>
           </div>
         </div>
