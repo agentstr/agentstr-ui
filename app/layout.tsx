@@ -26,6 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark" style={{colorScheme: "dark"}}>
+      <link rel="icon" href="favicon.ico?v=2" />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}>
         <ThemeWrapper>
           <div className="min-h-screen flex flex-col">
