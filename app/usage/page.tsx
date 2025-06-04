@@ -666,50 +666,49 @@ nostr_mcp_client = NostrMCPClient(relays=relays,
                                   mcp_pubkey=mcp_server_pubkey,
                                   nwc_str=nwc_str)
 
-async def agent_server():
-    # Define tools
-    google_tools = await to_google_tools(nostr_mcp_client)
+# Define tools
+google_tools = await to_google_tools(nostr_mcp_client)
 
-    for tool in google_tools:
-        print(f'Found {tool.name}: {tool.description}')
+for tool in google_tools:
+    print(f'Found {tool.name}: {tool.description}')
 
-    # Define Google agent
-    agent = Agent(
-        name="google_agent",
-        model=LiteLlm(
-            model=llm_model_name,
-            api_base=llm_base_url.rstrip('/v1'),
-            api_key=llm_api_key
-        ),
-        instruction="You are a helpful assistant.",
-        tools=google_tools,
-    )
+# Define Google agent
+agent = Agent(
+    name="google_agent",
+    model=LiteLlm(
+        model=llm_model_name,
+        api_base=llm_base_url.rstrip('/v1'),
+        api_key=llm_api_key
+    ),
+    instruction="You are a helpful assistant.",
+    tools=google_tools,
+)
 
-    # Session and Runner
-    session_service = InMemorySessionService()
-    runner = Runner(agent=agent, app_name='nostr_example', session_service=session_service)
+# Session and Runner
+session_service = InMemorySessionService()
+runner = Runner(agent=agent, app_name='nostr_example', session_service=session_service)
 
-    # Define agent callable
-    async def agent_callable(input: ChatInput) -> str:
-        content = types.Content(role='user', parts=[types.Part(text=input.messages[-1])])
-        session = await session_service.create_session(app_name='nostr_example', user_id=input.thread_id, session_id=input.thread_id)
-        events_async = runner.run_async(user_id=input.thread_id,
-                                        session_id=input.thread_id,
-                                        new_message=content)
-        async for event in events_async:
-            if event.is_final_response():
-                final_response = event.content.parts[0].text
-                return final_response
-        return None
+# Define agent callable
+async def agent_callable(input: ChatInput) -> str:
+    content = types.Content(role='user', parts=[types.Part(text=input.messages[-1])])
+    session = await session_service.create_session(app_name='nostr_example', user_id=input.thread_id, session_id=input.thread_id)
+    events_async = runner.run_async(user_id=input.thread_id,
+                                    session_id=input.thread_id,
+                                    new_message=content)
+    async for event in events_async:
+        if event.is_final_response():
+            final_response = event.content.parts[0].text
+            return final_response
+    return None
 
-    # Create Nostr Agent Server
-    server = NostrAgentServer(relays=relays,
-                              private_key=private_key,
-                              agent_callable=agent_callable,
-                              nwc_str=nwc_str)
+# Create Nostr Agent Server
+server = NostrAgentServer(relays=relays,
+                          private_key=private_key,
+                          agent_callable=agent_callable,
+                          nwc_str=nwc_str)
 
-    # Start server
-    await server.start()`}
+# Start server
+await server.start()`}
               />
               <p className="text-gray-400 mt-4">
                 For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_google_agent.py">Google ADK Agent Example</a>.
