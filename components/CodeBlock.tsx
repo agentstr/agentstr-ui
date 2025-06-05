@@ -2,7 +2,7 @@
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { ClipboardDocumentIcon, ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { codeBlockThemes } from "./CodeBlockTheme";
 
@@ -14,6 +14,11 @@ interface CodeBlockProps {
 export default function CodeBlock({ language, value }: CodeBlockProps) {
   const { resolvedTheme } = useTheme();
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleCopy = async () => {
     try {
@@ -24,6 +29,8 @@ export default function CodeBlock({ language, value }: CodeBlockProps) {
       console.error('Failed to copy text: ', err);
     }
   };
+
+  if (!mounted) return null;
 
   return (
     <div className="relative rounded-lg overflow-hidden">

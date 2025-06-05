@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Bars3Icon, XMarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import Image from "next/image";
 
 const navigation = [
   { name: "Usage", href: "/usage" },
@@ -22,7 +23,7 @@ export default function Navbar() {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center text-xl font-bold text-foreground">
-                <img src="/favicon.ico?v=2" alt="Agentstr SDK Favicon" className="h-6 w-6 mr-2" />
+                <Image src="/favicon.ico?v=2" alt="Agentstr SDK Favicon" width={24} height={24} className="mr-2" />
                 Agentstr SDK
               </Link>
             </div>
