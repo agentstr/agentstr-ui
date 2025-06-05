@@ -8,9 +8,10 @@ export default function DemoPage() {
       <div className="w-full sm:max-w-7xl sm:mx-auto px-2 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-foreground sm:text-5xl md:text-6xl">
-            <span className="block">Agentstr Demo</span>
+            <span className="block">Demo</span>
+            <span className="block text-primary">Agentstr SDK</span>
           </h1>
-          <p className="mt-3 text-base text-foreground-light sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
+          <p className="mt-3 text-base text-gray-700 dark:text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
             Watch our demo video and view the presentation slides to learn more about Agentstr.
           </p>
         </div>

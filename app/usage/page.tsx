@@ -30,7 +30,7 @@ export default function UsagePage() {
             <span className="block">Usage</span>
             <span className="block text-primary">Agentstr SDK</span>
           </h1>
-          <p className="mt-3 text-base text-foreground-light sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl">
+          <p className="mt-3 text-base text-gray-700 dark:text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
             Explore practical examples using the Agentstr SDK.
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
