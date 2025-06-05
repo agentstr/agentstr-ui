@@ -15,7 +15,7 @@ export default function DemoPage() {
           </p>
         </div>
         <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Demo Video</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">Watch our demo video to see Agentstr in action:</p>
@@ -40,7 +40,7 @@ export default function DemoPage() {
         </div>
 
         <div className="mt-12 mb-16 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Slide Deck</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">Check out the presentation slides to learn more about the motivation behind Agentstr:</p>

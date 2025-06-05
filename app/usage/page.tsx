@@ -62,7 +62,7 @@ export default function UsagePage() {
         </div>
 
         <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6 table-of-contents">
               <div 
                 className="flex items-center justify-between mb-4 cursor-pointer hover:bg-gray-700 rounded-md p-2 toc-header"
@@ -118,7 +118,7 @@ export default function UsagePage() {
 
 
         <div id="installation" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Installation</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -140,7 +140,7 @@ export default function UsagePage() {
         </div>
 
         <div id="nostr-mcp-server" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr MCP Server</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -189,7 +189,7 @@ await server.start()`}
         </div>
 
         <div id="nostr-mcp-client" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr MCP Client</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -236,7 +236,7 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
         </div>
 
         <div id="lightning-integration" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Lightning Integration</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -292,7 +292,7 @@ server = NostrAgentServer(nwc_str='nostr+walletconnect://...',
         </div>
 
         <div id="nostr-tool-discovery" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Tool Discovery</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -328,7 +328,7 @@ for event in events:
         </div>
 
         <div id="nostr-langgraph-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr LangGraph Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -386,7 +386,7 @@ await server.start()`}
         </div>
 
         <div id="nostr-dspy-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr DSPy Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -437,7 +437,7 @@ await server.start()`}
         </div>
 
         <div id="nostr-agno-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Agno Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -491,7 +491,7 @@ await server.start()`}
         </div>
 
         <div id="nostr-pydantic-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr PydanticAI Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -548,7 +548,7 @@ await server.start()`}
         </div>
 
         <div id="nostr-openai-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr OpenAI Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -602,7 +602,7 @@ await server.start()`}
         </div>
         
         <div id="nostr-google-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Google Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -672,7 +672,7 @@ await server.start()`}
         </div>
 
         <div id="nostr-rag" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr RAG</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -711,7 +711,7 @@ print(result)`}
         </div>
 
         <div className="mt-12 mb-16 max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Next Steps</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
