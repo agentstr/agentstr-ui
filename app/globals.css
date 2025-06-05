@@ -2,6 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Table of Contents hover for light theme */
+.table-of-contents a:hover {
+  background-color: #e6f0ff;
+  color: #1d4ed8;
+}
+
+.table-of-contents .toc-header:hover,
+.table-of-contents .toc-header:focus {
+  background-color: #e6f0ff;
+  color: #1d4ed8;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+html.dark .table-of-contents a:hover {
+  background-color: #374151;
+  color: #ededed;
+}
+
+html.dark .table-of-contents .toc-header:hover,
+html.dark .table-of-contents .toc-header:focus {
+  background-color: #374151;
+  color: #ededed;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+
 /* Custom hover effects */
 .hover-scale {
   transition: transform 300ms ease-in-out;

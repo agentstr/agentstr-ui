@@ -47,9 +47,9 @@ export default function UsagePage() {
 
         <div className="mt-12 max-w-4xl mx-auto">
           <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
-            <div className="p-6">
+            <div className="p-6 table-of-contents">
               <div 
-                className="flex items-center justify-between mb-4 cursor-pointer hover:bg-gray-700 rounded-md p-2"
+                className="flex items-center justify-between mb-4 cursor-pointer hover:bg-gray-700 rounded-md p-2 toc-header"
                 onClick={() => setIsTocOpen(!isTocOpen)}
               >
                 <h2 className="text-xl font-semibold text-foreground">Table of Contents</h2>
