@@ -39,7 +39,7 @@ export default function UsagePage() {
                 <div className="rounded-md shadow">
                   <a
                     href="/demo"
-                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-foreground bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
+                    className="flex items-center justify-center px-8 py-3 border border-primary text-base font-medium whitespace-nowrap rounded-md bg-white text-primary shadow-sm hover:bg-primary hover:text-white transition-colors duration-200 dark:bg-primary dark:text-white dark:border-transparent dark:hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
                   >
                     Watch Demo
                   </a>
@@ -49,7 +49,7 @@ export default function UsagePage() {
                 <div className="rounded-md shadow">
                   <a
                     href="/docs"
-                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-foreground bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
+                    className="flex items-center justify-center px-8 py-3 border border-accent text-base font-medium whitespace-nowrap rounded-md bg-white text-accent shadow-sm hover:bg-accent hover:text-white transition-colors duration-200 dark:bg-accent dark:text-white dark:border-transparent dark:hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
                   >
                     <span className="flex items-center justify-center">
                       View Reference

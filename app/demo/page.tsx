@@ -28,7 +28,7 @@ export default function DemoPage() {
                 href="https://github.com/ehallmark/agentstr-demo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-accent bg-background hover:bg-background-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
+                className="inline-flex items-center px-4 py-2 border border-accent text-sm font-medium rounded-md bg-white text-accent shadow-sm hover:bg-accent hover:text-white transition-colors duration-200 dark:bg-accent dark:text-white dark:border-transparent dark:hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
               >
                 <span className="flex items-center">
                   View Demo in GitHub
@@ -53,7 +53,7 @@ export default function DemoPage() {
                 href="https://drive.google.com/file/d/1Dc6_pRQ2fQMge14HrB20zMXe81z_XNsc/view"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-accent bg-background hover:bg-background-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
+                className="inline-flex items-center px-4 py-2 border border-accent text-sm font-medium rounded-md bg-white text-accent shadow-sm hover:bg-accent hover:text-white transition-colors duration-200 dark:bg-accent dark:text-white dark:border-transparent dark:hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
               >
                 <span className="flex items-center">
                   View in Drive
