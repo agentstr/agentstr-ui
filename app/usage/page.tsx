@@ -106,7 +106,7 @@ export default function UsagePage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Installation</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                It is recommended to install the Agentstr SDK with <a className="text-indigo-400 hover:text-foreground" href="https://docs.astral.sh/uv/">uv</a>:
+                It is recommended to install the Agentstr SDK with <a className="text-primary hover:text-foreground" href="https://docs.astral.sh/uv/">uv</a>:
               </p>
               <CodeBlock
                 language="bash"
@@ -128,7 +128,7 @@ export default function UsagePage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr MCP Server</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                MCP Servers are used to provide tools and services to other Nostr clients. Provide a <a className="text-indigo-400 hover:text-foreground" href="https://nwc.dev/">Nostr Wallet Connect</a> string to enable premium tools.
+                MCP Servers are used to provide tools and services to other Nostr clients. Provide a <a className="text-primary hover:text-foreground" href="https://nwc.dev/">Nostr Wallet Connect</a> string to enable premium tools.
               </p>
               <CodeBlock
                 language="python"
@@ -177,7 +177,7 @@ await server.start()`}
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr MCP Client</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Create Nostr MCP clients that can discover and use tools from Nostr MCP servers. Provide a <a className="text-indigo-400 hover:text-foreground" href="https://nwc.dev/">Nostr Wallet Connect</a> string to handle tool payments.
+                Create Nostr MCP clients that can discover and use tools from Nostr MCP servers. Provide a <a className="text-primary hover:text-foreground" href="https://nwc.dev/">Nostr Wallet Connect</a> string to handle tool payments.
               </p>
               <CodeBlock
                 language="python"
@@ -316,7 +316,7 @@ for event in events:
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr LangGraph Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Use <a className="text-indigo-400 hover:text-foreground" href="https://www.langchain.com/langgraph">LangGraph</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+                Use <a className="text-primary hover:text-foreground" href="https://www.langchain.com/langgraph">LangGraph</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -382,7 +382,7 @@ await server.start()`}
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr DSPy Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Use <a className="text-indigo-400 hover:text-foreground" href="https://dspy.ai/">DSPy</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+                Use <a className="text-primary hover:text-foreground" href="https://dspy.ai/">DSPy</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -444,7 +444,7 @@ await server.start()`}
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Agno Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Use <a className="text-indigo-400 hover:text-foreground" href="https://docs.agno.com/introduction">Agno</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+                Use <a className="text-primary hover:text-foreground" href="https://docs.agno.com/introduction">Agno</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -509,7 +509,7 @@ await server.start()`}
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr PydanticAI Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Use <a className="text-indigo-400 hover:text-foreground" href="https://ai.pydantic.dev/">PydanticAI</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+                Use <a className="text-primary hover:text-foreground" href="https://ai.pydantic.dev/">PydanticAI</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -580,7 +580,7 @@ await server.start()`}
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr OpenAI Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Use OpenAI&apos;s <a className="text-indigo-400 hover:text-foreground" href="https://openai.github.io/openai-agents-python/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+                Use OpenAI&apos;s <a className="text-primary hover:text-foreground" href="https://openai.github.io/openai-agents-python/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -646,7 +646,7 @@ await server.start()`}
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Google Agent</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Use Google&apos;s <a className="text-indigo-400 hover:text-foreground" href="https://google.github.io/adk-docs/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+                Use Google&apos;s <a className="text-primary hover:text-foreground" href="https://google.github.io/adk-docs/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -769,10 +769,10 @@ print(result)`}
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Next Steps</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Check out the <a href="/demo" className="text-indigo-400 hover:text-foreground">Demo</a> to see how Agentstr can be used in a real-world scenario.
+                Check out the <a href="/demo" className="text-primary hover:text-foreground">Demo</a> to see how Agentstr can be used in a real-world scenario.
               </p>
               <p className="text-gray-600 dark:text-gray-400">
-                Check out our <a href="/docs" className="text-indigo-400 hover:text-foreground">SDK Reference</a> for more details on each component.
+                Check out our <a href="/docs" className="text-primary hover:text-foreground">SDK Reference</a> for more details on each component.
               </p>
             </div>
           </div>
