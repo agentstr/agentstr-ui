@@ -269,7 +269,7 @@ mcp_server.add_tool(
 # Define agent info
 agent_info = AgentCard(
     name='Premium Agent',
-    description=('This agent can do premium things.'),
+    description='This agent can do premium things.',
     skills=[
         Skill(name='free_skill',
               description='A free skill.', 
