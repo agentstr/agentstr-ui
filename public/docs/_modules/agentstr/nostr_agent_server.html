@@ -267,7 +267,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.a2a</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">ChatInput</span><span class="p">,</span> <span class="n">RouterResponse</span><span class="p">,</span> <span class="n">agent_router</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.a2a</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">ChatInput</span><span class="p">,</span> <span class="n">PriceHandlerResponse</span><span class="p">,</span> <span class="n">price_handler</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_mcp_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrMCPClient</span>
@@ -303,7 +303,7 @@
                  <span class="n">agent_info</span><span class="p">:</span> <span class="n">AgentCard</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">agent_callable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ChatInput</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">note_filters</span><span class="p">:</span> <span class="n">NoteFilters</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">router_llm</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                 <span class="n">price_handler_callable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the agent server.</span>
 
 <span class="sd">        Args:</span>
@@ -321,7 +321,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span> <span class="o">=</span> <span class="n">agent_info</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">agent_callable</span> <span class="o">=</span> <span class="n">agent_callable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span> <span class="o">=</span> <span class="n">note_filters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span> <span class="o">=</span> <span class="n">router_llm</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price_handler_callable</span> <span class="o">=</span> <span class="n">price_handler_callable</span></div>
 
 
 <div class="viewcode-block" id="NostrAgentServer.chat">
@@ -339,17 +339,17 @@
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_callable</span><span class="p">(</span><span class="n">ChatInput</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="p">[</span><span class="n">message</span><span class="p">],</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">thread_id</span><span class="p">))</span></div>
 
 
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_handle_paid_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">router_response</span><span class="p">:</span> <span class="n">RouterResponse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_handle_paid_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">invoice</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">price_handler_response</span><span class="p">:</span> <span class="n">PriceHandlerResponse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a paid invoice.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">router_response</span><span class="p">:</span>
-            <span class="n">skills_used</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">router_response</span><span class="o">.</span><span class="n">skills_used</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">price_handler_response</span><span class="p">:</span>
+            <span class="n">skills_used</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">price_handler_response</span><span class="o">.</span><span class="n">skills_used</span><span class="p">)</span>
             <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;I&#39;d like to follow up on our previous exchange:</span>
 
 <span class="s2">Your Request:</span>
 <span class="si">{</span><span class="n">message</span><span class="si">}</span>
 
 <span class="s2">Your Response:</span>
-<span class="si">{</span><span class="n">router_response</span><span class="o">.</span><span class="n">user_message</span><span class="si">}</span>
+<span class="si">{</span><span class="n">price_handler_response</span><span class="o">.</span><span class="n">user_message</span><span class="si">}</span>
 
 <span class="s2">Could you please proceed with the next steps or provide an update on this matter?</span>
 
@@ -393,16 +393,16 @@
             <span class="k">return</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="n">invoice</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">router_response</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">price_handler_response</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent request: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">cost_sats</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span><span class="p">:</span>
-                <span class="n">router_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent_router</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
-                <span class="n">response</span> <span class="o">=</span> <span class="n">router_response</span><span class="o">.</span><span class="n">user_message</span>
-                <span class="k">if</span> <span class="n">router_response</span><span class="o">.</span><span class="n">can_handle</span><span class="p">:</span>
-                    <span class="n">cost_sats</span> <span class="o">=</span> <span class="n">router_response</span><span class="o">.</span><span class="n">cost_sats</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">price_handler_callable</span><span class="p">:</span>
+                <span class="n">price_handler_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">price_handler</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">price_handler_callable</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">price_handler_response</span><span class="o">.</span><span class="n">user_message</span>
+                <span class="k">if</span> <span class="n">price_handler_response</span><span class="o">.</span><span class="n">can_handle</span><span class="p">:</span>
+                    <span class="n">cost_sats</span> <span class="o">=</span> <span class="n">price_handler_response</span><span class="o">.</span><span class="n">cost_sats</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
                     <span class="k">return</span>
@@ -424,7 +424,7 @@
         <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_direct_message</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">response</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">invoice</span><span class="p">:</span>
-            <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_paid_invoice</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">invoice</span><span class="p">,</span> <span class="n">router_response</span><span class="p">))</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_paid_invoice</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">invoice</span><span class="p">,</span> <span class="n">price_handler_response</span><span class="p">))</span>
         <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
 
 
@@ -438,7 +438,7 @@
             <span class="n">content</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">content</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received note from </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            <span class="n">router_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agent_router</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">router_llm</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
+            <span class="n">router_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">price_handler</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">price_handler_callable</span><span class="p">,</span> <span class="n">thread_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Router response: </span><span class="si">{</span><span class="n">router_response</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">router_response</span><span class="o">.</span><span class="n">can_handle</span><span class="p">:</span>
