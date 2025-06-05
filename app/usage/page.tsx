@@ -457,7 +457,7 @@ nostr_mcp_client = NostrMCPClient(relays=['wss://some.relay'],
                                   mcp_pubkey='npub...',
                                   nwc_str='nostr+walletconnect://...')
 
-# Define tools
+# Convert MCP tools to Agno tools
 agno_tools = await to_agno_tools(nostr_mcp_client)
 
 # Define Agno agent
@@ -512,7 +512,7 @@ nostr_mcp_client = NostrMCPClient(relays=['wss://some.relay'],
                                   mcp_pubkey='npub...',
                                   nwc_str='nostr+walletconnect://...')
 
-# Define tools
+# Convert MCP tools to Pydantic tools
 pydantic_tools = await to_pydantic_tools(nostr_mcp_client)
 
 # Define Pydantic agent
@@ -566,7 +566,7 @@ nostr_mcp_client = NostrMCPClient(relays=['wss://some.relay'],
                                   mcp_pubkey='npub...',
                                   nwc_str='nostr+walletconnect://...')
 
-# Define tools
+# Convert MCP tools to OpenAI tools
 openai_tools = await to_openai_tools(nostr_mcp_client)
 
 # Define OpenAI agent
@@ -625,7 +625,7 @@ nostr_mcp_client = NostrMCPClient(relays=['wss://some.relay'],
                                   mcp_pubkey='npub...',
                                   nwc_str='nostr+walletconnect://...')
 
-# Define tools
+# Convert MCP tools to Google tools
 google_tools = await to_google_tools(nostr_mcp_client)
 
 # Define Google agent
