@@ -166,7 +166,7 @@ server.add_tool(multiply, satoshis=10) # Premium tool
 await server.start()`}
               />
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_server.py">MCP Server Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_server.py">MCP Server Example</a>.
               </p>
             </div>
           </div>
@@ -213,7 +213,7 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
               />
 
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_client.py">MCP Client Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_client.py">MCP Client Example</a>.
               </p>
             </div>
           </div>
@@ -233,7 +233,15 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
               <p className="text-gray-400 mb-4"></p>
               <CodeBlock
                 language="python"
-                value={`mcp_server.add_tool(premium_tool, satoshis=100) # Premium tool`}
+                value={`def premium_tool():
+    """Do something that costs 100 sats."""
+    return "Premium tool executed!"
+
+# Add to MCP server
+mcp_server.add_tool(
+    fn=premium_tool, 
+    satoshis=100
+)`}
               />
               <p className="text-gray-400 mb-4 mt-4">
                 Agents specify <code>satoshis</code> in the <code>AgentCard</code> to indicate the number of sats required to use a particular skill.
@@ -244,8 +252,8 @@ print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
 
 # Define agent info
 agent_info = AgentCard(
-    name='Travel Agent',
-    description=('This agent can help you find, book, and manage flights.'),
+    name='Premium Agent',
+    description=('This agent can do premium things.'),
     skills=[
         Skill(name='free_skill',
               description='A free skill.', 
@@ -254,12 +262,12 @@ agent_info = AgentCard(
               description='A paid skill.', 
               satoshis=100),
     ],
-    satoshis=5, # Additional satoshis required to use the agent
+    satoshis=10, # Additional satoshis required to use the agent
     nostr_pubkey='npub...',
 )
 
 # Create the agent server
-server = NostrAgentServer(nwc_str=os.getenv('AGENT_NWC_CONN_STR'),
+server = NostrAgentServer(nwc_str='nostr+walletconnect://...',
                           agent_info=agent_info,
                           ...)`}
               />
@@ -297,7 +305,7 @@ for event in events:
         pass  # invalid definition`}
               />
             <p className="text-gray-400 mt-4">
-              For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/tool_discovery.py">Tool Discovery Example</a>.
+              For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/tool_discovery.py">Tool Discovery Example</a>.
             </p>
             </div>
           </div>
@@ -363,7 +371,7 @@ server = NostrAgentServer(relays=relays,
 await server.start()`}
               />
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_langgraph_agent.py">LangGraph Agent Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_langgraph_agent.py">LangGraph Agent Example</a>.
               </p>
             </div>
           </div>
@@ -425,7 +433,7 @@ server = NostrAgentServer(relays=relays,
 await server.start()`}
               />
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_dspy_agent.py">DSPy Agent Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_dspy_agent.py">DSPy Agent Example</a>.
               </p>
             </div>
           </div>
@@ -490,7 +498,7 @@ server = NostrAgentServer(relays=relays,
 await server.start()`}
               />
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_agno_agent.py">Agno Agent Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_agno_agent.py">Agno Agent Example</a>.
               </p>
             </div>
           </div>
@@ -561,7 +569,7 @@ server = NostrAgentServer(relays=relays,
 await server.start()`}
               />
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_pydantic_agent.py">PydanticAI Agent Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_pydantic_agent.py">PydanticAI Agent Example</a>.
               </p>
             </div>
           </div>
@@ -627,7 +635,7 @@ server = NostrAgentServer(relays=relays,
 await server.start()`}
               />
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_openai_agent.py">OpenAI Agent Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_openai_agent.py">OpenAI Agent Example</a>.
               </p>
             </div>
           </div>
@@ -711,7 +719,7 @@ server = NostrAgentServer(relays=relays,
 await server.start()`}
               />
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_google_agent.py">Google ADK Agent Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_google_agent.py">Google ADK Agent Example</a>.
               </p>
             </div>
           </div>
@@ -750,7 +758,7 @@ result = await rag.query(question="What's new with Bitcoin?")
 print(result)`}
               />
               <p className="text-gray-400 mt-4">
-                For a full example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/rag.py">RAG Example</a>.
+                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/rag.py">RAG Example</a>.
               </p>
             </div>
           </div>
