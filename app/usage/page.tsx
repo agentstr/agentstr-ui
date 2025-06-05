@@ -87,7 +87,7 @@ export default function UsagePage() {
                   <a href="#lightning-integration" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Lightning Integration</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-tool-discovery" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Tool Discovery</a>
+                  <a href="#nostr-tool-discovery" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Tool Discovery</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-langgraph-agent" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr LangGraph Agent</a>
@@ -106,6 +106,9 @@ export default function UsagePage() {
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-google-agent" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Google ADK Agent</a>
+                </div>
+                <div className="border-l-2 border-gray-600 pl-3">
+                  <a href="#agent-discovery" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Agent Discovery</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
                   <a href="#nostr-rag" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
@@ -294,7 +297,7 @@ server = NostrAgentServer(nwc_str='nostr+walletconnect://...',
         <div id="nostr-tool-discovery" className="mt-12 w-full sm:max-w-4xl sm:mx-auto">
           <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Tool Discovery</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-4">Tool Discovery</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Search Nostr for MCP Servers to discover available tools.
               </p>
@@ -666,6 +669,42 @@ await server.start()`}
               />
               <p className="text-gray-600 dark:text-gray-400 mt-4">
                 For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_google_agent.py">Google ADK Agent Example</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="agent-discovery" className="mt-12 w-full sm:max-w-4xl sm:mx-auto">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-foreground mb-4">Agent Discovery</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Search Nostr for agents and interact with them using the Agentstr SDK. For a more sophisticated approach, use Nostr RAG to semantically search for relevant agents.
+              </p>
+              <CodeBlock
+                language="python"
+                value={`from agentstr import NostrClient, AgentCard
+
+# Define relays
+relays = ['wss://some.relay']
+
+# Initialize the client
+client = NostrClient(relays)
+
+# Search for agents by tag
+events = await client.read_posts_by_tag("agentstr_agents", limit=5)
+
+# Print agent cards
+for event in events:
+    metadata = await client.get_metadata_for_pubkey(event.pubkey)
+    try:
+        agent_info = AgentCard.model_validate_json(metadata.about)
+        print(json.dumps(agent_info.model_dump(), indent=4))
+    except:
+        pass  # Invalid agent card`}
+              />
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/agent_discovery.py">Agent Discovery Example</a>.
               </p>
             </div>
           </div>
