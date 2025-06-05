@@ -4,6 +4,22 @@ import React from 'react';
 import CodeBlock from "../../components/CodeBlock";
 
 export default function UsagePage() {
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const scrollToAnchor = () => {
+        const id = window.location.hash.slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+      // Try immediately, then again after a short delay in case hydration is slow
+      scrollToAnchor();
+      const timeout = setTimeout(scrollToAnchor, 250);
+      return () => clearTimeout(timeout);
+    }
+  }, []);
+
   const [isTocOpen, setIsTocOpen] = React.useState(false);
 
   return (

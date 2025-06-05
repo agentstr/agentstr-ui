@@ -202,7 +202,7 @@ export default function Home() {
                 <a href="/usage#nostr-dspy-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">DSPy</a>
                 <a href="/usage#nostr-langgraph-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">LangGraph</a>
                 <a href="/usage#nostr-pydantic-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">PydanticAI</a>
-                <a href="/usage#nostr-agents-sdk-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Agents SDK</a>               
+                <a href="/usage#nostr-openai-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Agents SDK</a>               
                 <a href="/usage#nostr-google-agent" className="inline-block px-3 py-1 text-md font-semibold text-accent bg-accent/10 rounded-full">Google ADK</a>               
               </div>
             </div>
