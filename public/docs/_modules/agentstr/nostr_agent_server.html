@@ -269,6 +269,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.a2a</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">ChatInput</span><span class="p">,</span> <span class="n">RouterResponse</span><span class="p">,</span> <span class="n">agent_router</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_mcp_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrMCPClient</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -300,6 +301,7 @@
 <a class="viewcode-back" href="../../agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">nostr_client</span><span class="p">:</span> <span class="n">NostrClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">nostr_mcp_client</span><span class="p">:</span> <span class="n">NostrMCPClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">relays</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -311,6 +313,7 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            nostr_client: Existing NostrClient instance (optional).</span>
+<span class="sd">            nostr_mcp_client: Existing NostrMCPClient instance (optional).</span>
 <span class="sd">            relays: List of Nostr relay URLs (if no client provided).</span>
 <span class="sd">            private_key: Nostr private key (if no client provided).</span>
 <span class="sd">            nwc_str: Nostr Wallet Connect string for payments (optional).</span>
@@ -319,7 +322,7 @@
 <span class="sd">            note_filters: Filters for listening to Nostr notes (optional).</span>
 <span class="sd">            router_llm: LLM to use for routing (optional).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">nostr_client</span> <span class="ow">or</span> <span class="n">NostrClient</span><span class="p">(</span><span class="n">relays</span><span class="o">=</span><span class="n">relays</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">private_key</span><span class="p">,</span> <span class="n">nwc_str</span><span class="o">=</span><span class="n">nwc_str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">nostr_client</span> <span class="ow">or</span> <span class="p">(</span><span class="n">nostr_mcp_client</span><span class="o">.</span><span class="n">client</span> <span class="k">if</span> <span class="n">nostr_mcp_client</span> <span class="k">else</span> <span class="n">NostrClient</span><span class="p">(</span><span class="n">relays</span><span class="o">=</span><span class="n">relays</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">private_key</span><span class="p">,</span> <span class="n">nwc_str</span><span class="o">=</span><span class="n">nwc_str</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span> <span class="o">=</span> <span class="n">agent_info</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">agent_callable</span> <span class="o">=</span> <span class="n">agent_callable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span> <span class="o">=</span> <span class="n">note_filters</span>
@@ -501,7 +504,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2025, HallmarkBitcoin
+                Copyright &#169; 2025, Agentstr. All rights reserved.
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
