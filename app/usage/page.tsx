@@ -23,7 +23,7 @@ export default function UsagePage() {
                 <div className="rounded-md shadow">
                   <a
                     href="/demo"
-                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
+                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-foreground bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
                   >
                     Watch Demo
                   </a>
@@ -33,7 +33,7 @@ export default function UsagePage() {
                 <div className="rounded-md shadow">
                   <a
                     href="/docs"
-                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
+                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-foreground bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
                   >
                     <span className="flex items-center justify-center">
                       View Reference
@@ -46,53 +46,53 @@ export default function UsagePage() {
         </div>
 
         <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <div 
                 className="flex items-center justify-between mb-4 cursor-pointer hover:bg-gray-700 rounded-md p-2"
                 onClick={() => setIsTocOpen(!isTocOpen)}
               >
-                <h2 className="text-xl font-semibold text-white">Table of Contents</h2>
-                <span className="text-gray-400 hover:text-white">
+                <h2 className="text-xl font-semibold text-foreground">Table of Contents</h2>
+                <span className="text-gray-600 dark:text-gray-400 hover:text-foreground">
                   {isTocOpen ? '▼' : '▶'}
                 </span>
               </div>
               <div className={`space-y-3 ${isTocOpen ? 'block' : 'hidden'}`}>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#installation" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Installation</a>
+                  <a href="#installation" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Installation</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-mcp-server" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Server</a>
+                  <a href="#nostr-mcp-server" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Server</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-mcp-client" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Client</a>
+                  <a href="#nostr-mcp-client" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr MCP Client</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#lightning-integration" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Lightning Integration</a>
+                  <a href="#lightning-integration" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Lightning Integration</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-tool-discovery" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Tool Discovery</a>
+                  <a href="#nostr-tool-discovery" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Tool Discovery</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-langgraph-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr LangGraph Agent</a>
+                  <a href="#nostr-langgraph-agent" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr LangGraph Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-dspy-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr DSPy Agent</a>
+                  <a href="#nostr-dspy-agent" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr DSPy Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-agno-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agno Agent</a>
+                  <a href="#nostr-agno-agent" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Agno Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-pydantic-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr PydanticAI Agent</a>
+                  <a href="#nostr-pydantic-agent" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr PydanticAI Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-openai-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr OpenAI Agent</a>
+                  <a href="#nostr-openai-agent" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr OpenAI Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-google-agent" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Google ADK Agent</a>
+                  <a href="#nostr-google-agent" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr Google ADK Agent</a>
                 </div>
                 <div className="border-l-2 border-gray-600 pl-3">
-                  <a href="#nostr-rag" className="block text-gray-400 hover:text-white hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
+                  <a href="#nostr-rag" className="block text-gray-600 dark:text-gray-400 hover:text-foreground hover:bg-gray-700 rounded-md px-3 py-2 transition-colors">Nostr RAG</a>
                 </div>
               </div>
             </div>
@@ -102,17 +102,17 @@ export default function UsagePage() {
 
 
         <div id="installation" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Installation</h2>
-              <p className="text-gray-400 mb-4">
-                It is recommended to install the Agentstr SDK with <a className="text-indigo-400 hover:text-white" href="https://docs.astral.sh/uv/">uv</a>:
+              <h2 className="text-xl font-semibold text-foreground mb-4">Installation</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                It is recommended to install the Agentstr SDK with <a className="text-indigo-400 hover:text-foreground" href="https://docs.astral.sh/uv/">uv</a>:
               </p>
               <CodeBlock
                 language="bash"
                 value={`uv add agentstr-sdk[all]`}
               />
-              <p className="text-gray-400 mb-4 mt-4">
+              <p className="text-gray-600 dark:text-gray-400 mb-4 mt-4">
                 But you can also install it with pip:
               </p>
               <CodeBlock
@@ -124,11 +124,11 @@ export default function UsagePage() {
         </div>
 
         <div id="nostr-mcp-server" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Server</h2>
-              <p className="text-gray-400 mb-4">
-                MCP Servers are used to provide tools and services to other Nostr clients. Provide a <a className="text-indigo-400 hover:text-white" href="https://nwc.dev/">Nostr Wallet Connect</a> string to enable premium tools.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr MCP Server</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                MCP Servers are used to provide tools and services to other Nostr clients. Provide a <a className="text-indigo-400 hover:text-foreground" href="https://nwc.dev/">Nostr Wallet Connect</a> string to enable premium tools.
               </p>
               <CodeBlock
                 language="python"
@@ -165,19 +165,19 @@ server.add_tool(multiply, satoshis=10) # Premium tool
 # Start the server
 await server.start()`}
               />
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_server.py">MCP Server Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_server.py">MCP Server Example</a>.
               </p>
             </div>
           </div>
         </div>
 
         <div id="nostr-mcp-client" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr MCP Client</h2>
-              <p className="text-gray-400 mb-4">
-                Create Nostr MCP clients that can discover and use tools from Nostr MCP servers. Provide a <a className="text-indigo-400 hover:text-white" href="https://nwc.dev/">Nostr Wallet Connect</a> string to handle tool payments.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr MCP Client</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Create Nostr MCP clients that can discover and use tools from Nostr MCP servers. Provide a <a className="text-indigo-400 hover:text-foreground" href="https://nwc.dev/">Nostr Wallet Connect</a> string to handle tool payments.
               </p>
               <CodeBlock
                 language="python"
@@ -212,25 +212,25 @@ result = await mcp_client.call_tool("multiply", {"a": 69, "b": 420})
 print(f'The result of 69 * 420 is: {result["content"][-1]["text"]}')`}
               />
 
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_client.py">MCP Client Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/mcp_client.py">MCP Client Example</a>.
               </p>
             </div>
           </div>
         </div>
 
         <div id="lightning-integration" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Lightning Integration</h2>
-              <p className="text-gray-400 mb-4">
+              <h2 className="text-xl font-semibold text-foreground mb-4">Lightning Integration</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Nostr MCP servers and agents can require Lightning payments to pay for various tools and services.
               </p>
-              <p className="text-gray-400 mb-4">
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Each tool can specify a <code>satoshis</code> parameter to indicate the amount of sats required to invoke the tool.
               </p>  
 
-              <p className="text-gray-400 mb-4"></p>
+              <p className="text-gray-600 dark:text-gray-400 mb-4"></p>
               <CodeBlock
                 language="python"
                 value={`def premium_tool():
@@ -243,7 +243,7 @@ mcp_server.add_tool(
     satoshis=100
 )`}
               />
-              <p className="text-gray-400 mb-4 mt-4">
+              <p className="text-gray-600 dark:text-gray-400 mb-4 mt-4">
                 Agents specify <code>satoshis</code> in the <code>AgentCard</code> to indicate the number of sats required to use a particular skill.
               </p>
               <CodeBlock
@@ -276,10 +276,10 @@ server = NostrAgentServer(nwc_str='nostr+walletconnect://...',
         </div>
 
         <div id="nostr-tool-discovery" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr Tool Discovery</h2>
-              <p className="text-gray-400 mb-4">
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Tool Discovery</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Search Nostr for MCP Servers to discover available tools.
               </p>
               <CodeBlock
@@ -304,19 +304,19 @@ for event in events:
     except:
         pass  # invalid definition`}
               />
-            <p className="text-gray-400 mt-4">
-              For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/tool_discovery.py">Tool Discovery Example</a>.
+            <p className="text-gray-600 dark:text-gray-400 mt-4">
+              For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/tool_discovery.py">Tool Discovery Example</a>.
             </p>
             </div>
           </div>
         </div>
 
         <div id="nostr-langgraph-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr LangGraph Agent</h2>
-              <p className="text-gray-400 mb-4">
-                Use <a className="text-indigo-400 hover:text-white" href="https://www.langchain.com/langgraph">LangGraph</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr LangGraph Agent</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Use <a className="text-indigo-400 hover:text-foreground" href="https://www.langchain.com/langgraph">LangGraph</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -370,19 +370,19 @@ server = NostrAgentServer(relays=relays,
 # Start server
 await server.start()`}
               />
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_langgraph_agent.py">LangGraph Agent Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_langgraph_agent.py">LangGraph Agent Example</a>.
               </p>
             </div>
           </div>
         </div>
 
         <div id="nostr-dspy-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr DSPy Agent</h2>
-              <p className="text-gray-400 mb-4">
-                Use <a className="text-indigo-400 hover:text-white" href="https://dspy.ai/">DSPy</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr DSPy Agent</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Use <a className="text-indigo-400 hover:text-foreground" href="https://dspy.ai/">DSPy</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -432,19 +432,19 @@ server = NostrAgentServer(relays=relays,
 # Start server
 await server.start()`}
               />
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_dspy_agent.py">DSPy Agent Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_dspy_agent.py">DSPy Agent Example</a>.
               </p>
             </div>
           </div>
         </div>
 
         <div id="nostr-agno-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr Agno Agent</h2>
-              <p className="text-gray-400 mb-4">
-                Use <a className="text-indigo-400 hover:text-white" href="https://docs.agno.com/introduction">Agno</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Agno Agent</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Use <a className="text-indigo-400 hover:text-foreground" href="https://docs.agno.com/introduction">Agno</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -497,19 +497,19 @@ server = NostrAgentServer(relays=relays,
 # Start server
 await server.start()`}
               />
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_agno_agent.py">Agno Agent Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_agno_agent.py">Agno Agent Example</a>.
               </p>
             </div>
           </div>
         </div>
 
         <div id="nostr-pydantic-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr PydanticAI Agent</h2>
-              <p className="text-gray-400 mb-4">
-                Use <a className="text-indigo-400 hover:text-white" href="https://ai.pydantic.dev/">PydanticAI</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr PydanticAI Agent</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Use <a className="text-indigo-400 hover:text-foreground" href="https://ai.pydantic.dev/">PydanticAI</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -568,19 +568,19 @@ server = NostrAgentServer(relays=relays,
 # Start server
 await server.start()`}
               />
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_pydantic_agent.py">PydanticAI Agent Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_pydantic_agent.py">PydanticAI Agent Example</a>.
               </p>
             </div>
           </div>
         </div>
 
         <div id="nostr-openai-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr OpenAI Agent</h2>
-              <p className="text-gray-400 mb-4">
-                Use OpenAI&apos;s <a className="text-indigo-400 hover:text-white" href="https://openai.github.io/openai-agents-python/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr OpenAI Agent</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Use OpenAI&apos;s <a className="text-indigo-400 hover:text-foreground" href="https://openai.github.io/openai-agents-python/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -634,19 +634,19 @@ server = NostrAgentServer(relays=relays,
 # Start server
 await server.start()`}
               />
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_openai_agent.py">OpenAI Agent Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_openai_agent.py">OpenAI Agent Example</a>.
               </p>
             </div>
           </div>
         </div>
         
         <div id="nostr-google-agent" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr Google Agent</h2>
-              <p className="text-gray-400 mb-4">
-                Use Google&apos;s <a className="text-indigo-400 hover:text-white" href="https://google.github.io/adk-docs/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr Google Agent</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Use Google&apos;s <a className="text-indigo-400 hover:text-foreground" href="https://google.github.io/adk-docs/">Agents SDK</a> to build decentralized Nostr agents and connect them to any Nostr MCP servers.
               </p>
               <CodeBlock
                 language="python"
@@ -718,18 +718,18 @@ server = NostrAgentServer(relays=relays,
 # Start server
 await server.start()`}
               />
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_google_agent.py">Google ADK Agent Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/nostr_google_agent.py">Google ADK Agent Example</a>.
               </p>
             </div>
           </div>
         </div>
 
         <div id="nostr-rag" className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Nostr RAG</h2>
-              <p className="text-gray-400 mb-4">
+              <h2 className="text-xl font-semibold text-foreground mb-4">Nostr RAG</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Agentstr SDK provides powerful RAG (Retrieval-Augmented Generation) capabilities integrated with Nostr. This allows you to build intelligent agents that can search and retrieve relevant information from Nostr notes.
               </p>
               <CodeBlock
@@ -757,22 +757,22 @@ rag = NostrRAG(relays=relays,
 result = await rag.query(question="What's new with Bitcoin?")
 print(result)`}
               />
-              <p className="text-gray-400 mt-4">
-                For a complete working example, see the <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/rag.py">RAG Example</a>.
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                For a complete working example, see the <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/blob/main/examples/rag.py">RAG Example</a>.
               </p>
             </div>
           </div>
         </div>
 
         <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Next Steps</h2>
-              <p className="text-gray-400 mb-4">
-                Check out the <a href="/demo" className="text-indigo-400 hover:text-white">Demo</a> to see how Agentstr can be used in a real-world scenario.
+              <h2 className="text-xl font-semibold text-foreground mb-4">Next Steps</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Check out the <a href="/demo" className="text-indigo-400 hover:text-foreground">Demo</a> to see how Agentstr can be used in a real-world scenario.
               </p>
-              <p className="text-gray-400">
-                Check out our <a href="/docs" className="text-indigo-400 hover:text-white">SDK Reference</a> for more details on each component.
+              <p className="text-gray-600 dark:text-gray-400">
+                Check out our <a href="/docs" className="text-indigo-400 hover:text-foreground">SDK Reference</a> for more details on each component.
               </p>
             </div>
           </div>

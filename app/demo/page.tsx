@@ -15,10 +15,10 @@ export default function DemoPage() {
           </p>
         </div>
         <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Demo Video</h2>
-              <p className="text-gray-400 mb-4">Watch our demo video to see Agentstr in action:</p>
+              <h2 className="text-xl font-semibold text-foreground mb-4">Demo Video</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">Watch our demo video to see Agentstr in action:</p>
               <VideoPlayer
                 src="https://www.youtube.com/embed/xIykZFM-QhQ?si=y4CXUYFTI6Fh7E-9"
                 title="Agentstr Demo"
@@ -40,10 +40,10 @@ export default function DemoPage() {
         </div>
 
         <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">Slide Deck</h2>
-              <p className="text-gray-400 mb-4">Check out the presentation slides to learn more about the motivation behind Agentstr:</p>
+              <h2 className="text-xl font-semibold text-foreground mb-4">Slide Deck</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">Check out the presentation slides to learn more about the motivation behind Agentstr:</p>
               <PDFViewer
                 src="https://drive.google.com/file/d/1Dc6_pRQ2fQMge14HrB20zMXe81z_XNsc/preview"
                 title="Agentstr Presentation"

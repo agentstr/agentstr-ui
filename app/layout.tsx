@@ -25,9 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" style={{colorScheme: "dark"}}>
+    <html lang="en">
       <link rel="icon" href="favicon.ico?v=2" />
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeWrapper>
           <div className="min-h-screen flex flex-col">
             <main className="flex-grow">

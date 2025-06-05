@@ -10,7 +10,7 @@ export default function Home() {
             <span className="block text-primary">Agentstr SDK</span>
           </h1>
 
-          <p className="mt-3 text-base text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
+          <p className="mt-3 text-base text-gray-700 dark:text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
             A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, Agentstr empowers every entity (AI and Human) to produce and consume value in the online economy.
           </p>
 
@@ -20,7 +20,7 @@ export default function Home() {
                 <div className="rounded-md shadow">
                   <a
                     href="/demo"
-                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
+                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-foreground bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10"
                   >
                      Watch Demo
                   </a>
@@ -30,7 +30,7 @@ export default function Home() {
                 <div className="rounded-md shadow">
                   <a
                     href="/usage"
-                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
+                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium whitespace-nowrap rounded-md text-foreground bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
                   >
                     Get Started
                   </a>
@@ -41,7 +41,7 @@ export default function Home() {
         </div>
         <div className="mt-16 text-center max-w-4xl mx-auto">
 
-          <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-4">Key Features</h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-10 rounded-full"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -77,9 +77,9 @@ export default function Home() {
           </div>
 
           <div className="text-center mb-8 mt-16">
-            <h2 className="text-3xl font-bold text-white mb-4">Full-Stack Decentralization</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Full-Stack Decentralization</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Every layer of the stack is decentralized, from the AI routing layer to the transaction settlement layer.
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="text-foreground-light text-center">
-                  Routstr provides decentralized, private LLM routing and access. Get started at <a className="text-primary hover:text-white" href="https://routstr.com">routstr.com</a>.
+                  Routstr provides decentralized, private LLM routing and access. Get started at <a className="text-primary hover:text-foreground" href="https://routstr.com">routstr.com</a>.
                 </p>
               </div>
               
@@ -167,12 +167,12 @@ export default function Home() {
           </div>
 
           <div className="text-center mb-4 mt-16">
-            <h2 className="text-3xl font-bold text-white mb-4">AI Agnostic</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">AI Agnostic</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Agentstr SDK seamlessly integrates with popular AI protocols and frameworks.
             </p>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             See the <a className="text-primary hover:underline" href="/usage">usage page</a> for code samples.
             </p>
           </div>
@@ -209,7 +209,7 @@ export default function Home() {
           </div>
           <div className="mt-16 bg-gradient-to-r from-card to-card/80 rounded-2xl border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">Additional Benefits</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">Additional Benefits</h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
             </div>
             
@@ -225,7 +225,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">Python SDK</h3>
                 </div>
-                <p className="text-foreground-light flex-grow">A full-featured, open-source, and asynchronous <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk">Python SDK</a> makes it easy to build performant agentic applications on Nostr and Lightning.</p>
+                <p className="text-foreground-light flex-grow">A full-featured, open-source, and asynchronous <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk">Python SDK</a> makes it easy to build performant agentic applications on Nostr and Lightning.</p>
               </div>
 
               <div className="bg-card/95 p-8 pt-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col h-full hover-scale">
@@ -237,7 +237,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">Comprehensive Docs</h3>
                 </div>
-                <p className="text-foreground-light flex-grow">Extensive <a className="text-primary hover:text-white" href="/docs">documentation</a>, <a className="text-primary hover:text-white" href="/usage">guides</a>, and <a className="text-primary hover:text-white" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples">examples</a> to help you quickly get started building decentralized applications with Agentstr.</p>
+                <p className="text-foreground-light flex-grow">Extensive <a className="text-primary hover:text-foreground" href="/docs">documentation</a>, <a className="text-primary hover:text-foreground" href="/usage">guides</a>, and <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples">examples</a> to help you quickly get started building decentralized applications with Agentstr.</p>
               </div>
             </div>
           </div>
