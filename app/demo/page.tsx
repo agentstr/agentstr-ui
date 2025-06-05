@@ -5,7 +5,7 @@ import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 export default function DemoPage() {
   return (
     <main className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="w-full sm:max-w-7xl sm:mx-auto px-2 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-foreground sm:text-5xl md:text-6xl">
             <span className="block">Agentstr Demo</span>
@@ -14,7 +14,7 @@ export default function DemoPage() {
             Watch our demo video and view the presentation slides to learn more about Agentstr.
           </p>
         </div>
-        <div className="mt-12 max-w-4xl mx-auto">
+        <div className="mt-12 w-full sm:max-w-4xl sm:mx-auto">
           <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Demo Video</h2>
@@ -39,7 +39,7 @@ export default function DemoPage() {
           </div>
         </div>
 
-        <div className="mt-12 mb-16 max-w-4xl mx-auto">
+        <div className="mt-12 mb-16 w-full sm:max-w-4xl sm:mx-auto">
           <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold text-foreground mb-4">Slide Deck</h2>
