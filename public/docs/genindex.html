@@ -7,6 +7,7 @@
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 --><title>Index - Agentstr SDK</title>
 <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4de4e07a" />
     
@@ -203,8 +204,8 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol)</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.agno.html">Agno Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.dspy.html">DSPy Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.google.html">Google Integration</a></li>
@@ -219,7 +220,7 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">Relay</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
@@ -296,22 +297,11 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.add_tool">add_tool() (agentstr.nostr_mcp_server.NostrMCPServer method)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.agent_router">agent_router() (in module agentstr.a2a)</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard">AgentCard (class in agentstr.a2a)</a>
-</li>
         <li>
     agentstr
 
         <ul>
           <li><a href="agentstr.html#module-agentstr">module</a>
-</li>
-        </ul></li>
-        <li>
-    agentstr.a2a
-
-        <ul>
-          <li><a href="agentstr.a2a.html#module-agentstr.a2a">module</a>
 </li>
         </ul></li>
         <li>
@@ -356,8 +346,6 @@
           <li><a href="agentstr.mcp.openai.html#module-agentstr.mcp.openai">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     agentstr.mcp.pydantic
 
@@ -365,6 +353,8 @@
           <li><a href="agentstr.mcp.pydantic.html#module-agentstr.mcp.pydantic">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     agentstr.nostr_agent_server
 
@@ -445,17 +435,11 @@
           <li><a href="agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.call_tool">(agentstr.nostr_mcp_server.NostrMCPServer method)</a>
 </li>
         </ul></li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.can_handle">can_handle (agentstr.a2a.RouterResponse attribute)</a>
-</li>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.chat">chat() (agentstr.nostr_agent_server.NostrAgentServer method)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput">ChatInput (class in agentstr.a2a)</a>
+        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.chat">chat() (agentstr.nostr_agent_server.NostrAgentServer method)</a>
 </li>
         <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.check_invoice">check_invoice() (agentstr.nwc_relay.NWCRelay method)</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.cost_sats">cost_sats (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id11">[1]</a>
 </li>
         <li><a href="agentstr.relay.html#agentstr.relay.create_subscription">create_subscription() (in module agentstr.relay)</a>
 </li>
@@ -471,18 +455,10 @@
 </li>
         <li><a href="agentstr.relay.html#agentstr.relay.EventRelay.decrypt_message">decrypt_message() (agentstr.relay.EventRelay method)</a>
 </li>
-        <li><a href="agentstr.relay.html#agentstr.relay.DecryptedMessage">DecryptedMessage (class in agentstr.relay)</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.description">description (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id4">[1]</a>
-
-        <ul>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.description">(agentstr.a2a.Skill attribute)</a>, <a href="agentstr.a2a.html#id1">[1]</a>
-</li>
-        </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.did_payment_succeed">did_payment_succeed() (agentstr.nwc_relay.NWCRelay method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.direct_message_listener">direct_message_listener() (agentstr.nostr_client.NostrClient method)</a>
 
         <ul>
@@ -503,7 +479,7 @@
 </li>
         <li><a href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.encrypt_message">encrypt_message() (agentstr.relay_manager.RelayManager method)</a>
 </li>
-        <li><a href="agentstr.relay.html#agentstr.relay.DecryptedMessage.event">event (agentstr.relay.DecryptedMessage attribute)</a>, <a href="agentstr.relay.html#id0">[1]</a>
+        <li><a href="agentstr.relay.html#agentstr.relay.DecryptedMessage.event">event (agentstr.relay.DecryptedMessage attribute)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
@@ -515,8 +491,6 @@
         </ul></li>
         <li><a href="agentstr.relay.html#agentstr.relay.EventRelay">EventRelay (class in agentstr.relay)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.extra_inputs">extra_inputs (agentstr.a2a.ChatInput attribute)</a>, <a href="agentstr.a2a.html#id10">[1]</a>
-</li>
     </ul></td>
   </tr></table>
 </section>
@@ -525,7 +499,7 @@
   <h2>F</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.following_only">following_only (agentstr.nostr_agent_server.NoteFilters attribute)</a>, <a href="agentstr.nostr_agent_server.html#id2">[1]</a>
+        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.following_only">following_only (agentstr.nostr_agent_server.NoteFilters attribute)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -589,31 +563,13 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.make_invoice">make_invoice() (agentstr.nwc_relay.NWCRelay method)</a>
 </li>
-        <li><a href="agentstr.relay.html#agentstr.relay.DecryptedMessage.message">message (agentstr.relay.DecryptedMessage attribute)</a>, <a href="agentstr.relay.html#id1">[1]</a>
+        <li><a href="agentstr.relay.html#agentstr.relay.DecryptedMessage.message">message (agentstr.relay.DecryptedMessage attribute)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.messages">messages (agentstr.a2a.ChatInput attribute)</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.model_config">model_config (agentstr.a2a.AgentCard attribute)</a>
-
-        <ul>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.model_config">(agentstr.a2a.ChatInput attribute)</a>
-</li>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.model_config">(agentstr.a2a.RouterResponse attribute)</a>
-</li>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.model_config">(agentstr.a2a.Skill attribute)</a>
-</li>
-          <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.model_config">(agentstr.nostr_agent_server.NoteFilters attribute)</a>
-</li>
-          <li><a href="agentstr.relay.html#agentstr.relay.DecryptedMessage.model_config">(agentstr.relay.DecryptedMessage attribute)</a>
-</li>
-        </ul></li>
         <li>
     module
 
         <ul>
           <li><a href="agentstr.html#module-agentstr">agentstr</a>
-</li>
-          <li><a href="agentstr.a2a.html#module-agentstr.a2a">agentstr.a2a</a>
 </li>
           <li><a href="agentstr.mcp.html#module-agentstr.mcp">agentstr.mcp</a>
 </li>
@@ -654,28 +610,18 @@
   <h2>N</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.name">name (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id3">[1]</a>
-
-        <ul>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.name">(agentstr.a2a.Skill attribute)</a>, <a href="agentstr.a2a.html#id0">[1]</a>
+        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.nostr_pubkeys">nostr_pubkeys (agentstr.nostr_agent_server.NoteFilters attribute)</a>
 </li>
-        </ul></li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.nostr_pubkey">nostr_pubkey (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id7">[1]</a>
-</li>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.nostr_pubkeys">nostr_pubkeys (agentstr.nostr_agent_server.NoteFilters attribute)</a>, <a href="agentstr.nostr_agent_server.html#id0">[1]</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.nostr_relays">nostr_relays (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id8">[1]</a>
-</li>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.nostr_tags">nostr_tags (agentstr.nostr_agent_server.NoteFilters attribute)</a>, <a href="agentstr.nostr_agent_server.html#id1">[1]</a>
+        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters.nostr_tags">nostr_tags (agentstr.nostr_agent_server.NoteFilters attribute)</a>
 </li>
         <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer">NostrAgentServer (class in agentstr.nostr_agent_server)</a>
 </li>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient">NostrClient (class in agentstr.nostr_client)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient">NostrMCPClient (class in agentstr.nostr_mcp_client)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer">NostrMCPServer (class in agentstr.nostr_mcp_server)</a>
 </li>
         <li><a href="agentstr.mcp.google.html#agentstr.mcp.google.NostrMCPTool">NostrMCPTool (class in agentstr.mcp.google)</a>
@@ -683,8 +629,6 @@
         <li><a href="agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG">NostrRAG (class in agentstr.nostr_rag)</a>
 </li>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.note_listener">note_listener() (agentstr.nostr_client.NostrClient method)</a>
-</li>
-        <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NoteFilters">NoteFilters (class in agentstr.nostr_agent_server)</a>
 </li>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.nwc_relay">nwc_relay (agentstr.nostr_client.NostrClient property)</a>
 </li>
@@ -738,17 +682,15 @@
           <li><a href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.receive_message">(agentstr.relay_manager.RelayManager method)</a>
 </li>
         </ul></li>
-        <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.relay_manager">relay_manager (agentstr.nostr_client.NostrClient property)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.relay_manager">relay_manager (agentstr.nostr_client.NostrClient property)</a>
+</li>
         <li><a href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager">RelayManager (class in agentstr.relay_manager)</a>
 </li>
         <li><a href="agentstr.relay_manager.html#agentstr.relay_manager.RelayManager.relays">relays (agentstr.relay_manager.RelayManager property)</a>
 </li>
         <li><a href="agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.retrieve">retrieve() (agentstr.nostr_rag.NostrRAG method)</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse">RouterResponse (class in agentstr.a2a)</a>
 </li>
         <li><a href="agentstr.mcp.google.html#agentstr.mcp.google.NostrMCPTool.run_async">run_async() (agentstr.mcp.google.NostrMCPTool method)</a>
 </li>
@@ -760,12 +702,6 @@
   <h2>S</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.satoshis">satoshis (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id6">[1]</a>
-
-        <ul>
-          <li><a href="agentstr.a2a.html#agentstr.a2a.Skill.satoshis">(agentstr.a2a.Skill attribute)</a>, <a href="agentstr.a2a.html#id2">[1]</a>
-</li>
-        </ul></li>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.send_direct_message">send_direct_message() (agentstr.nostr_client.NostrClient method)</a>
 </li>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.send_direct_message_and_receive_response">send_direct_message_and_receive_response() (agentstr.nostr_client.NostrClient method)</a>
@@ -792,12 +728,6 @@
         </ul></li>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.sign">sign() (agentstr.nostr_client.NostrClient method)</a>
 </li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.Skill">Skill (class in agentstr.a2a)</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.AgentCard.skills">skills (agentstr.a2a.AgentCard attribute)</a>, <a href="agentstr.a2a.html#id5">[1]</a>
-</li>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.skills_used">skills_used (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id13">[1]</a>
-</li>
         <li><a href="agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.start">start() (agentstr.nostr_agent_server.NostrAgentServer method)</a>
 
         <ul>
@@ -812,21 +742,19 @@
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.ChatInput.thread_id">thread_id (agentstr.a2a.ChatInput attribute)</a>, <a href="agentstr.a2a.html#id9">[1]</a>
+        <li><a href="agentstr.mcp.agno.html#agentstr.mcp.agno.to_agno_tools">to_agno_tools() (in module agentstr.mcp.agno)</a>
 </li>
-        <li><a href="agentstr.mcp.agno.html#agentstr.mcp.agno.to_agno_tools">to_agno_tools() (in module agentstr.mcp.agno)</a>, <a href="agentstr.mcp.agno.html#id0">[1]</a>
+        <li><a href="agentstr.mcp.dspy.html#agentstr.mcp.dspy.to_dspy_tools">to_dspy_tools() (in module agentstr.mcp.dspy)</a>
 </li>
-        <li><a href="agentstr.mcp.dspy.html#agentstr.mcp.dspy.to_dspy_tools">to_dspy_tools() (in module agentstr.mcp.dspy)</a>, <a href="agentstr.mcp.dspy.html#id0">[1]</a>
-</li>
-        <li><a href="agentstr.mcp.google.html#agentstr.mcp.google.to_google_tools">to_google_tools() (in module agentstr.mcp.google)</a>, <a href="agentstr.mcp.google.html#id0">[1]</a>
+        <li><a href="agentstr.mcp.google.html#agentstr.mcp.google.to_google_tools">to_google_tools() (in module agentstr.mcp.google)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.mcp.langgraph.html#agentstr.mcp.langgraph.to_langgraph_tools">to_langgraph_tools() (in module agentstr.mcp.langgraph)</a>, <a href="agentstr.mcp.langgraph.html#id0">[1]</a>
+        <li><a href="agentstr.mcp.langgraph.html#agentstr.mcp.langgraph.to_langgraph_tools">to_langgraph_tools() (in module agentstr.mcp.langgraph)</a>
 </li>
-        <li><a href="agentstr.mcp.openai.html#agentstr.mcp.openai.to_openai_tools">to_openai_tools() (in module agentstr.mcp.openai)</a>, <a href="agentstr.mcp.openai.html#id0">[1]</a>
+        <li><a href="agentstr.mcp.openai.html#agentstr.mcp.openai.to_openai_tools">to_openai_tools() (in module agentstr.mcp.openai)</a>
 </li>
-        <li><a href="agentstr.mcp.pydantic.html#agentstr.mcp.pydantic.to_pydantic_tools">to_pydantic_tools() (in module agentstr.mcp.pydantic)</a>, <a href="agentstr.mcp.pydantic.html#id0">[1]</a>
+        <li><a href="agentstr.mcp.pydantic.html#agentstr.mcp.pydantic.to_pydantic_tools">to_pydantic_tools() (in module agentstr.mcp.pydantic)</a>
 </li>
         <li><a href="agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.try_pay_invoice">try_pay_invoice() (agentstr.nwc_relay.NWCRelay method)</a>
 </li>
@@ -839,10 +767,6 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.update_metadata">update_metadata() (agentstr.nostr_client.NostrClient method)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="agentstr.a2a.html#agentstr.a2a.RouterResponse.user_message">user_message (agentstr.a2a.RouterResponse attribute)</a>, <a href="agentstr.a2a.html#id12">[1]</a>
 </li>
     </ul></td>
   </tr></table>

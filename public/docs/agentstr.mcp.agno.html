@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="DSPy Integration" href="agentstr.mcp.dspy.html" /><link rel="prev" title="MCP (Model Context Protocol) Module" href="agentstr.mcp.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="DSPy Integration" href="agentstr.mcp.dspy.html" /><link rel="prev" title="MCP (Model Context Protocol)" href="agentstr.mcp.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>Agno Integration - Agentstr SDK</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4de4e07a" />
     
@@ -205,8 +206,8 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="agentstr.html">Agentstr SDK</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent) Module</a></li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol) Module</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol) Module</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent)</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Agno Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.dspy.html">DSPy Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.google.html">Google Integration</a></li>
@@ -221,7 +222,7 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_mcp_server.html">Nostr MCP Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_rag.html">Nostr RAG (Retrieval-Augmented Generation)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nwc_relay.html">NWC (Nostr Wallet Connect) Relay</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">Relay Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agentstr.relay.html">Relay</a></li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
@@ -282,23 +283,6 @@
 </dd></dl>
 
 <p>This module provides integration with Agno tools, allowing conversion between MCP tools and Agno’s function format.</p>
-<section id="main-functions">
-<h2>Main Functions<a class="headerlink" href="#main-functions" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="id0">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.mcp.agno.</span></span><span class="sig-name descname"><span class="pre">to_agno_tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nostr_mcp_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient" title="agentstr.nostr_mcp_client.NostrMCPClient"><span class="pre">NostrMCPClient</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Function</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/mcp/agno.html#to_agno_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
-<dd><p>Convert tools from the MCP client to Agno tools.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>nostr_mcp_client</strong> – An instance of NostrMCPClient to fetch tools from.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of Agno Function objects that wrap the MCP tools.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 </section>
 
         </article>
@@ -322,7 +306,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">MCP (Model Context Protocol) Module</div>
+                <div class="title">MCP (Model Context Protocol)</div>
                 
               </div>
             </a>
@@ -358,10 +342,6 @@
             <ul>
 <li><a class="reference internal" href="#">Agno Integration</a><ul>
 <li><a class="reference internal" href="#agentstr.mcp.agno.to_agno_tools"><code class="docutils literal notranslate"><span class="pre">to_agno_tools()</span></code></a></li>
-<li><a class="reference internal" href="#main-functions">Main Functions</a><ul>
-<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">to_agno_tools()</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
