@@ -208,7 +208,7 @@ export default function Home() {
             </div>
 
           </div>
-          <div className="mt-16 bg-gradient-to-r from-card to-card/80 rounded-2xl border-border/50 hover:border-primary/50 transition-all duration-300">
+          <div className="mt-16 mb-16 bg-gradient-to-r from-card to-card/80 rounded-2xl border-border/50 hover:border-primary/50 transition-all duration-300">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-foreground mb-4">Additional Benefits</h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
@@ -219,25 +219,25 @@ export default function Home() {
 
               <div className="bg-card/95 p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col items-center justify-center text-center h-full hover-scale">
                 <div className="flex flex-col items-center mb-6">
-  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 flex-shrink-0">
-    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-    </svg>
-  </div>
-  <h3 className="text-xl font-semibold text-foreground text-center">Python SDK</h3>
-</div>
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 flex-shrink-0">
+                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground text-center">Python SDK</h3>
+                </div>
                 <p className="text-foreground-light flex-grow">A full-featured, open-source, and asynchronous <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk">Python SDK</a> makes it easy to build performant agentic applications on Nostr and Lightning.</p>
               </div>
 
               <div className="bg-card/95 p-8 pt-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg flex flex-col items-center justify-center text-center h-full hover-scale">
                 <div className="flex flex-col items-center mb-6">
-  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 flex-shrink-0">
-    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
-  </div>
-  <h3 className="text-xl font-semibold text-foreground text-center">Comprehensive Docs</h3>
-</div>
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 flex-shrink-0">
+                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground text-center">Comprehensive Docs</h3>
+                </div>
                 <p className="text-foreground-light flex-grow">Extensive <a className="text-primary hover:text-foreground" href="/docs">documentation</a>, <a className="text-primary hover:text-foreground" href="/usage">guides</a>, and <a className="text-primary hover:text-foreground" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples">examples</a> to help you quickly get started building decentralized applications with Agentstr.</p>
               </div>
             </div>
