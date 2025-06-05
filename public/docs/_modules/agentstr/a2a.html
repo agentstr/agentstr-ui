@@ -261,7 +261,7 @@
         <article role="main" id="furo-main-content">
           <h1>Source code for agentstr.a2a</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 
@@ -371,34 +371,43 @@
 <span class="n">CHAT_HISTORY</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Thread id -&gt; [str]</span>
 
 
-<div class="viewcode-block" id="price_handler">
-<a class="viewcode-back" href="../../agentstr.a2a.html#agentstr.a2a.price_handler">[docs]</a>
-<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">price_handler</span><span class="p">(</span><span class="n">user_message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">agent_card</span><span class="p">:</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">llm_callable</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PriceHandlerResponse</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine if an agent can handle a user&#39;s request and calculate the cost.</span>
+<div class="viewcode-block" id="PriceHandler">
+<a class="viewcode-back" href="../../agentstr.a2a.html#agentstr.a2a.PriceHandler">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PriceHandler</span><span class="p">:</span>
+<div class="viewcode-block" id="PriceHandler.__init__">
+<a class="viewcode-back" href="../../agentstr.a2a.html#agentstr.a2a.PriceHandler.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">llm_callable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm_callable</span> <span class="o">=</span> <span class="n">llm_callable</span></div>
 
-<span class="sd">    This function uses an LLM to analyze whether the agent&#39;s skills match the user&#39;s request</span>
-<span class="sd">    and returns the cost in satoshis if the agent can handle it.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        user_message: The user&#39;s request message.</span>
-<span class="sd">        agent_card: The AgentCard containing the agent&#39;s skills and pricing.</span>
-<span class="sd">        llm_callable: A callable that takes a prompt and returns an LLM response.</span>
+<div class="viewcode-block" id="PriceHandler.handle">
+<a class="viewcode-back" href="../../agentstr.a2a.html#agentstr.a2a.PriceHandler.handle">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">agent_card</span><span class="p">:</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PriceHandlerResponse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine if an agent can handle a user&#39;s request and calculate the cost.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        PriceHandlerResponse</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        This function uses an LLM to analyze whether the agent&#39;s skills match the user&#39;s request</span>
+<span class="sd">        and returns the cost in satoshis if the agent can handle it.</span>
 
-    <span class="c1"># check history</span>
-    <span class="k">if</span> <span class="n">thread_id</span> <span class="ow">and</span> <span class="n">thread_id</span> <span class="ow">in</span> <span class="n">CHAT_HISTORY</span><span class="p">:</span>
-        <span class="n">user_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CHAT_HISTORY</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">if</span> <span class="n">thread_id</span><span class="p">:</span>
-        <span class="n">CHAT_HISTORY</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_message</span>
+<span class="sd">        Args:</span>
+<span class="sd">            user_message: The user&#39;s request message.</span>
+<span class="sd">            agent_card: The agent&#39;s model card.</span>
+<span class="sd">            thread_id: Optional thread ID for conversation context.</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent router: </span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent card: </span><span class="si">{</span><span class="n">agent_card</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            PriceHandlerResponse</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-    <span class="c1"># Prepare the prompt for the LLM</span>
-    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;You are an agent router that determines if an agent can handle a user&#39;s request.</span>
+        <span class="c1"># check history</span>
+        <span class="k">if</span> <span class="n">thread_id</span> <span class="ow">and</span> <span class="n">thread_id</span> <span class="ow">in</span> <span class="n">CHAT_HISTORY</span><span class="p">:</span>
+            <span class="n">user_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CHAT_HISTORY</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">thread_id</span><span class="p">:</span>
+            <span class="n">CHAT_HISTORY</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_message</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent router: </span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent card: </span><span class="si">{</span><span class="n">agent_card</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Prepare the prompt for the LLM</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;You are an agent router that determines if an agent can handle a user&#39;s request.</span>
 
 <span class="s2">Agent Information:</span>
 <span class="s2">Name: </span><span class="si">{</span><span class="n">agent_card</span><span class="o">.</span><span class="n">name</span><span class="si">}</span>
@@ -406,11 +415,11 @@
 
 <span class="s2">Skills:&quot;&quot;&quot;</span>
 
-    <span class="k">for</span> <span class="n">skill</span> <span class="ow">in</span> <span class="n">agent_card</span><span class="o">.</span><span class="n">skills</span><span class="p">:</span>
-        <span class="n">prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">- </span><span class="si">{</span><span class="n">skill</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">skill</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">skill</span> <span class="ow">in</span> <span class="n">agent_card</span><span class="o">.</span><span class="n">skills</span><span class="p">:</span>
+            <span class="n">prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">- </span><span class="si">{</span><span class="n">skill</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">skill</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="n">prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">User Request History: </span><span class="se">\n\n</span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
-    <span class="n">prompt</span> <span class="o">+=</span> <span class="s2">&quot;&quot;&quot;Analyze if the agent can handle this request based on their skills and description and chat history.</span>
+        <span class="n">prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">User Request History: </span><span class="se">\n\n</span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="n">prompt</span> <span class="o">+=</span> <span class="s2">&quot;&quot;&quot;Analyze if the agent can handle this request based on their skills and description and chat history.</span>
 <span class="s2">Consider both the agent&#39;s capabilities and whether the request matches their purpose.</span>
 
 <span class="s2">The agent may need to use multiple skills to handle the request. If so, include all</span>
@@ -428,67 +437,68 @@
 <span class="s2">    &quot;user_message&quot;: string,   # Friendly message to ask the user if they want to proceed</span>
 <span class="s2">    &quot;skills_used&quot;: [string]   # Names of skills being used, if any</span>
 <span class="s2">}&quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prompt: </span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># Get the LLM response</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">llm_callable</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
-
-        <span class="c1"># Seek to first { and last }</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="n">response</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">):</span><span class="n">response</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LLM response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Parse the response</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prompt: </span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-            <span class="n">can_handle</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;can_handle&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="n">user_message</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_message&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="c1"># Get the LLM response</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm_callable</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
 
-            <span class="c1"># Get skills used</span>
-            <span class="n">skills_used</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;skills_used&quot;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="c1"># Seek to first { and last }</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="n">response</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">):</span><span class="n">response</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LLM response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            <span class="c1"># Calculate total cost based on skills used</span>
-            <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">if</span> <span class="n">can_handle</span><span class="p">:</span>
-                <span class="c1"># If specific skills are used, sum their costs</span>
-                <span class="k">if</span> <span class="n">skills_used</span><span class="p">:</span>
-                    <span class="n">skill_cost</span> <span class="o">=</span> <span class="mi">0</span>
-                    <span class="k">for</span> <span class="n">skill_name</span> <span class="ow">in</span> <span class="n">skills_used</span><span class="p">:</span>
-                        <span class="k">for</span> <span class="n">skill</span> <span class="ow">in</span> <span class="n">agent_card</span><span class="o">.</span><span class="n">skills</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">skill_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="n">skill</span><span class="o">.</span><span class="n">satoshis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                                <span class="n">skill_cost</span> <span class="o">+=</span> <span class="n">skill</span><span class="o">.</span><span class="n">satoshis</span>
-                                <span class="k">break</span>
-                    <span class="c1"># Only use skill-based pricing if at least one skill has a price</span>
-                    <span class="k">if</span> <span class="n">skill_cost</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">cost</span> <span class="o">=</span> <span class="n">skill_cost</span>
-                <span class="c1"># Add base price to skill-based pricing</span>
-                <span class="k">if</span> <span class="n">agent_card</span><span class="o">.</span><span class="n">satoshis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">cost</span> <span class="o">+=</span> <span class="n">agent_card</span><span class="o">.</span><span class="n">satoshis</span>
+            <span class="c1"># Parse the response</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="n">can_handle</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;can_handle&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="n">user_message</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_message&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Router response: </span><span class="si">{</span><span class="n">can_handle</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">cost</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">skills_used</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">RouterResponse</span><span class="p">(</span>
-                <span class="n">can_handle</span><span class="o">=</span><span class="n">can_handle</span><span class="p">,</span>
-                <span class="n">cost_sats</span><span class="o">=</span><span class="n">cost</span><span class="p">,</span>
-                <span class="n">user_message</span><span class="o">=</span><span class="n">user_message</span><span class="p">,</span>
-                <span class="n">skills_used</span><span class="o">=</span><span class="n">skills_used</span><span class="p">,</span>
-            <span class="p">)</span>
+                <span class="c1"># Get skills used</span>
+                <span class="n">skills_used</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;skills_used&quot;</span><span class="p">,</span> <span class="p">[])</span>
 
-        <span class="k">except</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error parsing LLM response: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">RouterResponse</span><span class="p">(</span>
+                <span class="c1"># Calculate total cost based on skills used</span>
+                <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">can_handle</span><span class="p">:</span>
+                    <span class="c1"># If specific skills are used, sum their costs</span>
+                    <span class="k">if</span> <span class="n">skills_used</span><span class="p">:</span>
+                        <span class="n">skill_cost</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="k">for</span> <span class="n">skill_name</span> <span class="ow">in</span> <span class="n">skills_used</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">skill</span> <span class="ow">in</span> <span class="n">agent_card</span><span class="o">.</span><span class="n">skills</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">skill_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="n">skill</span><span class="o">.</span><span class="n">satoshis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                    <span class="n">skill_cost</span> <span class="o">+=</span> <span class="n">skill</span><span class="o">.</span><span class="n">satoshis</span>
+                                    <span class="k">break</span>
+                        <span class="c1"># Only use skill-based pricing if at least one skill has a price</span>
+                        <span class="k">if</span> <span class="n">skill_cost</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">cost</span> <span class="o">=</span> <span class="n">skill_cost</span>
+                    <span class="c1"># Add base price to skill-based pricing</span>
+                    <span class="k">if</span> <span class="n">agent_card</span><span class="o">.</span><span class="n">satoshis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">cost</span> <span class="o">+=</span> <span class="n">agent_card</span><span class="o">.</span><span class="n">satoshis</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Router response: </span><span class="si">{</span><span class="n">can_handle</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">cost</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">user_message</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">skills_used</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">PriceHandlerResponse</span><span class="p">(</span>
+                    <span class="n">can_handle</span><span class="o">=</span><span class="n">can_handle</span><span class="p">,</span>
+                    <span class="n">cost_sats</span><span class="o">=</span><span class="n">cost</span><span class="p">,</span>
+                    <span class="n">user_message</span><span class="o">=</span><span class="n">user_message</span><span class="p">,</span>
+                    <span class="n">skills_used</span><span class="o">=</span><span class="n">skills_used</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="k">except</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error parsing LLM response: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">PriceHandlerResponse</span><span class="p">(</span>
+                    <span class="n">can_handle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">cost_sats</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">user_message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Error parsing LLM response: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">skills_used</span><span class="o">=</span><span class="p">[],</span>
+                <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in agent routing: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">PriceHandlerResponse</span><span class="p">(</span>
                 <span class="n">can_handle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">cost_sats</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                <span class="n">user_message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Error parsing LLM response: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">user_message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Error in agent routing: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="n">skills_used</span><span class="o">=</span><span class="p">[],</span>
-            <span class="p">)</span>
-
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error in agent routing: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">RouterResponse</span><span class="p">(</span>
-            <span class="n">can_handle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">cost_sats</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">user_message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Error in agent routing: </span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">skills_used</span><span class="o">=</span><span class="p">[],</span>
-        <span class="p">)</span></div>
+            <span class="p">)</span></div>
+</div>
 
 </pre></div>
         </article>
