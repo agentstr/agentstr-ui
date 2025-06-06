@@ -151,13 +151,14 @@ export default function UsagePage() {
               </p>
               <CodeBlock
                 language="python"
-                value={`from agentstr import NostrMCPServer
+                value={`from agentstr import NostrMCPServer, tool
 
 # Define tools
 async def add(a: int, b: int) -> int:
     """Add two numbers."""
     return a + b
 
+@tool(satoshis=10)  # Premium tool
 async def multiply(a: int, b: int) -> int:
     """Multiply two numbers."""
     return a * b
@@ -167,12 +168,9 @@ server = NostrMCPServer(
     "Math MCP Server", 
     relays=['wss://some.relay'],
     private_key='nsec...',
-    nwc_str='nostr+walletconnect://...'  # Enable payments
+    nwc_str='nostr+walletconnect://...',  # Enable payments
+    tools=[add, multiply]
 )
-
-# Add the tools
-server.add_tool(add) # Free tool
-server.add_tool(multiply, satoshis=10) # Premium tool
 
 # Start the server
 await server.start()`}

@@ -275,6 +275,23 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="tool">
+<a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.tool">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">tool</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator to mark a function as a tool with extra parameters for registration via add_tool.</span>
+<span class="sd">    Usage:</span>
+<span class="sd">        @tool(name=&quot;mytool&quot;, description=&quot;desc&quot;, satoshis=100)</span>
+<span class="sd">        def myfunc(...): ...</span>
+<span class="sd">    The parameters are attached to the function as __tool_params__.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;__tool_params__&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fn</span>
+    <span class="k">return</span> <span class="n">decorator</span></div>
+
+
+
 <div class="viewcode-block" id="NostrMCPServer">
 <a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NostrMCPServer</span><span class="p">:</span>
@@ -286,7 +303,8 @@
 <div class="viewcode-block" id="NostrMCPServer.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nostr_client</span><span class="p">:</span> <span class="n">NostrClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">relays</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                 <span class="n">relays</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">tools</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the MCP server.</span>
 
 <span class="sd">        Args:</span>
@@ -299,7 +317,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">nostr_client</span> <span class="ow">or</span> <span class="n">NostrClient</span><span class="p">(</span><span class="n">relays</span><span class="o">=</span><span class="n">relays</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">private_key</span><span class="p">,</span> <span class="n">nwc_str</span><span class="o">=</span><span class="n">nwc_str</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span> <span class="o">=</span> <span class="n">display_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tool_to_sats_map</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tool_manager</span> <span class="o">=</span> <span class="n">ToolManager</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_manager</span> <span class="o">=</span> <span class="n">ToolManager</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tools</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="NostrMCPServer.add_tool">
@@ -314,6 +334,11 @@
 <span class="sd">            description: Description of the tool (optional).</span>
 <span class="sd">            satoshis: Satoshis required to call the tool (optional).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tool_params</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;__tool_params__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tool_params</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">tool_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">description</span> <span class="ow">or</span> <span class="n">tool_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">)</span>
+            <span class="n">satoshis</span> <span class="o">=</span> <span class="n">satoshis</span> <span class="ow">or</span> <span class="n">tool_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;satoshis&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">satoshis</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tool_to_sats_map</span><span class="p">[</span><span class="n">name</span> <span class="ow">or</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">satoshis</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tool_manager</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">fn</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">)</span></div>
