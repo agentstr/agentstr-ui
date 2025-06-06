@@ -367,6 +367,22 @@
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">relay_manager</span><span class="o">.</span><span class="n">get_events</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="NostrClient.read_posts_by_author">
+<a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.read_posts_by_author">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_posts_by_author</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pubkey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Event</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read posts by a specific author from Nostr relays.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pubkey: The author&#39;s public key in hex or bech32 format.</span>
+<span class="sd">            limit: Maximum number of posts to retrieve.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of Events.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="n">Filters</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">kinds</span><span class="o">=</span><span class="p">[</span><span class="n">EventKind</span><span class="o">.</span><span class="n">TEXT_NOTE</span><span class="p">],</span> <span class="n">authors</span><span class="o">=</span><span class="p">[</span><span class="n">get_public_key</span><span class="p">(</span><span class="n">pubkey</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pubkey</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">pubkey</span><span class="o">.</span><span class="n">hex</span><span class="p">())</span><span class="o">.</span><span class="n">hex</span><span class="p">()])</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">relay_manager</span><span class="o">.</span><span class="n">get_events</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="NostrClient.get_metadata_for_pubkey">
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.get_metadata_for_pubkey">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_metadata_for_pubkey</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">public_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PrivateKey</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Metadata</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>

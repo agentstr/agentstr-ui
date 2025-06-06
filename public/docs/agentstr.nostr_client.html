@@ -341,6 +341,23 @@ for payment processing if provided.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="agentstr.nostr_client.NostrClient.read_posts_by_author">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_posts_by_author</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pubkey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PrivateKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Event</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/nostr_client.html#NostrClient.read_posts_by_author"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_client.NostrClient.read_posts_by_author" title="Link to this definition">¶</a></dt>
+<dd><p>Read posts by a specific author from Nostr relays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pubkey</strong> – The author’s public key in hex or bech32 format.</p></li>
+<li><p><strong>limit</strong> – Maximum number of posts to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of Events.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_client.NostrClient.get_metadata_for_pubkey">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_metadata_for_pubkey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">public_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PrivateKey</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Metadata</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="reference internal" href="_modules/agentstr/nostr_client.html#NostrClient.get_metadata_for_pubkey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_client.NostrClient.get_metadata_for_pubkey" title="Link to this definition">¶</a></dt>
 <dd><p>Fetch metadata for a public key (or self if none provided).</p>
@@ -504,6 +521,7 @@ for payment processing if provided.</p>
 <li><a class="reference internal" href="#agentstr.nostr_client.NostrClient.nwc_relay"><code class="docutils literal notranslate"><span class="pre">NostrClient.nwc_relay</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_client.NostrClient.sign"><code class="docutils literal notranslate"><span class="pre">NostrClient.sign()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_client.NostrClient.read_posts_by_tag"><code class="docutils literal notranslate"><span class="pre">NostrClient.read_posts_by_tag()</span></code></a></li>
+<li><a class="reference internal" href="#agentstr.nostr_client.NostrClient.read_posts_by_author"><code class="docutils literal notranslate"><span class="pre">NostrClient.read_posts_by_author()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_client.NostrClient.get_metadata_for_pubkey"><code class="docutils literal notranslate"><span class="pre">NostrClient.get_metadata_for_pubkey()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_client.NostrClient.update_metadata"><code class="docutils literal notranslate"><span class="pre">NostrClient.update_metadata()</span></code></a></li>
 <li><a class="reference internal" href="#agentstr.nostr_client.NostrClient.send_direct_message"><code class="docutils literal notranslate"><span class="pre">NostrClient.send_direct_message()</span></code></a></li>

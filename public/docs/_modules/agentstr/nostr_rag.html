@@ -261,8 +261,10 @@
         <article role="main" id="furo-main-content">
           <h1>Source code for agentstr.nostr_rag</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span>
@@ -285,6 +287,14 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="Author">
+<a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.Author">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Author</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">pubkey</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
 <div class="viewcode-block" id="NostrRAG">
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NostrRAG</span><span class="p">:</span>
@@ -296,7 +306,8 @@
 <div class="viewcode-block" id="NostrRAG.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nostr_client</span><span class="p">:</span> <span class="n">NostrClient</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vector_store</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relays</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">embeddings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_model_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_api_key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">private_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">nwc_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">embeddings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_model_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">llm_api_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">known_authors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Author</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the NostrRAG system.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
@@ -320,10 +331,49 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">nostr_client</span> <span class="o">=</span> <span class="n">nostr_client</span> <span class="ow">or</span> <span class="n">NostrClient</span><span class="p">(</span><span class="n">relays</span><span class="o">=</span><span class="n">relays</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">private_key</span><span class="p">,</span> <span class="n">nwc_str</span><span class="o">=</span><span class="n">nwc_str</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings</span> <span class="ow">or</span> <span class="n">FakeEmbeddings</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vector_store</span> <span class="o">=</span> <span class="n">vector_store</span> <span class="ow">or</span> <span class="n">InMemoryVectorStore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">known_authors</span> <span class="o">=</span> <span class="n">known_authors</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">known_authors_name_to_pubkey</span> <span class="o">=</span> <span class="p">{</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">author</span><span class="o">.</span><span class="n">pubkey</span> <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">known_authors</span><span class="p">}</span>
         <span class="k">if</span> <span class="n">llm</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">llm_model_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;llm or llm_model_name must be provided&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">llm</span> <span class="ow">or</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">llm_model_name</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="n">llm_base_url</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">llm_api_key</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_select_author</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select relevant users for the given question.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            question: The question to find a relevant user in</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The selected user&#39;s name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You are an user selector for Nostr. Given a question, suggest the relevant user mentioned in the question.</span>
+<span class="s2">You must select from the list of known users.</span>
+<span class="s2">Return ONLY the users in a JSON array format, like: [&quot;Lyn Alden&quot;] or [&quot;Saifedean Ammous&quot;]</span>
+<span class="s2">Only respond with 1 user. If no user is mentioned, return an empty array.</span>
+
+<span class="s2">Question: </span><span class="si">{question}</span>
+
+<span class="s2">Known users: </span><span class="si">{users}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span> <span class="n">users</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span><span class="n">author</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">known_authors</span><span class="p">]))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">ainvoke</span><span class="p">([</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">prompt</span><span class="p">)])</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">authors</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">authors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="n">authors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">known_authors_name_to_pubkey</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">authors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">known_authors_name_to_pubkey</span><span class="p">[</span><span class="n">authors</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected author not found in known authors: </span><span class="si">{</span><span class="n">authors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="c1"># If the response isn&#39;t valid JSON, try to extract authors</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to parse author selection response. Response: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_select_hashtags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">previous_hashtags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Select relevant hashtags for the given question.</span>
@@ -375,7 +425,7 @@
 
 <div class="viewcode-block" id="NostrRAG.build_knowledge_base">
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.build_knowledge_base">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">build_knowledge_base</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">build_knowledge_base</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">query_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;hashtags&quot;</span><span class="p">,</span> <span class="s2">&quot;authors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;hashtags&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build a knowledge base from Nostr events relevant to the question.</span>
 
 <span class="sd">        Args:</span>
@@ -386,52 +436,64 @@
 <span class="sd">            List of retrieved events</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Select relevant hashtags for the question</span>
-        <span class="n">hashtags</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_hashtags</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
-        <span class="n">hashtags</span> <span class="o">=</span> <span class="p">[</span><span class="n">hashtag</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">hashtag</span> <span class="ow">in</span> <span class="n">hashtags</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">query_type</span> <span class="o">==</span> <span class="s2">&quot;hashtags&quot;</span><span class="p">:</span>
+            <span class="n">hashtags</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_hashtags</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+            <span class="n">hashtags</span> <span class="o">=</span> <span class="p">[</span><span class="n">hashtag</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">hashtag</span> <span class="ow">in</span> <span class="n">hashtags</span><span class="p">]</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected hashtags: </span><span class="si">{</span><span class="n">hashtags</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected hashtags: </span><span class="si">{</span><span class="n">hashtags</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Fetch events for each hashtag</span>
-        <span class="n">events</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">nostr_client</span><span class="o">.</span><span class="n">read_posts_by_tag</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">hashtags</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+            <span class="c1"># Fetch events for each hashtag</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">nostr_client</span><span class="o">.</span><span class="n">read_posts_by_tag</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="n">hashtags</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">query_type</span> <span class="o">==</span> <span class="s2">&quot;authors&quot;</span><span class="p">:</span>
+            <span class="n">name</span><span class="p">,</span> <span class="n">pubkey</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_author</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pubkey</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[]</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">nostr_client</span><span class="o">.</span><span class="n">read_posts_by_author</span><span class="p">(</span><span class="n">pubkey</span><span class="o">=</span><span class="n">pubkey</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Posted by </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid query type: </span><span class="si">{</span><span class="n">query_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Process events into documents</span>
         <span class="n">documents</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vector_store</span><span class="o">.</span><span class="n">add_texts</span><span class="p">([</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">])</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_store</span><span class="o">.</span><span class="n">aadd_texts</span><span class="p">([</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">events</span></div>
 
 
 <div class="viewcode-block" id="NostrRAG.retrieve">
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.retrieve">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">query_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;hashtags&quot;</span><span class="p">,</span> <span class="s2">&quot;authors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;hashtags&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve relevant documents from the knowledge base.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            question: The user&#39;s question</span>
 <span class="sd">            limit: Maximum number of documents to retrieve</span>
+<span class="sd">            query_type: Type of query to use (hashtags or authors)</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            List of retrieved documents</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_knowledge_base</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_store</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span></div>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_knowledge_base</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">query_type</span><span class="o">=</span><span class="n">query_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_store</span><span class="o">.</span><span class="n">asimilarity_search</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">limit</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="NostrRAG.query">
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.query">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">query_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;hashtags&quot;</span><span class="p">,</span> <span class="s2">&quot;authors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;hashtags&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Ask a question using the knowledge base.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            question: The user&#39;s question</span>
 <span class="sd">            limit: Number of documents to retrieve for context</span>
+<span class="sd">            query_type: Type of query to use (hashtags or authors)</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The generated response</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Get relevant documents</span>
-        <span class="n">relevant_docs</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">limit</span><span class="p">)</span>
+        <span class="n">relevant_docs</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">query_type</span><span class="p">)</span>
 
         <span class="c1"># Generate response using the LLM</span>
         <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -448,6 +510,8 @@
             <span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span>
             <span class="n">context</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">relevant_docs</span><span class="p">]),</span>
         <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using prompt:</span><span class="se">\n</span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">ainvoke</span><span class="p">([</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">prompt</span><span class="p">)])</span>
         <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span></div>
