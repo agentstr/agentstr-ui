@@ -57,7 +57,7 @@ export default function DemoPage() {
                 className="inline-flex items-center px-4 py-2 border border-accent text-sm font-medium rounded-md bg-white text-accent shadow-sm hover:bg-accent hover:text-white transition-colors duration-200 dark:bg-accent dark:text-white dark:border-transparent dark:hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
               >
                 <span className="flex items-center">
-                  View in Drive
+                  View Deck in Drive
                   <ArrowTopRightOnSquareIcon className="ml-2 h-4 w-4" />
                 </span>
               </a>    
