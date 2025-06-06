@@ -153,13 +153,6 @@ export default function UsagePage() {
                 language="python"
                 value={`from agentstr import NostrMCPServer
 
-# Define relays and private key
-relays = ['wss://some.relay']
-private_key = 'nsec...'
-
-# To enable Nostr Wallet Connect
-nwc_str = 'nostr+walletconnect://...'
-
 # Define tools
 async def add(a: int, b: int) -> int:
     """Add two numbers."""
@@ -169,15 +162,15 @@ async def multiply(a: int, b: int) -> int:
     """Multiply two numbers."""
     return a * b
 
-# Define the server
+# Create the MCP server
 server = NostrMCPServer(
     "Math MCP Server", 
-    relays=relays,
-    private_key=private_key,
-    nwc_str=nwc_str
+    relays=['wss://some.relay'],
+    private_key='nsec...',
+    nwc_str='nostr+walletconnect://...'  # Enable payments
 )
 
-# Add tools
+# Add the tools
 server.add_tool(add) # Free tool
 server.add_tool(multiply, satoshis=10) # Premium tool
 
@@ -202,21 +195,14 @@ await server.start()`}
                 language="python"
                 value={`from agentstr import NostrMCPClient
 
-# Define relays and private key
-relays = ['wss://some.relay']
-private_key = 'nsec...'
-
-# To enable Nostr Wallet Connect
-nwc_str = 'nostr+walletconnect://...'
-
 # Set MCP server public key
 server_public_key = 'npub...'
 
 # Initialize the client
 mcp_client = NostrMCPClient(mcp_pubkey=server_public_key, 
-                            relays=relays, 
-                            private_key=private_key,
-                            nwc_str=nwc_str)
+                            relays=['wss://some.relay'], 
+                            private_key='nsec...',
+                            nwc_str='nostr+walletconnect://...')
 
 # List available tools
 tools = await mcp_client.list_tools()
@@ -305,11 +291,8 @@ server = NostrAgentServer(nwc_str='nostr+walletconnect://...',
                 language="python"
                 value={`from agentstr import NostrClient
 
-# Define relays
-relays = ['wss://some.relay']
-
 # Initialize the client
-client = NostrClient(relays)
+client = NostrClient(relays=['wss://some.relay'])
 
 # Search for MCP servers by tag
 events = await client.read_posts_by_tag('mcp_research_tools', limit=5)
@@ -685,11 +668,8 @@ await server.start()`}
                 language="python"
                 value={`from agentstr import NostrClient, AgentCard
 
-# Define relays
-relays = ['wss://some.relay']
-
 # Initialize the client
-client = NostrClient(relays)
+client = NostrClient(relays=['wss://some.relay'])
 
 # Search for agents by tag
 events = await client.read_posts_by_tag("agentstr_agents", limit=5)
