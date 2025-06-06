@@ -308,11 +308,11 @@
             <span class="k">if</span> <span class="n">private_key</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">private_key</span> <span class="o">=</span> <span class="n">PrivateKey</span><span class="o">.</span><span class="n">from_nsec</span><span class="p">(</span><span class="n">private_key</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">public_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">private_key</span><span class="o">.</span><span class="n">public_key</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initialized with public key: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initialized Nostr client with public key: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">public_key</span><span class="o">.</span><span class="n">bech32</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">private_key</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">public_key</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No private key provided, client will be in read-only mode&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No private key provided, Nostr client will be in read-only mode&quot;</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">nwc_str</span> <span class="o">=</span> <span class="n">nwc_str</span>
             <span class="k">if</span> <span class="n">nwc_str</span><span class="p">:</span>
