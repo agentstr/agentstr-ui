@@ -69,6 +69,7 @@ function LightningEdge({ from, to }: { from: [number, number, number]; to: [numb
   const ref = useRef<THREE.Line | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       ref.current.material.dashOffset = -clock.getElapsedTime() * 2;
     }
   });
