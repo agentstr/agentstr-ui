@@ -3,6 +3,7 @@ import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Line, OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { Line2, LineSegments2 } from 'three-stdlib';
 import { MOUSE } from 'three';
 
 // Node types and colors
@@ -73,7 +74,7 @@ function hasDashOffset(
 
 function LightningEdge({ from, to }: { from: [number, number, number]; to: [number, number, number] }) {
   // Animated dash effect for zap
-  const ref = useRef<THREE.Line | null>(null);
+  const ref = useRef<Line2 | LineSegments2 | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
       const mat = ref.current.material;
@@ -109,7 +110,7 @@ function CommunicationEdge({ from, to }: { from: [number, number, number]; to: [
   const fromOffset = [from[0] + perp[0], from[1] + perp[1], from[2] + perp[2]];
   const toOffset = [to[0] + perp[0], to[1] + perp[1], to[2] + perp[2]];
   // Animated dash effect for communication flow
-  const ref = useRef<THREE.Line | null>(null);
+  const ref = useRef<Line2 | LineSegments2 | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
       const mat = ref.current.material;
