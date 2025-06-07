@@ -69,8 +69,10 @@ function LightningEdge({ from, to }: { from: [number, number, number]; to: [numb
   const ref = useRef<THREE.Line | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      ref.current.material.dashOffset = -clock.getElapsedTime() * 2;
+      const mat = ref.current.material as THREE.LineDashedMaterial;
+      if (mat && typeof (mat as any).dashOffset === "number") {
+        (mat as any).dashOffset = -clock.getElapsedTime() * 2;
+      }
     }
   });
   // Lightning yellow
@@ -103,7 +105,10 @@ function CommunicationEdge({ from, to }: { from: [number, number, number]; to: [
   const ref = useRef<THREE.Line | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
-      ref.current.material.dashOffset = -clock.getElapsedTime() * 1.2;
+      const mat = ref.current.material as THREE.LineDashedMaterial;
+      if (mat && typeof (mat as any).dashOffset === "number") {
+        (mat as any).dashOffset = -clock.getElapsedTime() * 1.2;
+      }
     }
   });
   return (
