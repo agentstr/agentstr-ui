@@ -1,6 +1,7 @@
 import VideoPlayer from "../../components/VideoPlayer";
 import PDFViewer from "../../components/PDFViewer";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import DecentralizedAINetwork3D from "../../components/DecentralizedAINetwork3D";
 
 export default function DemoPage() {
   return (
@@ -65,6 +66,17 @@ export default function DemoPage() {
           </div>
         </div>
 
+        <div className="mt-12 w-full sm:max-w-4xl sm:mx-auto">
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-foreground mb-4">3D Decentralized AI Network</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                Visualization of a decentralized autonomous AI network. Node colors: <span style={{color:'#3498db'}}>users</span>, <span style={{color:'#2ecc40'}}>agents</span>, <span style={{color:'#9b59b6'}}>tools</span>. Lightning edges represent payment zaps.
+              </p>
+              <DecentralizedAINetwork3D />
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );

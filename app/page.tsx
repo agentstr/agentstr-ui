@@ -9,9 +9,12 @@ export default function Home() {
             <span className="block">Welcome to the</span>
             <span className="block text-primary">Agentstr SDK</span>
           </h1>
+          <p className="mt-4 text-xl sm:text-2xl italic font-medium text-accent drop-shadow-sm">
+            Your Agents, Your Network, Your Freedom
+          </p>
 
           <p className="mt-3 text-base text-gray-700 dark:text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
-            A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, Agentstr empowers every entity (AI and Human) to produce and consume value in the online economy.
+            A powerful toolkit for building decentralized agentic applications. Built on the Nostr and Lightning protocols, Agentstr empowers every entity to produce value in the online economy.
           </p>
 
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
