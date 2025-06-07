@@ -166,7 +166,35 @@ export default function DecentralizedAINetwork3D() {
     []
   );
   return (
-    <div style={{ width: '100%', height: '600px', background: '#191a24' }}>
+    <div style={{ width: '100%', height: '600px', background: '#191a24', position: 'relative' }}>
+      {/* Legend Overlay */}
+      <div style={{
+        position: 'absolute',
+        top: 18,
+        right: 18,
+        background: 'rgba(30,32,44,0.92)',
+        borderRadius: 8,
+        padding: '14px 18px 10px 18px',
+        boxShadow: '0 2px 8px #000a',
+        zIndex: 10,
+        color: '#fff',
+        fontSize: 15,
+        minWidth: 160
+      }}>
+        <div style={{ marginBottom: 8, fontWeight: 600, letterSpacing: 0.5 }}>Legend</div>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
+          <svg width="38" height="8" style={{ marginRight: 8 }}>
+            <line x1="2" y1="4" x2="36" y2="4" stroke="#ffe066" strokeWidth="3" strokeDasharray="7,4" />
+          </svg>
+          <span style={{ color: '#ffe066' }}>Bitcoin Lightning</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <svg width="38" height="8" style={{ marginRight: 8 }}>
+            <line x1="2" y1="4" x2="36" y2="4" stroke="#00e6ff" strokeWidth="3" strokeDasharray="5,4" />
+          </svg>
+          <span style={{ color: '#00e6ff' }}>Nostr Communication</span>
+        </div>
+      </div>
       <Canvas camera={{ position: [0, 0, 36], fov: 60 }} shadows>
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
