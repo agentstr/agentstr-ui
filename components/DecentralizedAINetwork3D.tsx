@@ -16,25 +16,25 @@ const NODE_TYPES = {
 // Example network graph
 const NODES = [
   // LLMs (shifted further down)
-  { id: 100, type: 'llm', position: [0, 8, 2] },
-  { id: 101, type: 'llm', position: [3, 10, -1] },
-  { id: 102, type: 'llm', position: [-3, 6, 1] },
+  { id: 100, type: 'llm', position: [0, 8, 2] as [number, number, number] },
+  { id: 101, type: 'llm', position: [3, 10, -1] as [number, number, number] },
+  { id: 102, type: 'llm', position: [-3, 6, 1] as [number, number, number] },
   // Users (shifted further down)
-  { id: 1, type: 'user', position: [-14, -7, 2] },
-  { id: 2, type: 'user', position: [-11, -10, 3] },
-  { id: 3, type: 'user', position: [-16, -13, -2] },
-  { id: 4, type: 'user', position: [-12, -5, -3] },
+  { id: 1, type: 'user', position: [-14, -7, 2] as [number, number, number] },
+  { id: 2, type: 'user', position: [-11, -10, 3] as [number, number, number] },
+  { id: 3, type: 'user', position: [-16, -13, -2] as [number, number, number] },
+  { id: 4, type: 'user', position: [-12, -5, -3] as [number, number, number] },
   // Agents (shifted further down)
-  { id: 5, type: 'agent', position: [2, -4, 3] },
-  { id: 6, type: 'agent', position: [7, -2, -1] },
-  { id: 7, type: 'agent', position: [1, -7, 5] },
-  { id: 8, type: 'agent', position: [8, -5, 2] },
-  { id: 9, type: 'agent', position: [5, -6, -3] },
+  { id: 5, type: 'agent', position: [2, -4, 3] as [number, number, number] },
+  { id: 6, type: 'agent', position: [7, -2, -1] as [number, number, number] },
+  { id: 7, type: 'agent', position: [1, -7, 5] as [number, number, number] },
+  { id: 8, type: 'agent', position: [8, -5, 2] as [number, number, number] },
+  { id: 9, type: 'agent', position: [5, -6, -3] as [number, number, number] },
   // Tools (shifted further down)
-  { id: 10, type: 'tool', position: [15, -6, 2] },
-  { id: 11, type: 'tool', position: [11, -9, 5] },
-  { id: 12, type: 'tool', position: [17, -7, -3] },
-  { id: 13, type: 'tool', position: [13, -3, 1] },
+  { id: 10, type: 'tool', position: [15, -6, 2] as [number, number, number] },
+  { id: 11, type: 'tool', position: [11, -9, 5] as [number, number, number] },
+  { id: 12, type: 'tool', position: [17, -7, -3] as [number, number, number] },
+  { id: 13, type: 'tool', position: [13, -3, 1] as [number, number, number] },
 ];
 
 const EDGES = [
@@ -66,7 +66,7 @@ function NodeSphere({ position, color }: { position: [number, number, number]; c
 
 function LightningEdge({ from, to }: { from: [number, number, number]; to: [number, number, number] }) {
   // Animated dash effect for zap
-  const ref = useRef<any>();
+  const ref = useRef<THREE.Line | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
       ref.current.material.dashOffset = -clock.getElapsedTime() * 2;
@@ -99,7 +99,7 @@ function CommunicationEdge({ from, to }: { from: [number, number, number]; to: [
   const fromOffset = [from[0] + perp[0], from[1] + perp[1], from[2] + perp[2]];
   const toOffset = [to[0] + perp[0], to[1] + perp[1], to[2] + perp[2]];
   // Animated dash effect for communication flow
-  const ref = useRef<any>();
+  const ref = useRef<THREE.Line | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
       ref.current.material.dashOffset = -clock.getElapsedTime() * 1.2;
@@ -127,7 +127,7 @@ function groupCenter(nodes: { position: [number, number, number] }[]) {
   return [sum[0]/n, sum[1]/n, sum[2]/n] as [number, number, number];
 }
 
-function GroupArea({ nodes, color, label }: { nodes: any[], color: string, label: string }) {
+function GroupArea({ nodes, color, label }: { nodes: { position: [number, number, number] }[], color: string, label: string }) {
   // Get center and bounding box
   const center = groupCenter(nodes);
   // Compute rough bounding sphere radius

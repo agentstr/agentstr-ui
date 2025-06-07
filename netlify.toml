@@ -1,6 +1,3 @@
 [build]
   publish = ".next"
   command = "npm run build"
-
-[build.environment]
-  NEXTJS_SKIP_ESLINT = "true"
