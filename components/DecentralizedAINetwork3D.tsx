@@ -64,14 +64,21 @@ function NodeSphere({ position, color }: { position: [number, number, number]; c
   );
 }
 
+// Type guard for dashOffset
+function hasDashOffset(
+  mat: THREE.Material | THREE.Material[]
+): mat is THREE.LineDashedMaterial & { dashOffset: number } {
+  return !!mat && typeof (mat as any).dashOffset === "number";
+}
+
 function LightningEdge({ from, to }: { from: [number, number, number]; to: [number, number, number] }) {
   // Animated dash effect for zap
   const ref = useRef<THREE.Line | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
-      const mat = ref.current.material as THREE.LineDashedMaterial;
-      if (mat && typeof (mat as any).dashOffset === "number") {
-        (mat as any).dashOffset = -clock.getElapsedTime() * 2;
+      const mat = ref.current.material;
+      if (hasDashOffset(mat)) {
+        mat.dashOffset = -clock.getElapsedTime() * 2;
       }
     }
   });
@@ -105,9 +112,9 @@ function CommunicationEdge({ from, to }: { from: [number, number, number]; to: [
   const ref = useRef<THREE.Line | null>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
-      const mat = ref.current.material as THREE.LineDashedMaterial;
-      if (mat && typeof (mat as any).dashOffset === "number") {
-        (mat as any).dashOffset = -clock.getElapsedTime() * 1.2;
+      const mat = ref.current.material;
+      if (hasDashOffset(mat)) {
+        mat.dashOffset = -clock.getElapsedTime() * 1.2;
       }
     }
   });
