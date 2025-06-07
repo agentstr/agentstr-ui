@@ -68,7 +68,7 @@ function NodeSphere({ position, color }: { position: [number, number, number]; c
 function hasDashOffset(
   mat: THREE.Material | THREE.Material[]
 ): mat is THREE.LineDashedMaterial & { dashOffset: number } {
-  return !!mat && typeof (mat as any).dashOffset === "number";
+  return !!mat && "dashOffset" in mat && typeof (mat as { dashOffset?: unknown }).dashOffset === "number";
 }
 
 function LightningEdge({ from, to }: { from: [number, number, number]; to: [number, number, number] }) {
