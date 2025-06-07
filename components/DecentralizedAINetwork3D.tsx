@@ -228,6 +228,7 @@ export default function DecentralizedAINetwork3D() {
           minAzimuthAngle={0}
           maxAzimuthAngle={0}
           onChange={(e) => {
+            if (!e) return;
             const t = e.target.target;
             t.x = Math.max(-24, Math.min(24, t.x));
             t.y = Math.max(-16, Math.min(16, t.y));
