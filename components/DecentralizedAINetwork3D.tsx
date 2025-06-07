@@ -107,8 +107,8 @@ function CommunicationEdge({ from, to }: { from: [number, number, number]; to: [
   const len = Math.sqrt(dir[0]**2 + dir[1]**2 + dir[2]**2) || 1;
   // Perpendicular offset vector (simple: swap x/y, negate one, ignore z)
   const perp = [-dir[1]/len*offset, dir[0]/len*offset, 0];
-  const fromOffset = [from[0] + perp[0], from[1] + perp[1], from[2] + perp[2]];
-  const toOffset = [to[0] + perp[0], to[1] + perp[1], to[2] + perp[2]];
+  const fromOffset = [from[0] + perp[0], from[1] + perp[1], from[2] + perp[2]] as [number, number, number];
+  const toOffset = [to[0] + perp[0], to[1] + perp[1], to[2] + perp[2]] as [number, number, number];
   // Animated dash effect for communication flow
   const ref = useRef<Line2 | LineSegments2 | null>(null);
   useFrame(({ clock }) => {
