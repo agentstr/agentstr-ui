@@ -323,28 +323,35 @@ function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: an
           ];
         })()}
         center
-        style={{
-          pointerEvents: 'none',
-          background: resolvedTheme === 'dark' ? 'rgba(30,32,44,0.80)' : 'rgba(245,247,250,0.93)',
-          color: resolvedTheme === 'dark' ? '#fff' : '#222',
-          borderRadius: '1.3em',
-          padding: '0.38em 1.3em',
-          fontWeight: 700,
-          fontSize: '1.35em',
-          boxShadow: resolvedTheme === 'dark'
-            ? '0 2px 12px 0 rgba(0,0,0,0.23)'
-            : '0 2px 12px 0 rgba(180,180,180,0.10)',
-          textAlign: 'center',
-          letterSpacing: '0.03em',
-          textShadow: resolvedTheme === 'dark'
-            ? '0 2px 8px #000, 0 0px 1px #000'
-            : '0 1px 4px #fff, 0 0.5px 1px #fff',
-          transform: 'translateZ(0)',
-          border: `1.5px solid ${color}`,
-          opacity: 0.93,
-          minWidth: '5.5em',
-          userSelect: 'none',
-        }}
+        style={(() => {
+          // Responsive tweaks for mobile
+          let isMobile = false;
+          if (typeof window !== 'undefined' && window.matchMedia) {
+            isMobile = window.matchMedia('(max-width: 640px)').matches;
+          }
+          return {
+            pointerEvents: 'none',
+            background: resolvedTheme === 'dark' ? 'rgba(30,32,44,0.80)' : 'rgba(245,247,250,0.93)',
+            color: resolvedTheme === 'dark' ? '#fff' : '#222',
+            borderRadius: isMobile ? '0.9em' : '1.3em',
+            padding: isMobile ? '0.25em 0.7em' : '0.38em 1.3em',
+            fontWeight: 700,
+            fontSize: isMobile ? '0.98em' : '1.35em',
+            boxShadow: resolvedTheme === 'dark'
+              ? '0 2px 12px 0 rgba(0,0,0,0.23)'
+              : '0 2px 12px 0 rgba(180,180,180,0.10)',
+            textAlign: 'center',
+            letterSpacing: '0.03em',
+            textShadow: resolvedTheme === 'dark'
+              ? '0 2px 8px #000, 0 0px 1px #000'
+              : '0 1px 4px #fff, 0 0.5px 1px #fff',
+            transform: 'translateZ(0)',
+            border: `1.5px solid ${color}`,
+            opacity: 0.93,
+            minWidth: isMobile ? '3.8em' : '5.5em',
+            userSelect: 'none',
+          };
+        })()}
       >
         {label}
       </Html>
