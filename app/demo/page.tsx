@@ -1,7 +1,6 @@
 import VideoPlayer from "../../components/VideoPlayer";
 import PDFViewer from "../../components/PDFViewer";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import DecentralizedAINetwork3D from "../../components/DecentralizedAINetwork3D";
 
 export default function DemoPage() {
   return (
