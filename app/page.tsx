@@ -1,4 +1,5 @@
 import { ArrowsRightLeftIcon, CubeIcon } from '@heroicons/react/24/outline';
+import DecentralizedAINetwork3D from '../components/DecentralizedAINetwork3D';
 
 export default function Home() {
   return (
@@ -43,6 +44,11 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-16 text-center max-w-4xl mx-auto">
+
+          {/* 3D Decentralized AI Network Visualization */}
+          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden mb-12">
+            <DecentralizedAINetwork3D />
+          </div>
 
           <h2 className="text-3xl font-bold text-foreground mb-4">Key Features</h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-10 rounded-full"></div>
