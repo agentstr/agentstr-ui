@@ -69,9 +69,12 @@ export default function DemoPage() {
         <div className="mt-12 w-full sm:max-w-4xl sm:mx-auto">
           <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden">
             <div className="p-6">
-              <h2 className="text-xl font-semibold text-foreground mb-4">3D Decentralized AI Network</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-4">Visualization</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-2">
+                The <span style={{color:'#f1c40f'}}>Lightning edges</span> represent payments over the Bitcoin Lightning network.
+              </p>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Visualization of a decentralized autonomous AI network. Node colors: <span style={{color:'#3498db'}}>users</span>, <span style={{color:'#2ecc40'}}>agents</span>, <span style={{color:'#9b59b6'}}>tools</span>. Lightning edges represent payment zaps.
+                The <span style={{color:'#00e0ff'}}>Nostr edges</span> represent Nostr communication channels.
               </p>
               <DecentralizedAINetwork3D />
             </div>
