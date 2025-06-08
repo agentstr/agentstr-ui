@@ -314,11 +314,6 @@ if (typeof window !== "undefined") {
       .responsive-3d-canvas-container {
         height: 600px;
       }
-      @media (max-width: 640px) {
-        .responsive-3d-canvas-container {
-          height: 350px !important;
-        }
-      }
     `;
     document.head.appendChild(style);
   }
