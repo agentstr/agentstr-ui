@@ -28,7 +28,7 @@ export default function UsagePage() {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-foreground sm:text-5xl md:text-6xl">
             <span className="block">Usage</span>
-            <span className="block text-primary">Agentstr SDK</span>
+            <span className="block text-primary">Agentstr</span>
           </h1>
           <p className="mt-3 text-base text-gray-700 dark:text-gray-300 max-w-xl sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl leading-relaxed">
             Explore practical examples using the Agentstr SDK.

@@ -7,7 +7,7 @@ export default function Home() {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-foreground sm:text-5xl md:text-6xl">
             <span className="block">Welcome to the</span>
-            <span className="block text-primary">Agentstr SDK</span>
+            <span className="block text-primary">Agentstr</span>
           </h1>
           <p className="mt-4 text-xl sm:text-2xl italic font-medium text-accent drop-shadow-sm">
             Your Agents, Your Network, Your Freedom
