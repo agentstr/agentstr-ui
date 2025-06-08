@@ -334,17 +334,25 @@ if (typeof window !== "undefined") {
 export default function DecentralizedAINetwork3D() {
   const { resolvedTheme } = useTheme();
   // Dynamic edge animation state
-  interface DynamicEdge {
+  interface DynamicPath {
   user: number;
   agent: number;
   targets: { type: 'tool' | 'agent'; id: number }[];
   secondaryAgentToolTargets?: { agent: number; tools: number[] }[];
+  startedAt: number; // ms
+  duration: number; // ms
+  step: number; // which step in the path (for sequential agent hops)
 }
 
-const [dynamicEdges, setDynamicEdges] = React.useState<DynamicEdge | null>(null);
-  React.useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    function pickDynamicEdges() {
+const [activePaths, setActivePaths] = React.useState<DynamicPath[]>([]);
+
+React.useEffect(() => {
+  let running = true;
+  let nextPathId = 0;
+
+  function startNewPath(offsetMs = 0) {
+    setTimeout(() => {
+      if (!running) return;
       // Pick a random user
       const user = USER_IDS[Math.floor(Math.random() * USER_IDS.length)];
       // Pick a random agent
@@ -374,17 +382,59 @@ const [dynamicEdges, setDynamicEdges] = React.useState<DynamicEdge | null>(null)
           secondaryAgentToolTargets.push({ agent: secAgent, tools: shuffledTools2 });
         }
       }
-      setDynamicEdges({
-        user,
-        agent,
-        targets,
-        secondaryAgentToolTargets
-      });
-      timeout = setTimeout(pickDynamicEdges, 2200 + Math.random() * 1800);
-    }
-    pickDynamicEdges();
-    return () => clearTimeout(timeout);
-  }, []);
+      const now = Date.now();
+      const duration = 400 + Math.floor(Math.random() * 800); // 0.4s - 1.2s
+      setActivePaths(paths => [
+        ...paths,
+        {
+          user,
+          agent,
+          targets,
+          secondaryAgentToolTargets,
+          startedAt: now,
+          duration,
+          step: 0,
+        },
+      ]);
+    }, offsetMs);
+  }
+
+  // Start 2-4 concurrent paths, staggered by 0-1s
+  const concurrent = 2 + Math.floor(Math.random() * 3);
+  for (let i = 0; i < concurrent; ++i) {
+    startNewPath(i * 400 + Math.floor(Math.random() * 400));
+  }
+
+  // Every 0.7-1.4s, start another path (slightly more frequent)
+  const interval = setInterval(() => {
+    if (!running) return;
+    startNewPath(Math.floor(Math.random() * 400));
+  }, 700 + Math.random() * 700);
+
+  // Animation loop for sequential steps
+  const stepInterval = setInterval(() => {
+    setActivePaths(paths =>
+      paths
+        .map(path => {
+          const elapsed = Date.now() - path.startedAt;
+          if (elapsed > path.duration) return null; // remove finished
+          // For sequential agent hops, sometimes advance the step
+          let step = path.step;
+          if (Math.random() < 0.25 && step < (path.targets.length - 1)) {
+            step++;
+          }
+          return { ...path, step };
+        })
+        .filter(Boolean) as DynamicPath[]
+    );
+  }, 80);
+
+  return () => {
+    running = false;
+    clearInterval(interval);
+    clearInterval(stepInterval);
+  };
+}, []);
 
   // Choose background colors based on theme
   const bgColor = resolvedTheme === 'dark' ? '#191a24' : '#fff';
@@ -452,36 +502,35 @@ const [dynamicEdges, setDynamicEdges] = React.useState<DynamicEdge | null>(null)
         />
         {/* Edges: Render after group areas so they appear above bubbles */}
         {/* Only show dynamic edges, styled as LightningEdge and CommunicationEdge overlays */}
-        {dynamicEdges && (
-          <>
-            {/* User to agent edge */}
-            <LightningEdge from={nodeMap[dynamicEdges.user]} to={nodeMap[dynamicEdges.agent]} />
-            <CommunicationEdge from={nodeMap[dynamicEdges.user]} to={nodeMap[dynamicEdges.agent]} />
-            {/* Agent to targets edges */}
-            {dynamicEdges.targets.map((target, i) => (
-              <React.Fragment key={`dyn-edge-${i}`}>
-                {Math.random() < 0.5 && (
-                  <LightningEdge from={nodeMap[dynamicEdges.agent]} to={nodeMap[target.id]} />
-                )}
-                <CommunicationEdge from={nodeMap[dynamicEdges.agent]} to={nodeMap[target.id]} />
-              </React.Fragment>
-            ))}
-            {/* Secondary agent to tool edges */}
-            {dynamicEdges.secondaryAgentToolTargets && dynamicEdges.secondaryAgentToolTargets.length > 0 &&
-              dynamicEdges.secondaryAgentToolTargets.map((entry, i) => (
-                entry.tools.map((toolId, j) => (
-                  <React.Fragment key={`sec-agent-tool-${i}-${j}`}>
-                    {Math.random() < 0.5 && (
-                      <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
-                    )}
-                    <CommunicationEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
-                  </React.Fragment>
-                ))
-              ))
-            }
-
-          </>
+        {activePaths.map((path, pathIdx) => (
+  <React.Fragment key={`dyn-path-${path.startedAt}-${path.user}-${path.agent}`}> 
+    {/* User to agent edge */}
+    <LightningEdge from={nodeMap[path.user]} to={nodeMap[path.agent]} />
+    <CommunicationEdge from={nodeMap[path.user]} to={nodeMap[path.agent]} />
+    {/* Agent to targets edges, sequential up to path.step */}
+    {path.targets.slice(0, path.step + 1).map((target, i) => (
+      <React.Fragment key={`dyn-edge-${pathIdx}-${i}`}>
+        {Math.random() < 0.5 && (
+          <LightningEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} />
         )}
+        <CommunicationEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} />
+      </React.Fragment>
+    ))}
+    {/* Secondary agent to tool edges */}
+    {path.secondaryAgentToolTargets && path.secondaryAgentToolTargets.length > 0 &&
+      path.secondaryAgentToolTargets.map((entry, i) => (
+        entry.tools.map((toolId, j) => (
+          <React.Fragment key={`sec-agent-tool-${pathIdx}-${i}-${j}`}>
+            {Math.random() < 0.5 && (
+              <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
+            )}
+            <CommunicationEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
+          </React.Fragment>
+        ))
+      ))
+    }
+  </React.Fragment>
+))}
         {/* Nodes: Always render last so they appear on top of edges */}
         {NODES.map((node) => (
           <NodeSphere
