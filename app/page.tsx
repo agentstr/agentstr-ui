@@ -7,7 +7,7 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-foreground sm:text-5xl md:text-6xl">
-            <span className="block">Welcome to the</span>
+            <span className="block">Welcome to</span>
             <span className="block text-primary">Agentstr</span>
           </h1>
           <p className="mt-4 text-l sm:text-l italic font-medium text-accent drop-shadow-sm">

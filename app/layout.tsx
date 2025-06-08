@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agentstr SDK",
-  description: "Documentation and API reference for the Agentstr SDK",
+  title: "Agentstr",
+  description: "Homepage for Agentstr",
 };
 
 export default function RootLayout({

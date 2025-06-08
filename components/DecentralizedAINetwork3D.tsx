@@ -424,7 +424,7 @@ React.useEffect(() => {
 }, []);
 
   // Choose background colors based on theme
-  const bgColor = resolvedTheme === 'dark' ? '#191a24' : '#fff';
+  const bgColor = resolvedTheme === 'dark' ? '#111' : '#fff';
   // Map node ids to positions
   const nodeMap = useMemo(
     () => Object.fromEntries(NODES.map(n => [n.id, n.position as [number, number, number]])),
