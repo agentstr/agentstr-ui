@@ -10,7 +10,7 @@ export default function Home() {
             <span className="block">Welcome to the</span>
             <span className="block text-primary">Agentstr</span>
           </h1>
-          <p className="mt-4 text-xl sm:text-2xl italic font-medium text-accent drop-shadow-sm">
+          <p className="mt-4 text-l sm:text-l italic font-medium text-accent drop-shadow-sm">
             Your Agents, Your Network, Your Freedom
           </p>
 
