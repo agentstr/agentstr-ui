@@ -435,17 +435,34 @@ React.useEffect(() => {
     () => Object.fromEntries(NODES.map(n => [n.id, n.position as [number, number, number]])),
     []
   );
+  // Responsive canvas height
+  const [canvasHeight, setCanvasHeight] = React.useState(600);
+  React.useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 640) {
+        setCanvasHeight(260); // mobile
+      } else if (window.innerWidth <= 900) {
+        setCanvasHeight(400); // tablet
+      } else {
+        setCanvasHeight(600); // desktop
+      }
+    }
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div
       style={{
         width: '100%',
-        height: '600px',
+        height: canvasHeight,
         background: bgColor,
         position: 'relative',
       }}
       className="responsive-3d-canvas-container"
     >
-      <Canvas camera={{ position: [0, 12, 60], fov: 48 }} shadows>
+      <Canvas camera={{ position: [0, 12, 60], fov: 48 }} shadows style={{ width: '100%', height: canvasHeight }} >
         <color attach="background" args={[bgColor]} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
