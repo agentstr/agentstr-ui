@@ -519,7 +519,7 @@ React.useEffect(() => {
     {/* Agent to targets edges, sequential up to path.step */}
     {path.targets.slice(0, path.step + 1).map((target, i) => (
       <React.Fragment key={`dyn-edge-${pathIdx}-${i}`}>
-        {Math.random() < 0.5 && (
+        {Math.random() < 0.2 && (
           <LightningEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} />
         )}
         <CommunicationEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} />
