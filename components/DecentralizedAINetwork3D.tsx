@@ -246,7 +246,7 @@ function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: No
   const groupArea = (
     <group>
       {/* Shaded area as transparent sphere/ellipsoid with subtle border and blur */}
-      <mesh position={center} renderOrder={-1}>
+      <mesh position={Array.isArray(center) && center.length === 3 ? center as [number, number, number] : [0, 0, 0]} renderOrder={-1}>
         <sphereGeometry args={[
           label === 'Users' ? maxDist + 1 :
           label === 'Agents' ? maxDist + 4 :
