@@ -390,8 +390,6 @@ const [dynamicEdges, setDynamicEdges] = React.useState<DynamicEdge | null>(null)
 
   // Choose background colors based on theme
   const bgColor = resolvedTheme === 'dark' ? '#191a24' : '#fff';
-  const legendBg = resolvedTheme === 'dark' ? 'rgba(30,32,44,0.92)' : 'rgba(245,247,250,0.92)';
-  const legendText = resolvedTheme === 'dark' ? '#fff' : '#111'; // darker text for light mode
   // Map node ids to positions
   const nodeMap = useMemo(
     () => Object.fromEntries(NODES.map(n => [n.id, n.position as [number, number, number]])),
