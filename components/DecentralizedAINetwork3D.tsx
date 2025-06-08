@@ -86,15 +86,14 @@ const USER_IDS = [1, 2, 3];
 const AGENT_IDS = [5, 6, 7, 8, 9, 14];
 const TOOL_IDS = [10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
-const NODES = [
-
+const NODES: NodeType[] = [
   // Users (horizontal line, rotated into screen around Y axis)
   ...(() => {
     const base = arrangeHorizontalLine(GROUP_LAYOUT.user.center, USER_IDS.length, 6);
     const rotated = base.map(pos => rotateY(pos, -Math.PI/6, GROUP_LAYOUT.user.center));
     return USER_IDS.map((id, i) => ({
       id,
-      type: 'user',
+      type: 'user' as const,
       position: rotated[i],
     }));
   })(),
@@ -104,7 +103,7 @@ const NODES = [
     const rotated = base.map(pos => rotateY(pos, -Math.PI/6, GROUP_LAYOUT.agent.center));
     return AGENT_IDS.map((id, i) => ({
       id,
-      type: 'agent',
+      type: 'agent' as const,
       position: rotated[i],
     }));
   })(),
@@ -113,11 +112,10 @@ const NODES = [
     const positions = arrangeFibonacciSphere(GROUP_LAYOUT.tool.center, GROUP_LAYOUT.tool.radius, TOOL_IDS.length);
     return TOOL_IDS.map((id, i) => ({
       id,
-      type: 'tool',
+      type: 'tool' as const,
       position: positions[i],
     }));
   })(),
-
 ];
 
 // Helper: generate all unique agent-to-agent edges (nostr communication)
