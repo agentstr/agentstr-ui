@@ -75,9 +75,9 @@ function arrangeHorizontalLine(center: [number, number, number], count: number, 
 // Define group centers
 const groupSpacing = 14;
 const GROUP_LAYOUT = {
-  user:  { center: [-10, -7, 0] as [number, number, number], radius: 3.5, zJitter: 1 }, // front
-  agent: { center: [1, -4, -groupSpacing] as [number, number, number], radius: 5, zJitter: 1.2 }, // middle
-  tool:  { center: [24, 0, -3.5 * groupSpacing] as [number, number, number], radius: 12, zJitter: 1 }, // back
+  user:  { center: [-11, -5, 0] as [number, number, number], radius: 2, zJitter: 1 }, // front
+  agent: { center: [-1, -3, -groupSpacing] as [number, number, number], radius: 5, zJitter: 1.2 }, // middle
+  tool:  { center: [24, 3, -3.5 * groupSpacing] as [number, number, number], radius: 12, zJitter: 1 }, // back
 };
 
 // Node IDs per group (order preserved)
@@ -89,7 +89,7 @@ const TOOL_IDS = [10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26
 const NODES: NodeType[] = [
   // Users (horizontal line, rotated into screen around Y axis)
   ...(() => {
-    const base = arrangeHorizontalLine(GROUP_LAYOUT.user.center, USER_IDS.length, 6);
+    const base = arrangeHorizontalLine(GROUP_LAYOUT.user.center, USER_IDS.length, 4.5);
     const rotated = base.map(pos => rotateY(pos, -Math.PI/6, GROUP_LAYOUT.user.center));
     return USER_IDS.map((id, i) => ({
       id,
@@ -117,13 +117,6 @@ const NODES: NodeType[] = [
     }));
   })(),
 ];
-
-// Helper: generate all unique agent-to-agent edges (nostr communication)
-// Generate ring topology (each agent connects to next, bidirectional)
-
-
-
-
 
 
 function NodeSphere({ position, color }: { position: [number, number, number]; color: string }) {
@@ -246,7 +239,7 @@ function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: No
       {/* Shaded area as transparent sphere/ellipsoid with subtle border and blur */}
       <mesh position={Array.isArray(center) && center.length === 3 ? center as [number, number, number] : [0, 0, 0]} renderOrder={-1}>
         <sphereGeometry args={[
-          label === 'Users' ? maxDist + 1 :
+          label === 'Users' ? maxDist + 2 :
           label === 'Agents' ? maxDist + 4 :
           label === 'Tools' ? maxDist + 8 :
           maxDist + 2,
@@ -348,7 +341,6 @@ const [activePaths, setActivePaths] = React.useState<DynamicPath[]>([]);
 
 React.useEffect(() => {
   let running = true;
-  let nextPathId = 0;
 
   function startNewPath(offsetMs = 0) {
     setTimeout(() => {
