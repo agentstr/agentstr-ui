@@ -12,7 +12,7 @@ const NODE_TYPES = {
   user: { color: '#3498db' },   // blue
   agent: { color: '#2ecc40' },  // green
   tool: { color: '#9b59b6' },   // purple
-  llm: { color: '#ff9800' },    // orange
+  // llm: { color: '#ff9800' },    // orange
 };
 
 // Arrange nodes in a circle (for agents)
@@ -25,6 +25,62 @@ function arrangeCircle(center: [number, number, number], radius: number, count: 
     return [x, y, z] as [number, number, number];
   });
 }
+// Arrange nodes in a pentagon (for tools)
+function rotateY([x, y, z]: [number, number, number], angle: number, center: [number, number, number] = [0, 0, 0]): [number, number, number] {
+  // Rotates a point around the Y axis about a center
+  const dx = x - center[0];
+  const dz = z - center[2];
+  return [
+    center[0] + dx * Math.cos(angle) + dz * Math.sin(angle),
+    y,
+    center[2] - dx * Math.sin(angle) + dz * Math.cos(angle),
+  ];
+}
+// Arrange nodes in a 3D Fibonacci sphere (for large tool clusters)
+function arrangeFibonacciSphere(center: [number, number, number], radius: number, count: number): [number, number, number][] {
+  // Distributes points evenly on a sphere
+  const points: [number, number, number][] = [];
+  const offset = 2 / count;
+  const increment = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < count; i++) {
+    const y = ((i * offset) - 1) + (offset / 2);
+    const r = Math.sqrt(1 - y * y);
+    const phi = i * increment;
+    const x = Math.cos(phi) * r;
+    const z = Math.sin(phi) * r;
+    points.push([
+      center[0] + radius * x,
+      center[1] + radius * y,
+      center[2] + radius * z
+    ]);
+  }
+  return points;
+}
+function arrangePentagon(center: [number, number, number], radius: number) {
+  // Returns 5 positions in a perfect pentagon
+  const points = [];
+  for (let i = 0; i < 5; i++) {
+    const angle = (2 * Math.PI * i) / 5 - Math.PI / 2; // start at top
+    const x = center[0] + radius * Math.cos(angle);
+    const y = center[1] + radius * Math.sin(angle);
+    const z = center[2];
+    points.push([x, y, z] as [number, number, number]);
+  }
+  return points;
+}
+
+// Arrange nodes in a square (for LLMs)
+function arrangeSquare(center: [number, number, number], side: number) {
+  // Returns 4 positions at the corners of a square
+  const half = side / 2;
+  return [
+    [center[0] - half, center[1] - half, center[2]],
+    [center[0] + half, center[1] - half, center[2]],
+    [center[0] + half, center[1] + half, center[2]],
+    [center[0] - half, center[1] + half, center[2]],
+  ];
+}
+
 // Arrange nodes in a horizontal line (for LLMs)
 function arrangeHorizontalLine(center: [number, number, number], count: number, spacing: number = 3) {
   const totalWidth = (count - 1) * spacing;
@@ -47,44 +103,51 @@ function arrangeVerticalLine(center: [number, number, number], count: number, sp
 }
 
 // Define group centers
+const groupSpacing = 14;
 const GROUP_LAYOUT = {
-  llm:   { center: [0, 7, 0] as [number, number, number], radius: 3.5, zJitter: 1 },
-  user:  { center: [-14, -5, 0] as [number, number, number], radius: 3.5, zJitter: 1 },
-  agent: { center: [0, -7, 0] as [number, number, number], radius: 5, zJitter: 1.2 },
-  tool:  { center: [14, -5, 0] as [number, number, number], radius: 5, zJitter: 1 },
+  user:  { center: [-10, -7, 0] as [number, number, number], radius: 3.5, zJitter: 1 }, // front
+  agent: { center: [1, -4, -groupSpacing] as [number, number, number], radius: 5, zJitter: 1.2 }, // middle
+  tool:  { center: [24, 0, -3.5 * groupSpacing] as [number, number, number], radius: 12, zJitter: 1 }, // back
 };
 
 // Node IDs per group (order preserved)
-const LLM_IDS = [100, 101, 102, 103];
+
 const USER_IDS = [1, 2, 3];
 const AGENT_IDS = [5, 6, 7, 8, 9, 14];
-const TOOL_IDS = [10, 11, 12, 13];
+const TOOL_IDS = [10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 
 const NODES = [
-  // LLMs (horizontal line, more spread out)
-  ...LLM_IDS.map((id, i, arr) => ({
-    id,
-    type: 'llm',
-    position: arrangeHorizontalLine(GROUP_LAYOUT.llm.center, arr.length, 2.7)[i],
-  })),
-  // Users (vertical line, spaced out)
-  ...USER_IDS.map((id, i, arr) => ({
-    id,
-    type: 'user',
-    position: arrangeVerticalLine(GROUP_LAYOUT.user.center, arr.length, 3)[i],
-  })),
-  // Agents
-  ...AGENT_IDS.map((id, i, arr) => ({
-    id,
-    type: 'agent',
-    position: arrangeCircle(GROUP_LAYOUT.agent.center, GROUP_LAYOUT.agent.radius, arr.length, GROUP_LAYOUT.agent.zJitter)[i],
-  })),
-  // Tools (vertical line, spaced out)
-  ...TOOL_IDS.map((id, i, arr) => ({
-    id,
-    type: 'tool',
-    position: arrangeVerticalLine(GROUP_LAYOUT.tool.center, arr.length, 3)[i],
-  })),
+
+  // Users (horizontal line, rotated into screen around Y axis)
+  ...(() => {
+    const base = arrangeHorizontalLine(GROUP_LAYOUT.user.center, USER_IDS.length, 6);
+    const rotated = base.map(pos => rotateY(pos, -Math.PI/6, GROUP_LAYOUT.user.center));
+    return USER_IDS.map((id, i) => ({
+      id,
+      type: 'user',
+      position: rotated[i],
+    }));
+  })(),
+  // Agents (circle, rotated into screen around Y axis)
+  ...(() => {
+    const base = arrangeCircle(GROUP_LAYOUT.agent.center, GROUP_LAYOUT.agent.radius, AGENT_IDS.length, GROUP_LAYOUT.agent.zJitter);
+    const rotated = base.map(pos => rotateY(pos, -Math.PI/6, GROUP_LAYOUT.agent.center));
+    return AGENT_IDS.map((id, i) => ({
+      id,
+      type: 'agent',
+      position: rotated[i],
+    }));
+  })(),
+  // Tools (Fibonacci sphere cluster)
+  ...(() => {
+    const positions = arrangeFibonacciSphere(GROUP_LAYOUT.tool.center, GROUP_LAYOUT.tool.radius, TOOL_IDS.length);
+    return TOOL_IDS.map((id, i) => ({
+      id,
+      type: 'tool',
+      position: positions[i],
+    }));
+  })(),
+
 ];
 
 // Helper: generate all unique agent-to-agent edges (nostr communication)
@@ -115,38 +178,7 @@ const EDGES = [
   { from: 9, to: 10 }, { from: 7, to: 13 },
 ];
 
-// Nostr communication edges between all agents
-const NOSTR_EDGES = generateAgentRingEdges(AGENT_IDS);
-// Lightning edges between all agents
-const LIGHTNING_AGENT_EDGES = generateAgentRingEdges(AGENT_IDS);
-// Bidirectional communication edges (blue) between users and agents
-// Each user connects to only the first two agents (bidirectional)
-function generateUserAgentEdges(userIds: number[], agentIds: number[]) {
-  const edges = [];
-  for (let u of userIds) {
-    for (let i = 0; i < Math.min(2, agentIds.length); i++) {
-      const a = agentIds[i];
-      edges.push({ from: u, to: a });
-      edges.push({ from: a, to: u });
-    }
-  }
-  return edges;
-}
-const USER_AGENT_COMM_EDGES = generateUserAgentEdges(USER_IDS, AGENT_IDS);
-// Bidirectional communication edges (blue) between agents and tools
-// Each agent connects to only the first two tools (bidirectional)
-function generateAgentToolEdges(agentIds: number[], toolIds: number[]) {
-  const edges = [];
-  for (let a of agentIds) {
-    for (let i = 0; i < Math.min(2, toolIds.length); i++) {
-      const t = toolIds[i];
-      edges.push({ from: a, to: t });
-      edges.push({ from: t, to: a });
-    }
-  }
-  return edges;
-}
-const AGENT_TOOL_COMM_EDGES = generateAgentToolEdges(AGENT_IDS, TOOL_IDS);
+
 
 function NodeSphere({ position, color }: { position: [number, number, number]; color: string }) {
   const geometry = useMemo(() => new THREE.SphereGeometry(1.2, 48, 32), []);
@@ -157,6 +189,8 @@ function NodeSphere({ position, color }: { position: [number, number, number]; c
     </mesh>
   );
 }
+
+// (AnimatedEdge removed, dynamic edges now use LightningEdge and CommunicationEdge styles)
 
 // Type guard for dashOffset
 function hasDashOffset(
@@ -223,28 +257,49 @@ function CommunicationEdge({ from, to }: { from: [number, number, number]; to: [
   );
 }
 
-// Utility: get group center
+
 function groupCenter(nodes: { position: [number, number, number] }[] | undefined) {
   if (!Array.isArray(nodes) || nodes.length === 0) return [0, 0, 0];
   const n = nodes.length;
-  const sum = nodes.reduce((acc, node) => [acc[0]+node.position[0], acc[1]+node.position[1], acc[2]+node.position[2]], [0,0,0]);
-  return [sum[0]/n, sum[1]/n, sum[2]/n] as [number, number, number];
+  let x = 0, y = 0, z = 0;
+  for (const node of nodes) {
+    // Defensive: ensure node.position is a valid tuple
+    if (!node.position || node.position.length !== 3) continue;
+    x += node.position[0];
+    y += node.position[1];
+    z += node.position[2];
+  }
+  // If no valid positions found, return [0,0,0]
+  if (n === 0) return [0, 0, 0];
+  return [x / n, y / n, z / n];
 }
 
-function GroupArea({ nodes, color, label }: { nodes: { position: [number, number, number] }[], color: string, label: string }) {
+function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: any[]; color: string; label: string; resolvedTheme?: string }) {
+  if (!Array.isArray(nodes) || nodes.length === 0) return null;
   // Get center and bounding box
   const center = groupCenter(nodes);
   // Compute rough bounding sphere radius
-  const maxDist = Math.max(...nodes.map(n => Math.sqrt(
-    Math.pow(n.position[0] - center[0], 2) +
-    Math.pow(n.position[1] - center[1], 2) +
-    Math.pow(n.position[2] - center[2], 2)
-  )));
-  return (
+  const dists = Array.isArray(nodes) && nodes.length > 0
+    ? nodes
+        .filter((n: { position: [number, number, number] }) => Array.isArray(n.position) && n.position.length === 3)
+        .map((n: { position: [number, number, number] }) => Math.sqrt(
+          Math.pow(n.position[0] - center[0], 2) +
+          Math.pow(n.position[1] - center[1], 2) +
+          Math.pow(n.position[2] - center[2], 2)
+        ))
+    : [];
+
+  const maxDist = dists.length > 0 ? Math.max(...dists) : 0;
+  const groupArea = (
     <group>
       {/* Shaded area as transparent sphere/ellipsoid with subtle border and blur */}
       <mesh position={center} renderOrder={-1}>
-        <sphereGeometry args={[maxDist + 2, 48, 32]} />
+        <sphereGeometry args={[
+          label === 'Users' ? maxDist + 1 :
+          label === 'Agents' ? maxDist + 4 :
+          label === 'Tools' ? maxDist + 8 :
+          maxDist + 2,
+          48, 32]} />
         <meshStandardMaterial color={color} transparent opacity={0.09} depthWrite={false} />
         <meshPhysicalMaterial
           color={color}
@@ -257,24 +312,45 @@ function GroupArea({ nodes, color, label }: { nodes: { position: [number, number
           depthWrite={false}
         />
       </mesh>
-      {/* Group label above, with pill background */}
-      <Html position={[center[0], center[1] + maxDist + 2.7, center[2]]} center style={{ pointerEvents: 'none' }}>
-        <div style={{
-          background: 'rgba(255,255,255,0.93)',
-          color: '#222',
+      {/* Improved group label positioning and style */}
+      <Html
+        position={(() => {
+          const sphereRadius = label === 'Users' ? maxDist + 1 : label === 'Agents' ? maxDist + 4 : label === 'Tools' ? maxDist + 8 : maxDist + 2;
+          return [
+            center[0] - sphereRadius * 0.4,
+            center[1] + sphereRadius * 1.4,
+            center[2]
+          ];
+        })()}
+        center
+        style={{
+          pointerEvents: 'none',
+          background: resolvedTheme === 'dark' ? 'rgba(30,32,44,0.80)' : 'rgba(245,247,250,0.93)',
+          color: resolvedTheme === 'dark' ? '#fff' : '#222',
+          borderRadius: '1.3em',
+          padding: '0.38em 1.3em',
           fontWeight: 700,
-          fontSize: 18,
-          borderRadius: 18,
-          padding: '7px 22px',
-          boxShadow: '0 2px 16px #0002',
-          letterSpacing: 1.2,
-          border: `2px solid ${color}`,
-          textShadow: '0 2px 8px #fff, 0 1px 1px #bbb',
-          fontFamily: 'Inter, Segoe UI, Arial, sans-serif',
-        }}>{label}</div>
+          fontSize: '1.35em',
+          boxShadow: resolvedTheme === 'dark'
+            ? '0 2px 12px 0 rgba(0,0,0,0.23)'
+            : '0 2px 12px 0 rgba(180,180,180,0.10)',
+          textAlign: 'center',
+          letterSpacing: '0.03em',
+          textShadow: resolvedTheme === 'dark'
+            ? '0 2px 8px #000, 0 0px 1px #000'
+            : '0 1px 4px #fff, 0 0.5px 1px #fff',
+          transform: 'translateZ(0)',
+          border: `1.5px solid ${color}`,
+          opacity: 0.93,
+          minWidth: '5.5em',
+          userSelect: 'none',
+        }}
+      >
+        {label}
       </Html>
     </group>
   );
+  return groupArea;
 }
 
 // Add responsive CSS for the canvas container
@@ -299,6 +375,59 @@ if (typeof window !== "undefined") {
 
 export default function DecentralizedAINetwork3D() {
   const { resolvedTheme } = useTheme();
+  // Dynamic edge animation state
+  const [dynamicEdges, setDynamicEdges] = React.useState<{
+  user: number;
+  agent: number;
+  targets: { type: 'tool' | 'agent'; id: number }[];
+  secondaryAgentToolTargets?: { agent: number; tools: number[] }[];
+} | null>(null);
+  React.useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    function pickDynamicEdges() {
+      // Pick a random user
+      const user = USER_IDS[Math.floor(Math.random() * USER_IDS.length)];
+      // Pick a random agent
+      const agent = AGENT_IDS[Math.floor(Math.random() * AGENT_IDS.length)];
+      // Pick 2-4 random tools and/or agents as targets
+      const targets: { type: 'tool' | 'agent', id: number }[] = [];
+      const toolCount = 2 + Math.floor(Math.random() * 3);
+      const shuffledTools = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount);
+      for (const t of shuffledTools) targets.push({ type: 'tool', id: t });
+      // Optionally add 1-2 agent targets (not the selected agent)
+      const agentTargets = AGENT_IDS.filter(a => a !== agent);
+      const secondaryAgentEdges: { from: number, to: number }[] = [];
+      const secondaryAgentToolEdges: { from: number, to: number }[] = [];
+      const secondaryAgents: number[] = [];
+      if (agentTargets.length > 0 && Math.random() < 0.7) {
+        const n = 1 + Math.floor(Math.random() * 2);
+        const shuffledAgents = [...agentTargets].sort(() => Math.random() - 0.5).slice(0, n);
+        for (const a of shuffledAgents) {
+          targets.push({ type: 'agent', id: a });
+          secondaryAgents.push(a);
+        }
+      }
+      // For each secondary agent, sometimes connect it to a few random tools
+      const secondaryAgentToolTargets: { agent: number, tools: number[] }[] = [];
+      for (const secAgent of secondaryAgents) {
+        if (Math.random() < 0.95) {
+          const toolCount2 = 2 + Math.floor(Math.random() * 3); // 2-4 tools
+          const shuffledTools2 = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount2);
+          secondaryAgentToolTargets.push({ agent: secAgent, tools: shuffledTools2 });
+        }
+      }
+      setDynamicEdges({
+        user,
+        agent,
+        targets,
+        secondaryAgentToolTargets
+      } as any);
+      timeout = setTimeout(pickDynamicEdges, 2200 + Math.random() * 1800);
+    }
+    pickDynamicEdges();
+    return () => clearTimeout(timeout);
+  }, []);
+
   // Choose background colors based on theme
   const bgColor = resolvedTheme === 'dark' ? '#191a24' : '#fff';
   const legendBg = resolvedTheme === 'dark' ? 'rgba(30,32,44,0.92)' : 'rgba(245,247,250,0.92)';
@@ -312,47 +441,13 @@ export default function DecentralizedAINetwork3D() {
     <div
       style={{
         width: '100%',
-        maxWidth: '100vw',
         height: '600px',
         background: bgColor,
         position: 'relative',
       }}
       className="responsive-3d-canvas-container"
     >
-      {/* Legend Overlay */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 18,
-          right: 18,
-          background: legendBg,
-          borderRadius: 8,
-          padding: '14px 18px 10px 18px',
-          boxShadow: '0 2px 8px #000a',
-          zIndex: 10,
-          color: legendText,
-          fontSize: 15,
-          minWidth: 160,
-          textShadow: resolvedTheme === 'dark'
-            ? '0 1px 2px #000a'
-            : '0 1px 4px #fff, 0 0px 1px #bbb', // more contrast for light mode
-        }}
-      >
-        <div style={{ fontWeight: 600, marginBottom: 8, letterSpacing: 0.5 }}>Legend</div>
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
-          <svg width="38" height="8" style={{ marginRight: 8 }}>
-            <line x1="2" y1="4" x2="36" y2="4" stroke="#ffe066" strokeWidth="3" strokeDasharray="7,4" />
-          </svg>
-          <span style={{ color: resolvedTheme === 'dark' ? '#ffe066' : '#111' }}>Bitcoin Lightning</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <svg width="38" height="8" style={{ marginRight: 8 }}>
-            <line x1="2" y1="4" x2="36" y2="4" stroke="#00e6ff" strokeWidth="3" strokeDasharray="5,4" />
-          </svg>
-          <span style={{ color: resolvedTheme === 'dark' ? '#00e6ff' : '#111' }}>Nostr Communication</span>
-        </div>
-      </div>
-      <Canvas camera={{ position: [0, 0, 36], fov: 60 }} shadows>
+      <Canvas camera={{ position: [0, 12, 60], fov: 48 }} shadows>
         <color attach="background" args={[bgColor]} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
@@ -380,52 +475,63 @@ export default function DecentralizedAINetwork3D() {
           }}
         />
         {/* Group shaded areas and labels */}
-        <GroupArea
-  nodes={NODES.filter(n => n.type === 'llm')}
-  color={NODE_TYPES.llm.color}
-  label="LLMs"
-/>
+
         <GroupArea
           nodes={NODES.filter(n => n.type === 'user')}
           color={NODE_TYPES.user.color}
           label="Users"
+          resolvedTheme={resolvedTheme || 'light'}
         />
         <GroupArea
           nodes={NODES.filter(n => n.type === 'agent')}
           color={NODE_TYPES.agent.color}
           label="Agents"
+          resolvedTheme={resolvedTheme || 'light'}
         />
         <GroupArea
           nodes={NODES.filter(n => n.type === 'tool')}
           color={NODE_TYPES.tool.color}
           label="Tools"
+          resolvedTheme={resolvedTheme || 'light'}
         />
         {/* Edges: Render after group areas so they appear above bubbles */}
-        {/* Lightning Edges (zaps) */}
-        {EDGES.map((edge, i) => {
-          // Only render LightningEdge for non-agent<->agent edges
-          const fromNode = NODES.find(n => n.id === edge.from);
-          const toNode = NODES.find(n => n.id === edge.to);
-          const isAgentToAgent = fromNode && fromNode.type === 'agent' && toNode && toNode.type === 'agent';
-          if (isAgentToAgent) return null;
-          return <LightningEdge key={i} from={nodeMap[edge.from]} to={nodeMap[edge.to]} />;
-        })}
-        {/* Lightning Edges (yellow, between all agents) */}
-        {LIGHTNING_AGENT_EDGES.map((edge, i) => (
-          <LightningEdge key={"lightning-agent-" + i} from={nodeMap[edge.from]} to={nodeMap[edge.to]} />
-        ))}
-        {/* Nostr Communication Edges (blue, between all agents) */}
-        {NOSTR_EDGES.map((edge, i) => (
-          <CommunicationEdge key={"nostr-" + i} from={nodeMap[edge.from]} to={nodeMap[edge.to]} />
-        ))}
-        {/* User-Agent Communication Edges (blue, bidirectional) */}
-        {USER_AGENT_COMM_EDGES.map((edge, i) => (
-          <CommunicationEdge key={"user-agent-comm-" + i} from={nodeMap[edge.from]} to={nodeMap[edge.to]} />
-        ))}
-        {/* Agent-Tool Communication Edges (blue, bidirectional) */}
-        {AGENT_TOOL_COMM_EDGES.map((edge, i) => (
-          <CommunicationEdge key={"agent-tool-comm-" + i} from={nodeMap[edge.from]} to={nodeMap[edge.to]} />
-        ))}
+        {/* Only show dynamic edges, styled as LightningEdge and CommunicationEdge overlays */}
+        {dynamicEdges && (
+          <>
+            {/* User to agent edge */}
+            <LightningEdge from={nodeMap[dynamicEdges.user]} to={nodeMap[dynamicEdges.agent]} />
+            <CommunicationEdge from={nodeMap[dynamicEdges.user]} to={nodeMap[dynamicEdges.agent]} />
+            {/* Agent to targets edges */}
+            {dynamicEdges.targets.map((target, i) => (
+              <React.Fragment key={`dyn-edge-${i}`}>
+                {Math.random() < 0.5 && (
+                  <LightningEdge from={nodeMap[dynamicEdges.agent]} to={nodeMap[target.id]} />
+                )}
+                <CommunicationEdge from={nodeMap[dynamicEdges.agent]} to={nodeMap[target.id]} />
+              </React.Fragment>
+            ))}
+            {/* Secondary agent to tool edges */}
+            {(() => {
+              // Debug: log the secondaryAgentToolTargets structure
+              if (dynamicEdges.secondaryAgentToolTargets) {
+                console.log('secondaryAgentToolTargets', dynamicEdges.secondaryAgentToolTargets);
+              }
+              return dynamicEdges.secondaryAgentToolTargets && dynamicEdges.secondaryAgentToolTargets.length > 0
+                ? dynamicEdges.secondaryAgentToolTargets.map((entry: { agent: number, tools: number[] }, i: number) => (
+                    entry.tools.map((toolId: number, j: number) => (
+                      <React.Fragment key={`sec-agent-tool-${i}-${j}`}>
+                        {Math.random() < 0.5 && (
+                          <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
+                        )}
+                        <CommunicationEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
+                      </React.Fragment>
+                    ))
+                  ))
+                : null;
+            })()}
+
+          </>
+        )}
         {/* Nodes: Always render last so they appear on top of edges */}
         {NODES.map((node) => (
           <NodeSphere
