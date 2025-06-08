@@ -15,7 +15,7 @@ const NODE_TYPES = {
 };
 
 // Arrange nodes in a circle (for agents)
-function arrangeCircle(center: [number, number, number], radius: number, count: number, _zJitter: number = 0, tilt: number = 0) {
+function arrangeCircle(center: [number, number, number], radius: number, count: number, tilt: number = 0) {
   return Array.from({ length: count }, (_, i) => {
     const angle = (2 * Math.PI * i) / count + tilt;
     const x = center[0] + radius * Math.cos(angle);
@@ -122,31 +122,9 @@ const NODES = [
 
 // Helper: generate all unique agent-to-agent edges (nostr communication)
 // Generate ring topology (each agent connects to next, bidirectional)
-function generateAgentRingEdges(agentIds: number[]) {
-  const edges = [];
-  for (let i = 0; i < agentIds.length; i++) {
-    const from = agentIds[i];
-    const to = agentIds[(i + 1) % agentIds.length];
-    edges.push({ from, to });
-    edges.push({ from: to, to: from });
-  }
-  return edges;
-}
 
-const EDGES = [
-  // LLMs to agents (only connect to agents)
-  { from: 5, to: 100 }, { from: 6, to: 100 },
-  { from: 7, to: 101 }, { from: 8, to: 101 },
-  { from: 9, to: 102 }, { from: 5, to: 102 },
-  // Users to agents
-  { from: 1, to: 5 }, { from: 1, to: 6 },
-  { from: 2, to: 5 }, { from: 2, to: 9 },
-  { from: 3, to: 8 }, { from: 3, to: 6 },
-  { from: 4, to: 9 }, { from: 4, to: 7 },
-  // Agents to tools
-  { from: 5, to: 10 }, { from: 6, to: 11 }, { from: 7, to: 12 }, { from: 8, to: 13 },
-  { from: 9, to: 10 }, { from: 7, to: 13 },
-];
+
+
 
 
 
@@ -243,7 +221,13 @@ function groupCenter(nodes: { position: [number, number, number] }[] | undefined
   return [x / n, y / n, z / n];
 }
 
-function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: any[]; color: string; label: string; resolvedTheme?: string }) {
+interface NodeType {
+  id: number;
+  type: 'user' | 'agent' | 'tool';
+  position: [number, number, number];
+}
+
+function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: NodeType[]; color: string; label: string; resolvedTheme?: string }) {
   if (!Array.isArray(nodes) || nodes.length === 0) return null;
   // Get center and bounding box
   const center = groupCenter(nodes);
@@ -352,12 +336,14 @@ if (typeof window !== "undefined") {
 export default function DecentralizedAINetwork3D() {
   const { resolvedTheme } = useTheme();
   // Dynamic edge animation state
-  const [dynamicEdges, setDynamicEdges] = React.useState<{
+  interface DynamicEdge {
   user: number;
   agent: number;
   targets: { type: 'tool' | 'agent'; id: number }[];
   secondaryAgentToolTargets?: { agent: number; tools: number[] }[];
-} | null>(null);
+}
+
+const [dynamicEdges, setDynamicEdges] = React.useState<DynamicEdge | null>(null);
   React.useEffect(() => {
     let timeout: NodeJS.Timeout;
     function pickDynamicEdges() {
@@ -372,8 +358,6 @@ export default function DecentralizedAINetwork3D() {
       for (const t of shuffledTools) targets.push({ type: 'tool', id: t });
       // Optionally add 1-2 agent targets (not the selected agent)
       const agentTargets = AGENT_IDS.filter(a => a !== agent);
-      const secondaryAgentEdges: { from: number, to: number }[] = [];
-      const secondaryAgentToolEdges: { from: number, to: number }[] = [];
       const secondaryAgents: number[] = [];
       if (agentTargets.length > 0 && Math.random() < 0.7) {
         const n = 1 + Math.floor(Math.random() * 2);
@@ -397,7 +381,7 @@ export default function DecentralizedAINetwork3D() {
         agent,
         targets,
         secondaryAgentToolTargets
-      } as any);
+      });
       timeout = setTimeout(pickDynamicEdges, 2200 + Math.random() * 1800);
     }
     pickDynamicEdges();
@@ -488,8 +472,8 @@ export default function DecentralizedAINetwork3D() {
             ))}
             {/* Secondary agent to tool edges */}
             {dynamicEdges.secondaryAgentToolTargets && dynamicEdges.secondaryAgentToolTargets.length > 0 &&
-              dynamicEdges.secondaryAgentToolTargets.map((entry: { agent: number, tools: number[] }, i: number) => (
-                entry.tools.map((toolId: number, j: number) => (
+              dynamicEdges.secondaryAgentToolTargets.map((entry, i) => (
+                entry.tools.map((toolId, j) => (
                   <React.Fragment key={`sec-agent-tool-${i}-${j}`}>
                     {Math.random() < 0.5 && (
                       <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
