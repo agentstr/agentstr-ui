@@ -2,7 +2,7 @@
 import React, { useRef, useMemo } from 'react';
 import { useTheme } from 'next-themes';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Line, OrbitControls, Text, Html } from '@react-three/drei';
+import { Line, OrbitControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { Line2, LineSegments2 } from 'three-stdlib';
 import { MOUSE } from 'three';
@@ -12,7 +12,6 @@ const NODE_TYPES = {
   user: { color: '#3498db' },   // blue
   agent: { color: '#2ecc40' },  // green
   tool: { color: '#9b59b6' },   // purple
-  // llm: { color: '#ff9800' },    // orange
 };
 
 // Arrange nodes in a circle (for agents)
@@ -25,7 +24,6 @@ function arrangeCircle(center: [number, number, number], radius: number, count: 
     return [x, y, z] as [number, number, number];
   });
 }
-// Arrange nodes in a pentagon (for tools)
 function rotateY([x, y, z]: [number, number, number], angle: number, center: [number, number, number] = [0, 0, 0]): [number, number, number] {
   // Rotates a point around the Y axis about a center
   const dx = x - center[0];
@@ -56,30 +54,10 @@ function arrangeFibonacciSphere(center: [number, number, number], radius: number
   }
   return points;
 }
-function arrangePentagon(center: [number, number, number], radius: number) {
-  // Returns 5 positions in a perfect pentagon
-  const points = [];
-  for (let i = 0; i < 5; i++) {
-    const angle = (2 * Math.PI * i) / 5 - Math.PI / 2; // start at top
-    const x = center[0] + radius * Math.cos(angle);
-    const y = center[1] + radius * Math.sin(angle);
-    const z = center[2];
-    points.push([x, y, z] as [number, number, number]);
-  }
-  return points;
-}
+
 
 // Arrange nodes in a square (for LLMs)
-function arrangeSquare(center: [number, number, number], side: number) {
-  // Returns 4 positions at the corners of a square
-  const half = side / 2;
-  return [
-    [center[0] - half, center[1] - half, center[2]],
-    [center[0] + half, center[1] - half, center[2]],
-    [center[0] + half, center[1] + half, center[2]],
-    [center[0] - half, center[1] + half, center[2]],
-  ];
-}
+
 
 // Arrange nodes in a horizontal line (for LLMs)
 function arrangeHorizontalLine(center: [number, number, number], count: number, spacing: number = 3) {
@@ -92,15 +70,7 @@ function arrangeHorizontalLine(center: [number, number, number], count: number, 
   });
 }
 // Arrange nodes in a vertical line (for tools and users)
-function arrangeVerticalLine(center: [number, number, number], count: number, spacing: number = 2) {
-  const totalHeight = (count - 1) * spacing;
-  return Array.from({ length: count }, (_, i) => {
-    const x = center[0];
-    const y = center[1] - totalHeight / 2 + i * spacing;
-    const z = center[2];
-    return [x, y, z] as [number, number, number];
-  });
-}
+
 
 // Define group centers
 const groupSpacing = 14;
@@ -190,7 +160,6 @@ function NodeSphere({ position, color }: { position: [number, number, number]; c
   );
 }
 
-// (AnimatedEdge removed, dynamic edges now use LightningEdge and CommunicationEdge styles)
 
 // Type guard for dashOffset
 function hasDashOffset(
@@ -518,24 +487,18 @@ export default function DecentralizedAINetwork3D() {
               </React.Fragment>
             ))}
             {/* Secondary agent to tool edges */}
-            {(() => {
-              // Debug: log the secondaryAgentToolTargets structure
-              if (dynamicEdges.secondaryAgentToolTargets) {
-                console.log('secondaryAgentToolTargets', dynamicEdges.secondaryAgentToolTargets);
-              }
-              return dynamicEdges.secondaryAgentToolTargets && dynamicEdges.secondaryAgentToolTargets.length > 0
-                ? dynamicEdges.secondaryAgentToolTargets.map((entry: { agent: number, tools: number[] }, i: number) => (
-                    entry.tools.map((toolId: number, j: number) => (
-                      <React.Fragment key={`sec-agent-tool-${i}-${j}`}>
-                        {Math.random() < 0.5 && (
-                          <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
-                        )}
-                        <CommunicationEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
-                      </React.Fragment>
-                    ))
-                  ))
-                : null;
-            })()}
+            {dynamicEdges.secondaryAgentToolTargets && dynamicEdges.secondaryAgentToolTargets.length > 0 &&
+              dynamicEdges.secondaryAgentToolTargets.map((entry: { agent: number, tools: number[] }, i: number) => (
+                entry.tools.map((toolId: number, j: number) => (
+                  <React.Fragment key={`sec-agent-tool-${i}-${j}`}>
+                    {Math.random() < 0.5 && (
+                      <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
+                    )}
+                    <CommunicationEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
+                  </React.Fragment>
+                ))
+              ))
+            }
 
           </>
         )}
