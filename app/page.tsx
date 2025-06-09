@@ -46,7 +46,7 @@ export default function Home() {
         <div className="mt-16 text-center max-w-4xl mx-auto">
 
           {/* 3D Decentralized AI Network Visualization */}
-          <div className="bg-white glass-panel-light dark:bg-transparent glass-panel border border-gray-200 dark:border-gray-700 rounded-lg shadow overflow-hidden mb-12">
+          <div className="bg-card/95 p-1 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg mb-12">
             <DecentralizedAINetwork3D />
           </div>
 
