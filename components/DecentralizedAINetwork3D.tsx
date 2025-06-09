@@ -341,23 +341,39 @@ export default function DecentralizedAINetwork3D() {
     const agent = AGENT_IDS[Math.floor(Math.random() * AGENT_IDS.length)];
     const now = Date.now();
     const userAgentEdgeId = `${now}-user-${user}-agent-${agent}`;
-    const userAgentEdges = [
-      {
-        id: userAgentEdgeId + '-lightning',
-        type: 'lightning' as const,
-        from: user,
-        to: agent,
-        expiresAt: now + 99999999 // will be set to expire later
-      },
-      {
-        id: userAgentEdgeId + '-nostr',
-        type: 'nostr' as const,
-        from: user,
-        to: agent,
-        expiresAt: now + 99999999 // will be set to expire later
-      }
-    ];
-    setActiveEdges(edges => [...edges, ...userAgentEdges]);
+    // Communication (nostr) edge first, temp long lifetime
+    const userAgentCommEdge = {
+      id: userAgentEdgeId + '-nostr',
+      type: 'nostr' as const,
+      from: user,
+      to: agent,
+      expiresAt: now + 99999999 // will be set to expire later
+    };
+    setActiveEdges(edges => [...edges, userAgentCommEdge]);
+
+    // ... (rest of the edge spawning logic, including agent->tool, etc.) ...
+
+    // After all downstream edges are spawned, schedule the lightning zap with the REAL comm edge duration
+    // This is done inside the setTimeout where the user->agent comm edge's expiresAt is updated:
+    // setActiveEdges(edges => edges.map(e => ... ))
+    // Add the following block right after updating the comm edge's expiresAt:
+    //
+    //   const commEdgeFinalExpiry = finalExpiry + 100;
+    //   const commEdgeLifetime = commEdgeFinalExpiry - now;
+    //   const lightningDelay = Math.random() * (commEdgeLifetime - 200);
+    //   setTimeout(() => {
+    //     setActiveEdges(edges => [
+    //       ...edges,
+    //       {
+    //         id: userAgentEdgeId + '-lightning',
+    //         type: 'lightning' as const,
+    //         from: user,
+    //         to: agent,
+    //         expiresAt: Date.now() + 200
+    //       }
+    //     ]);
+    //   }, lightningDelay);
+
 
     // 25% chance: agent connects to another agent, which then connects to tools
     let secondaryAgent: number | null = null;
@@ -369,23 +385,32 @@ export default function DecentralizedAINetwork3D() {
       secondaryAgent = possibleSecondary[Math.floor(Math.random() * possibleSecondary.length)];
       if (typeof secondaryAgent === 'number') {
         const agentAgentEdgeId = `${now}-agent-${agent}-agent-${secondaryAgent}`;
-        const agentAgentEdges = [
-          {
-            id: agentAgentEdgeId + '-lightning',
-            type: 'lightning' as const,
-            from: agent,
-            to: secondaryAgent,
-            expiresAt: now + 99999999 // will be set below
-          },
-          {
-            id: agentAgentEdgeId + '-nostr',
-            type: 'nostr' as const,
-            from: agent,
-            to: secondaryAgent,
-            expiresAt: now + 99999999 // will be set below
-          }
-        ];
-        setActiveEdges(edges => [...edges, ...agentAgentEdges]);
+        // Communication edge first
+        const agentAgentCommEdge = {
+          id: agentAgentEdgeId + '-nostr',
+          type: 'nostr' as const,
+          from: agent,
+          to: secondaryAgent,
+          expiresAt: now + 99999999 // will be set below
+        };
+        setActiveEdges(edges => [...edges, agentAgentCommEdge]);
+        // Lightning edge spawns randomly during comm edge, always lasts 0.2s
+        const commDuration = 99999999; // temp for initial comm edge, will be updated later
+        const lightningDelay = Math.random() * (commDuration - 200);
+        const secondaryVal = secondaryAgent;
+        setTimeout(() => {
+          if (typeof secondaryVal !== 'number') return;
+          setActiveEdges(edges => [
+            ...edges,
+            {
+              id: agentAgentEdgeId + '-lightning',
+              type: 'lightning' as const,
+              from: agent,
+              to: secondaryVal,
+              expiresAt: Date.now() + 200
+            }
+          ]);
+        }, lightningDelay);
         // After a short delay, spawn secondary agent->tool edges
         const secondaryAgentToToolDelay = 200 + Math.random() * 800;
         setTimeout(() => {
@@ -395,29 +420,37 @@ export default function DecentralizedAINetwork3D() {
           let maxExpires2 = 0;
           shuffledTools2.forEach((tool2, idx2) => {
             const randomDelay2 = Math.random() * 250;
+            const agentVal = secondaryAgent;
+            const toolVal = tool2;
             setTimeout(() => {
-              if (typeof secondaryAgent !== 'number') return;
-              const edgeId2 = `${now}-agent-${secondaryAgent}-tool-${tool2}`;
-              const duration2 = 500 + Math.random() * 1000;
-              const expiresAt2 = Date.now() + duration2;
-              if (expiresAt2 > maxExpires2) maxExpires2 = expiresAt2;
-              const agentToolEdges2: ActiveEdge[] = [
-                {
-                  id: edgeId2 + '-lightning',
-                  type: 'lightning' as const,
-                  from: secondaryAgent,
-                  to: tool2,
-                  expiresAt: expiresAt2
-                },
-                {
-                  id: edgeId2 + '-nostr',
-                  type: 'nostr' as const,
-                  from: secondaryAgent,
-                  to: tool2,
-                  expiresAt: expiresAt2
-                }
-              ];
-              setActiveEdges(edges => [...edges, ...agentToolEdges2]);
+              if (typeof agentVal !== 'number' || typeof toolVal !== 'number') return;
+              const edgeId2 = `${now}-agent-${agentVal}-tool-${toolVal}`;
+              const commDuration2 = 500 + Math.random() * 1000;
+              const commExpiresAt2 = Date.now() + commDuration2;
+              if (commExpiresAt2 > maxExpires2) maxExpires2 = commExpiresAt2;
+              // Communication edge first
+              const commEdge2: ActiveEdge = {
+                id: edgeId2 + '-nostr',
+                type: 'nostr',
+                from: agentVal,
+                to: toolVal,
+                expiresAt: commExpiresAt2
+              };
+              setActiveEdges(edges => [...edges, commEdge2]);
+              // Lightning edge spawns randomly during comm edge, always lasts 0.2s
+              const lightningDelay2 = Math.random() * (commDuration2 - 200);
+              setTimeout(() => {
+                setActiveEdges(edges => [
+                  ...edges,
+                  {
+                    id: edgeId2 + '-lightning',
+                    type: 'lightning',
+                    from: agentVal,
+                    to: toolVal,
+                    expiresAt: Date.now() + 200
+                  }
+                ]);
+              }, lightningDelay2);
               spawned2++;
               if (spawned2 === shuffledTools2.length) {
                 // Set agent->agent edge expiry just after last tool edge
@@ -442,36 +475,40 @@ export default function DecentralizedAINetwork3D() {
     setTimeout(() => {
       const toolCount = 1 + Math.floor(Math.random() * 4);
       const shuffledTools = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount);
-      let maxExpiresAt = 0;
       let spawned = 0;
+      let maxExpiresAt = 0;
       shuffledTools.forEach((tool, idx) => {
         const randomDelay = Math.random() * 250;
         setTimeout(() => {
           const edgeId = `${now}-agent-${agent}-tool-${tool}`;
-          const duration = 300 + Math.random() * 1200; // 0.5–1.5s
-          const expiresAt = Date.now() + duration;
-          if (expiresAt > maxExpiresAt) maxExpiresAt = expiresAt;
-          const agentToolEdges: ActiveEdge[] = [
-            {
-              id: edgeId + '-lightning',
-              type: 'lightning' as const,
-              from: agent,
-              to: tool,
-              expiresAt
-            },
-            {
-              id: edgeId + '-nostr',
-              type: 'nostr' as const,
-              from: agent,
-              to: tool,
-              expiresAt
-            }
-          ];
-          setActiveEdges(edges => edges.concat(agentToolEdges));
+          const commDuration = 300 + Math.random() * 1200; // 0.5–1.5s
+          const commExpiresAt = Date.now() + commDuration;
+          if (commExpiresAt > maxExpiresAt) maxExpiresAt = commExpiresAt;
+          // Communication edge first
+          const commEdge: ActiveEdge = {
+            id: edgeId + '-nostr',
+            type: 'nostr',
+            from: agent,
+            to: tool,
+            expiresAt: commExpiresAt
+          };
+          setActiveEdges(edges => [...edges, commEdge]);
+          // Lightning edge spawns randomly during comm edge, always lasts 0.2s
+          const lightningDelay = Math.random() * (commDuration - 200);
+          setTimeout(() => {
+            setActiveEdges(edges => [
+              ...edges,
+              {
+                id: edgeId + '-lightning',
+                type: 'lightning',
+                from: agent,
+                to: tool,
+                expiresAt: Date.now() + 200
+              }
+            ]);
+          }, lightningDelay);
           spawned++;
-          // After the last tool edge has spawned, update user->agent expiry
           if (spawned === shuffledTools.length) {
-            // Wait for possible secondary agent tool expiry
             setTimeout(() => {
               let allExpiries = [maxExpiresAt];
               if (secondaryAgentToolExpiries.length > 0) {
@@ -485,6 +522,24 @@ export default function DecentralizedAINetwork3D() {
                     : e
                 )
               );
+              // Schedule the lightning zap at a random time during the comm edge's true lifetime
+              const commEdgeFinalExpiry = finalExpiry + 100;
+              const commEdgeLifetime = commEdgeFinalExpiry - now;
+              if (commEdgeLifetime > 200) {
+                const lightningDelay = Math.random() * (commEdgeLifetime - 200);
+                setTimeout(() => {
+                  setActiveEdges(edges => [
+                    ...edges,
+                    {
+                      id: userAgentEdgeId + '-lightning',
+                      type: 'lightning' as const,
+                      from: user,
+                      to: agent,
+                      expiresAt: Date.now() + 200
+                    }
+                  ]);
+                }, lightningDelay);
+              }
             }, 50);
           }
         }, randomDelay);
