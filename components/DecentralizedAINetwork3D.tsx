@@ -280,9 +280,11 @@ function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: No
       <Html
         position={(() => {
           const sphereRadius = label === 'Users' ? maxDist + 1 : label === 'Agents' ? maxDist + 4 : label === 'Tools' ? maxDist + 8 : maxDist + 2;
+          const xOffset = label === 'Users' ? 0.7 : label === 'Agents' ? 0.6 : label === 'Tools' ? 0.3 : 0.4;
+          const yOffset = label === 'Users' ? 1.7 : label === 'Agents' ? 1.5 : label === 'Tools' ? 1.4 : 1.4;
           return [
-            center[0] - sphereRadius * 0.4,
-            center[1] + sphereRadius * 1.4,
+            center[0] - sphereRadius * xOffset,
+            center[1] + sphereRadius * yOffset,
             center[2]
           ];
         })()}
@@ -295,7 +297,9 @@ function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: No
           }
           return {
             pointerEvents: 'none',
-            background: resolvedTheme === 'dark' ? '#0a0a0a' : '#ffffff',
+            background: resolvedTheme === 'dark'
+              ? 'rgba(10, 10, 10, 0.5)'
+              : 'rgba(255, 255, 255, 0.5)',
             color: resolvedTheme === 'dark' ? '#fff' : '#222',
             borderRadius: isMobile ? '0.9em' : '1.3em',
             padding: isMobile ? '0.25em 0.7em' : '0.38em 1.3em',
@@ -311,7 +315,7 @@ function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: No
               : '0 1px 4px #fff, 0 0.5px 1px #fff',
             transform: 'translateZ(0)',
             border: `1.5px solid ${color}`,
-            opacity: 0.93,
+            // opacity removed, handled by background alpha above
             minWidth: isMobile ? '3.8em' : '5.5em',
             userSelect: 'none',
           };
