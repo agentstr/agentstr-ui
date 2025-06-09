@@ -152,7 +152,7 @@ function LightningEdge({ from, to }: { from: [number, number, number]; to: [numb
       ref={ref}
       points={[from, to]}
       color="#ffe066"
-      lineWidth={2.2}
+      lineWidth={3.5}
       dashed
       dashSize={0.4}
       gapSize={0.2}
@@ -186,7 +186,7 @@ function CommunicationEdge({ from, to, theme }: { from: [number, number, number]
       ref={ref}
       points={[fromOffset, toOffset]}
       color={color}
-      lineWidth={2}
+      lineWidth={3.2}
       dashed
       dashSize={0.22}
       gapSize={0.18}
@@ -396,11 +396,12 @@ export default function DecentralizedAINetwork3D() {
           shuffledTools2.forEach((tool2, idx2) => {
             const randomDelay2 = Math.random() * 250;
             setTimeout(() => {
+              if (typeof secondaryAgent !== 'number') return;
               const edgeId2 = `${now}-agent-${secondaryAgent}-tool-${tool2}`;
               const duration2 = 500 + Math.random() * 1000;
               const expiresAt2 = Date.now() + duration2;
               if (expiresAt2 > maxExpires2) maxExpires2 = expiresAt2;
-              const agentToolEdges2 = [
+              const agentToolEdges2: ActiveEdge[] = [
                 {
                   id: edgeId2 + '-lightning',
                   type: 'lightning' as const,
@@ -416,7 +417,7 @@ export default function DecentralizedAINetwork3D() {
                   expiresAt: expiresAt2
                 }
               ];
-              setActiveEdges(edges => edges.concat(agentToolEdges2));
+              setActiveEdges(edges => [...edges, ...agentToolEdges2]);
               spawned2++;
               if (spawned2 === shuffledTools2.length) {
                 // Set agent->agent edge expiry just after last tool edge
@@ -605,7 +606,7 @@ export default function DecentralizedAINetwork3D() {
           if (edge.type === 'lightning') {
             return <LightningEdge key={edge.id} from={fromPos} to={toPos} />;
           } else {
-            return <CommunicationEdge key={edge.id} from={fromPos} to={toPos} theme={resolvedTheme} />;
+            return <CommunicationEdge key={edge.id} from={fromPos} to={toPos} theme={resolvedTheme || 'light'} />;
           }
         })}
         {/* Nodes: Always render last so they appear on top of edges */}
