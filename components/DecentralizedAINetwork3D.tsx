@@ -275,7 +275,7 @@ function GroupArea({ nodes, color, label, resolvedTheme = 'light' }: { nodes: No
           }
           return {
             pointerEvents: 'none',
-            background: resolvedTheme === 'dark' ? 'rgba(30,32,44,0.80)' : 'rgba(245,247,250,0.93)',
+            background: resolvedTheme === 'dark' ? '#0a0a0a' : '#ffffff',
             color: resolvedTheme === 'dark' ? '#fff' : '#222',
             borderRadius: isMobile ? '0.9em' : '1.3em',
             padding: isMobile ? '0.25em 0.7em' : '0.38em 1.3em',
@@ -544,6 +544,69 @@ React.useEffect(() => {
           />
         ))}
       </Canvas>
+      {/* Responsive, theme-aware legend INSIDE the chart */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 10,
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          pointerEvents: 'none', // let mouse events pass through except legend itself
+          zIndex: 10,
+        }}
+      >
+        <div
+          className="network-legend"
+          style={{
+            display: 'flex',
+            gap: 24,
+            padding: '8px 16px',
+            borderRadius: 8,
+            boxShadow: resolvedTheme === 'dark' ? '0 2px 8px #0004' : '0 2px 8px #0001',
+            background: resolvedTheme === 'dark' ? '#0a0a0a' : '#ffffff',
+            color: resolvedTheme === 'dark' ? '#e9e9e9' : '#222',
+            fontSize: 14,
+            fontWeight: 700,
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            maxWidth: 440,
+            width: 'fit-content',
+            border: resolvedTheme === 'dark' ? '1px solid #333' : '1px solid #ddd',
+            pointerEvents: 'auto',
+          }}
+        >
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <svg width="32" height="7" style={{ verticalAlign: 'middle' }}>
+              <line x1="2" y1="4" x2="30" y2="4" stroke="#ffe066" strokeWidth="3" strokeDasharray="5,4" />
+            </svg>
+            Lightning
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <svg width="32" height="7" style={{ verticalAlign: 'middle' }}>
+              <line x1="2" y1="4" x2="30" y2="4" stroke="#00e0ff" strokeWidth="3" strokeDasharray="3,4" />
+            </svg>
+            Nostr
+          </span>
+        </div>
+        {/* Responsive CSS for legend */}
+        <style>{`
+          .network-legend {
+            transition: background 0.3s, color 0.3s;
+          }
+          @media (max-width: 600px) {
+            .network-legend {
+              font-size: 12px;
+              gap: 12px;
+              padding: 6px 6px;
+              max-width: 98vw;
+            }
+          }
+        `}</style>
+      </div>
     </div>
   );
 }
