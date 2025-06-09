@@ -360,78 +360,80 @@ export default function DecentralizedAINetwork3D() {
     setActiveEdges(edges => [...edges, ...userAgentEdges]);
 
     // 25% chance: agent connects to another agent, which then connects to tools
-    let secondaryAgent = null;
+    let secondaryAgent: number | null = null;
     let secondaryAgentToolExpiries: number[] = [];
     let secondaryAgentEdgeExpiry = 0;
     if (Math.random() < 0.25 && AGENT_IDS.length > 1) {
       // Pick a secondary agent (not the same as the first)
       const possibleSecondary = AGENT_IDS.filter(a => a !== agent);
       secondaryAgent = possibleSecondary[Math.floor(Math.random() * possibleSecondary.length)];
-      const agentAgentEdgeId = `${now}-agent-${agent}-agent-${secondaryAgent}`;
-      const agentAgentEdges = [
-        {
-          id: agentAgentEdgeId + '-lightning',
-          type: 'lightning',
-          from: agent,
-          to: secondaryAgent,
-          expiresAt: now + 99999999 // will be set below
-        },
-        {
-          id: agentAgentEdgeId + '-nostr',
-          type: 'nostr',
-          from: agent,
-          to: secondaryAgent,
-          expiresAt: now + 99999999 // will be set below
-        }
-      ];
-      setActiveEdges(edges => [...edges, ...agentAgentEdges]);
-      // After a short delay, spawn secondary agent->tool edges
-      const secondaryAgentToToolDelay = 200 + Math.random() * 800;
-      setTimeout(() => {
-        const toolCount2 = 1 + Math.floor(Math.random() * 4);
-        const shuffledTools2 = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount2);
-        let spawned2 = 0;
-        let maxExpires2 = 0;
-        shuffledTools2.forEach((tool2, idx2) => {
-          const randomDelay2 = Math.random() * 250;
-          setTimeout(() => {
-            const edgeId2 = `${now}-agent-${secondaryAgent}-tool-${tool2}`;
-            const duration2 = 500 + Math.random() * 1000;
-            const expiresAt2 = Date.now() + duration2;
-            if (expiresAt2 > maxExpires2) maxExpires2 = expiresAt2;
-            const agentToolEdges2 = [
-              {
-                id: edgeId2 + '-lightning',
-                type: 'lightning',
-                from: secondaryAgent,
-                to: tool2,
-                expiresAt: expiresAt2
-              },
-              {
-                id: edgeId2 + '-nostr',
-                type: 'nostr',
-                from: secondaryAgent,
-                to: tool2,
-                expiresAt: expiresAt2
+      if (typeof secondaryAgent === 'number') {
+        const agentAgentEdgeId = `${now}-agent-${agent}-agent-${secondaryAgent}`;
+        const agentAgentEdges = [
+          {
+            id: agentAgentEdgeId + '-lightning',
+            type: 'lightning' as const,
+            from: agent,
+            to: secondaryAgent,
+            expiresAt: now + 99999999 // will be set below
+          },
+          {
+            id: agentAgentEdgeId + '-nostr',
+            type: 'nostr' as const,
+            from: agent,
+            to: secondaryAgent,
+            expiresAt: now + 99999999 // will be set below
+          }
+        ];
+        setActiveEdges(edges => [...edges, ...agentAgentEdges]);
+        // After a short delay, spawn secondary agent->tool edges
+        const secondaryAgentToToolDelay = 200 + Math.random() * 800;
+        setTimeout(() => {
+          const toolCount2 = 1 + Math.floor(Math.random() * 4);
+          const shuffledTools2 = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount2);
+          let spawned2 = 0;
+          let maxExpires2 = 0;
+          shuffledTools2.forEach((tool2, idx2) => {
+            const randomDelay2 = Math.random() * 250;
+            setTimeout(() => {
+              const edgeId2 = `${now}-agent-${secondaryAgent}-tool-${tool2}`;
+              const duration2 = 500 + Math.random() * 1000;
+              const expiresAt2 = Date.now() + duration2;
+              if (expiresAt2 > maxExpires2) maxExpires2 = expiresAt2;
+              const agentToolEdges2 = [
+                {
+                  id: edgeId2 + '-lightning',
+                  type: 'lightning' as const,
+                  from: secondaryAgent,
+                  to: tool2,
+                  expiresAt: expiresAt2
+                },
+                {
+                  id: edgeId2 + '-nostr',
+                  type: 'nostr' as const,
+                  from: secondaryAgent,
+                  to: tool2,
+                  expiresAt: expiresAt2
+                }
+              ];
+              setActiveEdges(edges => edges.concat(agentToolEdges2));
+              spawned2++;
+              if (spawned2 === shuffledTools2.length) {
+                // Set agent->agent edge expiry just after last tool edge
+                setActiveEdges(edges =>
+                  edges.map(e =>
+                    (e.from === agent && e.to === secondaryAgent)
+                      ? { ...e, expiresAt: maxExpires2 + 100 }
+                      : e
+                  )
+                );
+                secondaryAgentEdgeExpiry = maxExpires2 + 100;
+                secondaryAgentToolExpiries.push(maxExpires2 + 100);
               }
-            ];
-            setActiveEdges(edges => edges.concat(agentToolEdges2));
-            spawned2++;
-            if (spawned2 === shuffledTools2.length) {
-              // Set agent->agent edge expiry just after last tool edge
-              setActiveEdges(edges =>
-                edges.map(e =>
-                  (e.from === agent && e.to === secondaryAgent)
-                    ? { ...e, expiresAt: maxExpires2 + 100 }
-                    : e
-                )
-              );
-              secondaryAgentEdgeExpiry = maxExpires2 + 100;
-              secondaryAgentToolExpiries.push(maxExpires2 + 100);
-            }
-          }, randomDelay2);
-        });
-      }, secondaryAgentToToolDelay);
+            }, randomDelay2);
+          });
+        }, secondaryAgentToToolDelay);
+      }
     }
 
     // 2. After 0.2–1s, spawn agent→tool edges
@@ -445,20 +447,20 @@ export default function DecentralizedAINetwork3D() {
         const randomDelay = Math.random() * 250;
         setTimeout(() => {
           const edgeId = `${now}-agent-${agent}-tool-${tool}`;
-          const duration = 500 + Math.random() * 1000; // 0.5–1.5s
+          const duration = 300 + Math.random() * 1200; // 0.5–1.5s
           const expiresAt = Date.now() + duration;
           if (expiresAt > maxExpiresAt) maxExpiresAt = expiresAt;
           const agentToolEdges: ActiveEdge[] = [
             {
               id: edgeId + '-lightning',
-              type: 'lightning',
+              type: 'lightning' as const,
               from: agent,
               to: tool,
               expiresAt
             },
             {
               id: edgeId + '-nostr',
-              type: 'nostr',
+              type: 'nostr' as const,
               from: agent,
               to: tool,
               expiresAt
@@ -656,13 +658,13 @@ export default function DecentralizedAINetwork3D() {
               <svg width="32" height="8" style={{ marginRight: 8 }}>
                 <line x1="2" y1="4" x2="30" y2="4" stroke="#ffe066" strokeWidth="3" strokeDasharray="6,4" />
               </svg>
-              <span>Lightning Payments</span>
+              <span>Lightning</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <svg width="32" height="8" style={{ marginRight: 8 }}>
                 <line x1="2" y1="4" x2="30" y2="4" stroke={resolvedTheme === 'light' ? '#1976d2' : '#00e0ff'} strokeWidth="3" strokeDasharray="6,4" />
               </svg>
-              <span>Nostr Communication</span>
+              <span>Nostr</span>
             </div>
           </div>
           {/* Responsive CSS for legend */}
