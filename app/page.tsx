@@ -94,7 +94,7 @@ export default function Home() {
           </div>
             <div className="max-w-2xl mx-auto space-y-6">
               {/* AI Routing Layer */}
-              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
+              <div className="bg-card/50 p-6 pt-4 rounded-xl border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +114,7 @@ export default function Home() {
               </div>
               
               {/* Transaction Layer */}
-              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
+              <div className="bg-card/50 p-6 pt-4 rounded-xl border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +134,7 @@ export default function Home() {
               </div>
 
               {/* Communication Layer */}
-              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
+              <div className="bg-card/50 p-6 pt-4 rounded-xl border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -154,7 +154,7 @@ export default function Home() {
               </div>              
               
               {/* Settlement Layer */}
-              <div className="bg-card/50 p-6 pt-4 rounded-lg border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
+              <div className="bg-card/50 p-6 pt-4 rounded-xl border border-border/30 hover:border-primary/50 transition-all duration-300 hover:shadow-md hover-scale">
                 <div className="flex flex-col items-center mb-1">
                   <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
                     <svg className="w-5 h-5 text-primary" viewBox="0 0 4000 4000" xmlns="http://www.w3.org/2000/svg">
@@ -189,7 +189,7 @@ export default function Home() {
 
           <div className="mt-8 max-w-2xl mx-auto">
             {/* Protocols Card */}
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg mb-6 hover-scale">
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg mb-6 hover-scale">
               <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <ArrowsRightLeftIcon className="w-5 h-5 text-primary" />
               </div>
@@ -201,7 +201,7 @@ export default function Home() {
             </div>
 
             {/* Frameworks Card */}
-            <div className="bg-gradient-to-r from-card to-card/80 rounded-2xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover-scale">
+            <div className="bg-gradient-to-r from-card to-card/80 rounded-xl p-6 pt-4 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover-scale">
               <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <CubeIcon className="w-5 h-5 text-primary" />
               </div>
@@ -217,7 +217,7 @@ export default function Home() {
             </div>
 
           </div>
-          <div className="mt-16 mb-16 bg-gradient-to-r from-card to-card/80 rounded-2xl border-border/50 hover:border-primary/50 transition-all duration-300">
+          <div className="mt-16 mb-16 bg-gradient-to-r from-card to-card/80 rounded-xl border-border/50 hover:border-primary/50 transition-all duration-300">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-foreground mb-4">Additional Benefits</h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-6 rounded-full"></div>
