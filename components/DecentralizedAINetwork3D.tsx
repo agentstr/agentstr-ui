@@ -322,105 +322,190 @@ if (typeof window !== "undefined") {
 
 export default function DecentralizedAINetwork3D() {
   const { resolvedTheme } = useTheme();
-  // Dynamic edge animation state
-  interface DynamicPath {
-  user: number;
-  agent: number;
-  targets: { type: 'tool' | 'agent'; id: number }[];
-  secondaryAgentToolTargets?: { agent: number; tools: number[] }[];
-  startedAt: number; // ms
-  duration: number; // ms
-  step: number; // which step in the path (for sequential agent hops)
-}
+  // New dynamic edge animation state
+  type ActiveEdge = {
+    id: string;
+    type: 'lightning' | 'nostr';
+    from: number;
+    to: number;
+    expiresAt: number;
+  };
+  const [activeEdges, setActiveEdges] = React.useState<ActiveEdge[]>([]);
 
-const [activePaths, setActivePaths] = React.useState<DynamicPath[]>([]);
+  useEffect(() => {
+    let running = true;
 
-React.useEffect(() => {
-  let running = true;
-
-  function startNewPath(offsetMs = 0) {
-    setTimeout(() => {
-      if (!running) return;
-      // Pick a random user
-      const user = USER_IDS[Math.floor(Math.random() * USER_IDS.length)];
-      // Pick a random agent (never a user or tool)
-      const agent = AGENT_IDS[Math.floor(Math.random() * AGENT_IDS.length)];
-      // Pick 2-4 random tools and/or agents as targets (never users)
-      const targets: { type: 'tool' | 'agent', id: number }[] = [];
-      const toolCount = 2 + Math.floor(Math.random() * 3);
-      const shuffledTools = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount);
-      for (const t of shuffledTools) targets.push({ type: 'tool', id: t });
-      // Optionally add 1-2 agent targets (not the selected agent)
-      const agentTargets = AGENT_IDS.filter(a => a !== agent);
-      const secondaryAgents: number[] = [];
-      if (agentTargets.length > 0 && Math.random() < 0.7) {
-        const n = 1 + Math.floor(Math.random() * 2);
-        const shuffledAgents = [...agentTargets].sort(() => Math.random() - 0.5).slice(0, n);
-        for (const a of shuffledAgents) {
-          targets.push({ type: 'agent', id: a });
-          secondaryAgents.push(a);
-        }
+    function spawnUserAgentAndAgentToolEdges() {
+    // 1. User→Agent edges (both types)
+    const user = USER_IDS[Math.floor(Math.random() * USER_IDS.length)];
+    const agent = AGENT_IDS[Math.floor(Math.random() * AGENT_IDS.length)];
+    const now = Date.now();
+    const userAgentEdgeId = `${now}-user-${user}-agent-${agent}`;
+    const userAgentEdges = [
+      {
+        id: userAgentEdgeId + '-lightning',
+        type: 'lightning' as const,
+        from: user,
+        to: agent,
+        expiresAt: now + 99999999 // will be set to expire later
+      },
+      {
+        id: userAgentEdgeId + '-nostr',
+        type: 'nostr' as const,
+        from: user,
+        to: agent,
+        expiresAt: now + 99999999 // will be set to expire later
       }
-      // For each secondary agent, sometimes connect it to a few random tools
-      const secondaryAgentToolTargets: { agent: number, tools: number[] }[] = [];
-      for (const secAgent of secondaryAgents) {
-        if (Math.random() < 0.95) {
-          const toolCount2 = 2 + Math.floor(Math.random() * 3); // 2-4 tools
-          const shuffledTools2 = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount2);
-          secondaryAgentToolTargets.push({ agent: secAgent, tools: shuffledTools2 });
-        }
-      }
-      const now = Date.now();
-      const duration = 400 + Math.floor(Math.random() * 800); // 0.4s - 1.2s
-      setActivePaths(paths => [
-        ...paths,
+    ];
+    setActiveEdges(edges => [...edges, ...userAgentEdges]);
+
+    // 25% chance: agent connects to another agent, which then connects to tools
+    let secondaryAgent = null;
+    let secondaryAgentToolExpiries: number[] = [];
+    let secondaryAgentEdgeExpiry = 0;
+    if (Math.random() < 0.25 && AGENT_IDS.length > 1) {
+      // Pick a secondary agent (not the same as the first)
+      const possibleSecondary = AGENT_IDS.filter(a => a !== agent);
+      secondaryAgent = possibleSecondary[Math.floor(Math.random() * possibleSecondary.length)];
+      const agentAgentEdgeId = `${now}-agent-${agent}-agent-${secondaryAgent}`;
+      const agentAgentEdges = [
         {
-          user,
-          agent,
-          targets: targets,
-          secondaryAgentToolTargets,
-          startedAt: now,
-          duration,
-          step: 0,
+          id: agentAgentEdgeId + '-lightning',
+          type: 'lightning',
+          from: agent,
+          to: secondaryAgent,
+          expiresAt: now + 99999999 // will be set below
         },
-      ]);
-    }, offsetMs);
-  }
+        {
+          id: agentAgentEdgeId + '-nostr',
+          type: 'nostr',
+          from: agent,
+          to: secondaryAgent,
+          expiresAt: now + 99999999 // will be set below
+        }
+      ];
+      setActiveEdges(edges => [...edges, ...agentAgentEdges]);
+      // After a short delay, spawn secondary agent->tool edges
+      const secondaryAgentToToolDelay = 200 + Math.random() * 800;
+      setTimeout(() => {
+        const toolCount2 = 1 + Math.floor(Math.random() * 4);
+        const shuffledTools2 = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount2);
+        let spawned2 = 0;
+        let maxExpires2 = 0;
+        shuffledTools2.forEach((tool2, idx2) => {
+          const randomDelay2 = Math.random() * 250;
+          setTimeout(() => {
+            const edgeId2 = `${now}-agent-${secondaryAgent}-tool-${tool2}`;
+            const duration2 = 500 + Math.random() * 1000;
+            const expiresAt2 = Date.now() + duration2;
+            if (expiresAt2 > maxExpires2) maxExpires2 = expiresAt2;
+            const agentToolEdges2 = [
+              {
+                id: edgeId2 + '-lightning',
+                type: 'lightning',
+                from: secondaryAgent,
+                to: tool2,
+                expiresAt: expiresAt2
+              },
+              {
+                id: edgeId2 + '-nostr',
+                type: 'nostr',
+                from: secondaryAgent,
+                to: tool2,
+                expiresAt: expiresAt2
+              }
+            ];
+            setActiveEdges(edges => edges.concat(agentToolEdges2));
+            spawned2++;
+            if (spawned2 === shuffledTools2.length) {
+              // Set agent->agent edge expiry just after last tool edge
+              setActiveEdges(edges =>
+                edges.map(e =>
+                  (e.from === agent && e.to === secondaryAgent)
+                    ? { ...e, expiresAt: maxExpires2 + 100 }
+                    : e
+                )
+              );
+              secondaryAgentEdgeExpiry = maxExpires2 + 100;
+              secondaryAgentToolExpiries.push(maxExpires2 + 100);
+            }
+          }, randomDelay2);
+        });
+      }, secondaryAgentToToolDelay);
+    }
 
-  // Start 2-4 concurrent paths, staggered by 0-1s
-  const concurrent = 2 + Math.floor(Math.random() * 3);
-  for (let i = 0; i < concurrent; ++i) {
-    startNewPath(i * 400 + Math.floor(Math.random() * 400));
-  }
-
-  // Every 0.7-1.4s, start another path (slightly more frequent)
-  const interval = setInterval(() => {
-    if (!running) return;
-    startNewPath(Math.floor(Math.random() * 400));
-  }, 700 + Math.random() * 700);
-
-  // Animation loop for sequential steps
-  const stepInterval = setInterval(() => {
-    setActivePaths(paths =>
-      paths
-        .map(path => {
-          const elapsed = Date.now() - path.startedAt;
-          if (elapsed > path.duration) return null; // remove finished
-          // For sequential agent hops, sometimes advance the step
-          let step = path.step;
-          if (Math.random() < 0.25 && step < (path.targets.length - 1)) {
-            step++;
+    // 2. After 0.2–1s, spawn agent→tool edges
+    const agentToToolDelay = 200 + Math.random() * 800;
+    setTimeout(() => {
+      const toolCount = 1 + Math.floor(Math.random() * 4);
+      const shuffledTools = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount);
+      let maxExpiresAt = 0;
+      let spawned = 0;
+      shuffledTools.forEach((tool, idx) => {
+        const randomDelay = Math.random() * 250;
+        setTimeout(() => {
+          const edgeId = `${now}-agent-${agent}-tool-${tool}`;
+          const duration = 500 + Math.random() * 1000; // 0.5–1.5s
+          const expiresAt = Date.now() + duration;
+          if (expiresAt > maxExpiresAt) maxExpiresAt = expiresAt;
+          const agentToolEdges: ActiveEdge[] = [
+            {
+              id: edgeId + '-lightning',
+              type: 'lightning',
+              from: agent,
+              to: tool,
+              expiresAt
+            },
+            {
+              id: edgeId + '-nostr',
+              type: 'nostr',
+              from: agent,
+              to: tool,
+              expiresAt
+            }
+          ];
+          setActiveEdges(edges => edges.concat(agentToolEdges));
+          spawned++;
+          // After the last tool edge has spawned, update user->agent expiry
+          if (spawned === shuffledTools.length) {
+            // Wait for possible secondary agent tool expiry
+            setTimeout(() => {
+              let allExpiries = [maxExpiresAt];
+              if (secondaryAgentToolExpiries.length > 0) {
+                allExpiries = allExpiries.concat(secondaryAgentToolExpiries);
+              }
+              const finalExpiry = Math.max(...allExpiries);
+              setActiveEdges(edges =>
+                edges.map(e =>
+                  (e.from === user && e.to === agent)
+                    ? { ...e, expiresAt: finalExpiry + 100 }
+                    : e
+                )
+              );
+            }, 50);
           }
-          return { ...path, step };
-        })
-        .filter(Boolean) as DynamicPath[]
-    );
+        }, randomDelay);
+      });
+    }, agentToToolDelay);
+  }
+
+  // Spawn a new user→agent→tools animation every 1–2 seconds
+  function loop() {
+    if (!running) return;
+    spawnUserAgentAndAgentToolEdges();
+    const nextDelay = 1000 + Math.random() * 1000;
+    setTimeout(loop, nextDelay);
+  }
+  loop();
+
+  // Clean up expired edges every 80ms
+  const cleanupInterval = setInterval(() => {
+    setActiveEdges(edges => edges.filter(e => e.expiresAt > Date.now()));
   }, 80);
 
   return () => {
     running = false;
-    clearInterval(interval);
-    clearInterval(stepInterval);
+    clearInterval(cleanupInterval);
   };
 }, []);
 
@@ -511,86 +596,16 @@ React.useEffect(() => {
         />
         {/* Edges: Render after group areas so they appear above bubbles */}
         {/* Only show dynamic edges, styled as LightningEdge and CommunicationEdge overlays */}
-        {activePaths.map((path, pathIdx) => {
-      // Determine the last node in the path (last target, or agent if no targets)
-      let lastNodeId = path.agent;
-      if (path.targets && path.targets.length > 0 && path.step >= 0) {
-        const lastIdx = Math.min(path.step, path.targets.length - 1);
-        if (lastIdx >= 0) {
-          lastNodeId = path.targets[lastIdx].id;
-        }
-      }
-      return (
-        <React.Fragment key={`dyn-path-${path.startedAt}-${path.user}-${path.agent}`}>
-          {/* User to agent edge (only if agent is not a tool) */}
-          {(() => {
-            const fromType = NODES.find(n => n.id === path.user)?.type;
-            const toType = NODES.find(n => n.id === path.agent)?.type;
-            // Only allow user to agent edges
-            if (fromType === 'user' && toType === 'agent') {
-              return (
-                <>
-                  <LightningEdge from={nodeMap[path.user]} to={nodeMap[path.agent]} />
-                  <CommunicationEdge from={nodeMap[path.user]} to={nodeMap[path.agent]} theme={resolvedTheme} />
-                </>
-              );
-            }
-            return null;
-          })()}
-          {/* Agent to targets edges, sequential up to path.step (never from user to tool) */}
-          {path.targets.slice(0, path.step + 1).map((target, i) => {
-            const fromType = NODES.find(n => n.id === path.agent)?.type;
-            const toType = NODES.find(n => n.id === target.id)?.type;
-            if (fromType === 'user' && toType === 'tool') return null;
-            return (
-              <React.Fragment key={`dyn-edge-${pathIdx}-${i}`}>
-                {fromType !== 'user' || toType !== 'tool' ? (
-                  <>
-                    {Math.random() < 0.2 && (
-                      <LightningEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} />
-                    )}
-                    <CommunicationEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} theme={resolvedTheme} />
-                  </>
-                ) : null}
-              </React.Fragment>
-            );
-          })}
-          {/* Secondary agent to tool edges (never from user) */}
-          {path.secondaryAgentToolTargets && path.secondaryAgentToolTargets.length > 0 &&
-            path.secondaryAgentToolTargets.map((entry, i) => (
-              NODES.find(n => n.id === entry.agent)?.type !== 'user' ? (
-                entry.tools.map((toolId, j) => {
-                  const fromType = NODES.find(n => n.id === entry.agent)?.type;
-                  const toType = NODES.find(n => n.id === toolId)?.type;
-                  if (fromType === 'user' && toType === 'tool') return null;
-                  return (
-                    <React.Fragment key={`sec-agent-tool-${pathIdx}-${i}-${j}`}>
-                      {fromType !== 'user' || toType !== 'tool' ? (
-                        <>
-                          {Math.random() < 0.5 && (
-                            <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
-                          )}
-                          <CommunicationEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} theme={resolvedTheme} />
-                        </>
-                      ) : null}
-                    </React.Fragment>
-                  );
-                })
-              ) : null
-            ))
+        {activeEdges.map((edge) => {
+          const fromPos = NODES.find(n => n.id === edge.from)?.position;
+          const toPos = NODES.find(n => n.id === edge.to)?.position;
+          if (!fromPos || !toPos) return null;
+          if (edge.type === 'lightning') {
+            return <LightningEdge key={edge.id} from={fromPos} to={toPos} />;
+          } else {
+            return <CommunicationEdge key={edge.id} from={fromPos} to={toPos} theme={resolvedTheme} />;
           }
-          {/* Always render at least one edge back to the user (never from user to tool) */}
-          {(() => {
-            const fromType = NODES.find(n => n.id === lastNodeId)?.type;
-            const toType = NODES.find(n => n.id === path.user)?.type;
-            if (!(fromType === 'user' && toType === 'tool')) {
-              return <CommunicationEdge from={nodeMap[lastNodeId]} to={nodeMap[path.user]} theme={resolvedTheme} />;
-            }
-            return null;
-          })()}
-        </React.Fragment>
-      );
-    })}
+        })}
         {/* Nodes: Always render last so they appear on top of edges */}
         {NODES.map((node) => (
           <NodeSphere
