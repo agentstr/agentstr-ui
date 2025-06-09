@@ -377,8 +377,7 @@ React.useEffect(() => {
         {
           user,
           agent,
-          // Only allow targets that are not users if source is a user
-          targets: targets.filter(t => t.type !== 'user'),
+          targets: targets,
           secondaryAgentToolTargets,
           startedAt: now,
           duration,
