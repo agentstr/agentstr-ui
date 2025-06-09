@@ -186,7 +186,7 @@ function CommunicationEdge({ from, to, theme }: { from: [number, number, number]
       ref={ref}
       points={[fromOffset, toOffset]}
       color={color}
-      lineWidth={3.2}
+      lineWidth={3.5}
       dashed
       dashSize={0.22}
       gapSize={0.18}
