@@ -449,7 +449,7 @@ export default function DecentralizedAINetwork3D() {
               const zapDuration2 = 200;
               const commEdgeLifetime2 = commExpiresAt2 - Date.now();
               if (commEdgeLifetime2 > zapDuration2) {
-                const lightningDelay2 = Math.random() * (commEdgeLifetime2 - zapDuration2);
+                const lightningDelay2 = Math.random() * Math.max(0, commEdgeLifetime2 - zapDuration2 - 100);
                 setTimeout(() => {
                   setActiveEdges(edges => [
                     ...edges,
@@ -478,7 +478,7 @@ export default function DecentralizedAINetwork3D() {
                 const agentVal2 = agent;
                 const secondaryVal2 = secondaryAgent;
                 if (commEdgeLifetime > zapDuration2 && typeof secondaryVal2 === 'number') {
-                  const lightningDelay = Math.random() * (commEdgeLifetime - zapDuration2);
+                  const lightningDelay = Math.random() * Math.max(0, commEdgeLifetime - zapDuration2 - 100);
                   setTimeout(() => {
                     setActiveEdges(edges => [
                       ...edges,
@@ -528,7 +528,7 @@ export default function DecentralizedAINetwork3D() {
           const zapDuration = 200;
           const commEdgeLifetime = commExpiresAt - Date.now();
           if (commEdgeLifetime > zapDuration) {
-            const lightningDelay = Math.random() * (commEdgeLifetime - zapDuration);
+            const lightningDelay = Math.random() * Math.max(0, commEdgeLifetime - zapDuration - 100);
             setTimeout(() => {
               setActiveEdges(edges => [
                 ...edges,
@@ -562,7 +562,7 @@ export default function DecentralizedAINetwork3D() {
               const commEdgeFinalExpiry = finalExpiry + 100;
               const commEdgeLifetime = commEdgeFinalExpiry - now;
               if (commEdgeLifetime > zapDuration) {
-                const lightningDelay = Math.random() * (commEdgeLifetime - zapDuration);
+                const lightningDelay = Math.random() * Math.max(0, commEdgeLifetime - zapDuration - 100);
                 setTimeout(() => {
                   setActiveEdges(edges => [
                     ...edges,
