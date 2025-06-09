@@ -712,7 +712,7 @@ export default function DecentralizedAINetwork3D() {
               boxShadow: resolvedTheme === 'dark'
                 ? '0 2px 16px 0 rgba(0,0,0,0.23)'
                 : '0 2px 12px 0 rgba(180,180,180,0.10)',
-              background: resolvedTheme === 'dark' ? '#0a0a0a' : '#ffffff',
+              background: resolvedTheme === 'dark' ? 'rgba(10, 10, 10, 0.5)' : 'rgba(255, 255, 255, 0.5)',
               color: resolvedTheme === 'dark' ? '#e9e9e9' : '#222',
               fontSize: 14,
               fontWeight: 700,
