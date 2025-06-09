@@ -746,11 +746,11 @@ export default function DecentralizedAINetwork3D() {
               border: resolvedTheme === 'dark' ? '1.5px solid #222' : '1.5px solid #e2e2e2',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
+            <div style={{ display: 'flex', alignItems: 'center'}}>
               <svg width="32" height="8" style={{ marginRight: 8 }}>
-                <line x1="2" y1="4" x2="30" y2="4" stroke={resolvedTheme === 'light' ? '#ffb300' : '#ffe066'} strokeWidth="5" strokeDasharray="6,4" />
+                <line x1="2" y1="4" x2="30" y2="4" stroke={resolvedTheme === 'light' ? '#ffb300' : '#ffe066'} strokeWidth="3" strokeDasharray="6,4" />
                 {resolvedTheme === 'light' && (
-                  <line x1="2" y1="4" x2="30" y2="4" stroke="#fffbe0" strokeWidth="10" strokeDasharray="6,4" opacity="0.45" />
+                  <line x1="2" y1="4" x2="30" y2="4" stroke="#fffbe0" strokeWidth="6" strokeDasharray="6,4" opacity="0.45" />
                 )}
               </svg>
               <span>Lightning</span>
