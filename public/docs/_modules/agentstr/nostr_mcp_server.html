@@ -332,6 +332,7 @@
 <span class="sd">            relays: List of Nostr relay URLs (if no client provided).</span>
 <span class="sd">            private_key: Nostr private key (if no client provided).</span>
 <span class="sd">            nwc_str: Nostr Wallet Connect string for payments (optional).</span>
+<span class="sd">            tools: List of tools to register (optional).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">nostr_client</span> <span class="ow">or</span> <span class="n">NostrClient</span><span class="p">(</span><span class="n">relays</span><span class="o">=</span><span class="n">relays</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">private_key</span><span class="p">,</span> <span class="n">nwc_str</span><span class="o">=</span><span class="n">nwc_str</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_name</span> <span class="o">=</span> <span class="n">display_name</span>
