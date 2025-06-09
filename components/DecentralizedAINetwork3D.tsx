@@ -163,7 +163,7 @@ function LightningEdge({ from, to }: { from: [number, number, number]; to: [numb
 }
 
 // Communication edge (solid cyan, slightly offset)
-function CommunicationEdge({ from, to }: { from: [number, number, number]; to: [number, number, number] }) {
+function CommunicationEdge({ from, to, theme }: { from: [number, number, number]; to: [number, number, number]; theme: string }) {
   const offset = 0.6;
   const dir = [to[0] - from[0], to[1] - from[1], to[2] - from[2]];
   const len = Math.sqrt(dir[0]**2 + dir[1]**2 + dir[2]**2) || 1;
@@ -180,11 +180,12 @@ function CommunicationEdge({ from, to }: { from: [number, number, number]; to: [
       }
     }
   });
+  const color = theme === 'light' ? '#1976d2' : '#00e0ff';
   return (
     <Line
       ref={ref}
       points={[fromOffset, toOffset]}
-      color="#00e0ff"
+      color={color}
       lineWidth={2}
       dashed
       dashSize={0.22}
@@ -342,9 +343,9 @@ React.useEffect(() => {
       if (!running) return;
       // Pick a random user
       const user = USER_IDS[Math.floor(Math.random() * USER_IDS.length)];
-      // Pick a random agent
+      // Pick a random agent (never a user or tool)
       const agent = AGENT_IDS[Math.floor(Math.random() * AGENT_IDS.length)];
-      // Pick 2-4 random tools and/or agents as targets
+      // Pick 2-4 random tools and/or agents as targets (never users)
       const targets: { type: 'tool' | 'agent', id: number }[] = [];
       const toolCount = 2 + Math.floor(Math.random() * 3);
       const shuffledTools = [...TOOL_IDS].sort(() => Math.random() - 0.5).slice(0, toolCount);
@@ -376,7 +377,8 @@ React.useEffect(() => {
         {
           user,
           agent,
-          targets,
+          // Only allow targets that are not users if source is a user
+          targets: targets.filter(t => t.type !== 'user'),
           secondaryAgentToolTargets,
           startedAt: now,
           duration,
@@ -510,35 +512,86 @@ React.useEffect(() => {
         />
         {/* Edges: Render after group areas so they appear above bubbles */}
         {/* Only show dynamic edges, styled as LightningEdge and CommunicationEdge overlays */}
-        {activePaths.map((path, pathIdx) => (
-  <React.Fragment key={`dyn-path-${path.startedAt}-${path.user}-${path.agent}`}> 
-    {/* User to agent edge */}
-    <LightningEdge from={nodeMap[path.user]} to={nodeMap[path.agent]} />
-    <CommunicationEdge from={nodeMap[path.user]} to={nodeMap[path.agent]} />
-    {/* Agent to targets edges, sequential up to path.step */}
-    {path.targets.slice(0, path.step + 1).map((target, i) => (
-      <React.Fragment key={`dyn-edge-${pathIdx}-${i}`}>
-        {Math.random() < 0.2 && (
-          <LightningEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} />
-        )}
-        <CommunicationEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} />
-      </React.Fragment>
-    ))}
-    {/* Secondary agent to tool edges */}
-    {path.secondaryAgentToolTargets && path.secondaryAgentToolTargets.length > 0 &&
-      path.secondaryAgentToolTargets.map((entry, i) => (
-        entry.tools.map((toolId, j) => (
-          <React.Fragment key={`sec-agent-tool-${pathIdx}-${i}-${j}`}>
-            {Math.random() < 0.5 && (
-              <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
-            )}
-            <CommunicationEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
-          </React.Fragment>
-        ))
-      ))
-    }
-  </React.Fragment>
-))}
+        {activePaths.map((path, pathIdx) => {
+      // Determine the last node in the path (last target, or agent if no targets)
+      let lastNodeId = path.agent;
+      if (path.targets && path.targets.length > 0 && path.step >= 0) {
+        const lastIdx = Math.min(path.step, path.targets.length - 1);
+        if (lastIdx >= 0) {
+          lastNodeId = path.targets[lastIdx].id;
+        }
+      }
+      return (
+        <React.Fragment key={`dyn-path-${path.startedAt}-${path.user}-${path.agent}`}>
+          {/* User to agent edge (only if agent is not a tool) */}
+          {(() => {
+            const fromType = NODES.find(n => n.id === path.user)?.type;
+            const toType = NODES.find(n => n.id === path.agent)?.type;
+            // Only allow user to agent edges
+            if (fromType === 'user' && toType === 'agent') {
+              return (
+                <>
+                  <LightningEdge from={nodeMap[path.user]} to={nodeMap[path.agent]} />
+                  <CommunicationEdge from={nodeMap[path.user]} to={nodeMap[path.agent]} theme={resolvedTheme} />
+                </>
+              );
+            }
+            return null;
+          })()}
+          {/* Agent to targets edges, sequential up to path.step (never from user to tool) */}
+          {path.targets.slice(0, path.step + 1).map((target, i) => {
+            const fromType = NODES.find(n => n.id === path.agent)?.type;
+            const toType = NODES.find(n => n.id === target.id)?.type;
+            if (fromType === 'user' && toType === 'tool') return null;
+            return (
+              <React.Fragment key={`dyn-edge-${pathIdx}-${i}`}>
+                {fromType !== 'user' || toType !== 'tool' ? (
+                  <>
+                    {Math.random() < 0.2 && (
+                      <LightningEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} />
+                    )}
+                    <CommunicationEdge from={nodeMap[path.agent]} to={nodeMap[target.id]} theme={resolvedTheme} />
+                  </>
+                ) : null}
+              </React.Fragment>
+            );
+          })}
+          {/* Secondary agent to tool edges (never from user) */}
+          {path.secondaryAgentToolTargets && path.secondaryAgentToolTargets.length > 0 &&
+            path.secondaryAgentToolTargets.map((entry, i) => (
+              NODES.find(n => n.id === entry.agent)?.type !== 'user' ? (
+                entry.tools.map((toolId, j) => {
+                  const fromType = NODES.find(n => n.id === entry.agent)?.type;
+                  const toType = NODES.find(n => n.id === toolId)?.type;
+                  if (fromType === 'user' && toType === 'tool') return null;
+                  return (
+                    <React.Fragment key={`sec-agent-tool-${pathIdx}-${i}-${j}`}>
+                      {fromType !== 'user' || toType !== 'tool' ? (
+                        <>
+                          {Math.random() < 0.5 && (
+                            <LightningEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} />
+                          )}
+                          <CommunicationEdge from={nodeMap[entry.agent]} to={nodeMap[toolId]} theme={resolvedTheme} />
+                        </>
+                      ) : null}
+                    </React.Fragment>
+                  );
+                })
+              ) : null
+            ))
+          }
+          {/* Always render at least one edge back to the user (never from user to tool) */}
+          {(() => {
+            const fromType = NODES.find(n => n.id === lastNodeId)?.type;
+            const toType = NODES.find(n => n.id === path.user)?.type;
+            if (!(fromType === 'user' && toType === 'tool')) {
+              return <CommunicationEdge from={nodeMap[lastNodeId]} to={nodeMap[path.user]} theme={resolvedTheme} />;
+            }
+            return null;
+          })()}
+        </React.Fragment>
+      );
+    })}
         {/* Nodes: Always render last so they appear on top of edges */}
         {NODES.map((node) => (
           <NodeSphere
@@ -571,7 +624,9 @@ React.useEffect(() => {
               gap: 24,
               padding: '8px 16px',
               borderRadius: 8,
-              boxShadow: resolvedTheme === 'dark' ? '0 2px 8px #0004' : '0 2px 8px #0001',
+              boxShadow: resolvedTheme === 'dark'
+                ? '0 2px 16px 0 rgba(0,0,0,0.23)'
+                : '0 2px 12px 0 rgba(180,180,180,0.10)',
               background: resolvedTheme === 'dark' ? '#0a0a0a' : '#ffffff',
               color: resolvedTheme === 'dark' ? '#e9e9e9' : '#222',
               fontSize: 14,
@@ -580,22 +635,21 @@ React.useEffect(() => {
               flexWrap: 'wrap',
               maxWidth: 440,
               width: 'fit-content',
-              border: resolvedTheme === 'dark' ? '1px solid #333' : '1px solid #ddd',
-              pointerEvents: 'auto',
+              border: resolvedTheme === 'dark' ? '1.5px solid #222' : '1.5px solid #e2e2e2',
             }}
           >
-            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <svg width="32" height="7" style={{ verticalAlign: 'middle' }}>
-                <line x1="2" y1="4" x2="30" y2="4" stroke="#ffe066" strokeWidth="3" strokeDasharray="5,4" />
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
+              <svg width="32" height="8" style={{ marginRight: 8 }}>
+                <line x1="2" y1="4" x2="30" y2="4" stroke="#ffe066" strokeWidth="3" strokeDasharray="6,4" />
               </svg>
-              Lightning
-            </span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <svg width="32" height="7" style={{ verticalAlign: 'middle' }}>
-                <line x1="2" y1="4" x2="30" y2="4" stroke="#00e0ff" strokeWidth="3" strokeDasharray="3,4" />
+              <span>Lightning Payments</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <svg width="32" height="8" style={{ marginRight: 8 }}>
+                <line x1="2" y1="4" x2="30" y2="4" stroke={resolvedTheme === 'light' ? '#1976d2' : '#00e0ff'} strokeWidth="3" strokeDasharray="6,4" />
               </svg>
-              Nostr
-            </span>
+              <span>Nostr Communication</span>
+            </div>
           </div>
           {/* Responsive CSS for legend */}
           <style>{`
