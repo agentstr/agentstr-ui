@@ -19,7 +19,7 @@ export default function DemoPage() {
           <div className="flex-1 min-w-[320px] flex flex-col items-center justify-center">
             <h2 className="sr-only">Demo Video</h2>
             <VideoPlayer
-              src="https://www.youtube.com/embed/xIykZFM-QhQ?si=y4CXUYFTI6Fh7E-9"
+              src="https://www.youtube.com/embed/QEPUsY_ZhO4?si=cFeha_eiVHArLsMF"
               title="Agentstr Demo"
               className="w-full h-[40vw] max-h-[480px] min-h-[240px] rounded-2xl shadow-none border-none bg-background"
             />
