@@ -14,7 +14,7 @@ export default function DemoPage() {
             Watch our demo video and view the slide deck to learn more about Agentstr.
           </p>
         </header>
-        <section className="w-full flex flex-col mb-16 md:flex-row gap-8 items-stretch justify-center max-w-[1800px] px-2">
+        <section className="w-full flex flex-col mb-16 gap-14 items-stretch justify-center max-w-4xl mx-auto px-2">
           {/* Video Fullscreen Section */}
           <div className="flex-1 min-w-[320px] flex flex-col items-center justify-center">
             <h2 className="sr-only">Demo Video</h2>
