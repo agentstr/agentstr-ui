@@ -29,7 +29,7 @@ export default function DemoPage() {
               rel="noopener noreferrer"
               className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white font-semibold shadow hover:bg-primary/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
-              View Demo in GitHub
+              View Code in GitHub
               <ArrowTopRightOnSquareIcon className="h-5 w-5" />
             </a>
           </div>
