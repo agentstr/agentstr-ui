@@ -3,6 +3,6 @@
   command = "npm run build"
 
 [[headers]]
-  for = "/.well-known/*"
+  for = "/*"
   [headers.values]
     access-control-allow-origin = "*"
