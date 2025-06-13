@@ -6,7 +6,7 @@ export default function DemoPage() {
   return (
     <main className="min-h-screen bg-background">
       <div className="w-full flex flex-col items-center px-0 py-8 md:py-16 gap-12">
-        <header className="w-full max-w-4xl mx-auto text-center mb-8">
+        <header className="w-full max-w-4xl mx-auto text-center mb-4">
           <h1 className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight">
             Agentstr <span className="block text-primary">Demo</span>
           </h1>
