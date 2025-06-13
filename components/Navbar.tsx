@@ -10,6 +10,7 @@ const navigation = [
   { name: "Usage", href: "/usage" },
   { name: "Demo", href: "/demo" },
   { name: "Reference", href: "/docs" },
+  { name: "Contact", href: "/contact" },
   { name: "GitHub", href: "https://github.com/ehallmark/agentstr-sdk", external: true },
 ];
 
