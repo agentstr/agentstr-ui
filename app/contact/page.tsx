@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-start md:justify-center px-4 pb-32">
-      <div className="max-w-xl w-full flex flex-col items-center gap-4">
+      <div className="max-w-xl w-full flex flex-col items-center gap-4 mt-12 md:mt-0">
         <h1 className="text-4xl font-extrabold text-foreground mb-2">Contact Us</h1>
         <p className="text-lg text-foreground/70 text-center mb-4">Connect with us through your favorite platform:</p>
         <div className="flex flex-row gap-8 justify-center mb-8">
