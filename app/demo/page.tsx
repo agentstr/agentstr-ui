@@ -14,10 +14,10 @@ export default function DemoPage() {
             Watch our demo video and view the slide deck to learn more about Agentstr.
           </p>
         </header>
-        <section className="w-full flex flex-col mb-16 gap-14 items-stretch justify-center max-w-4xl mx-auto px-2">
-          {/* Video Fullscreen Section */}
-          <div className="flex-1 min-w-[320px] flex flex-col items-center justify-center">
-            <h2 className="sr-only">Demo Video</h2>
+        <section className="w-full flex flex-col mb-16 gap-0 items-stretch justify-center max-w-4xl mx-auto px-2">
+          {/* Demo Video Section */}
+          <div className="flex-1 min-w-[320px] flex flex-col items-center justify-center pb-10">
+            <h2 className="text-2xl font-semibold text-foreground mb-4">Demo Video</h2>
             <VideoPlayer
               src="https://www.youtube.com/embed/QEPUsY_ZhO4?si=cFeha_eiVHArLsMF"
               title="Agentstr Demo"
@@ -33,9 +33,15 @@ export default function DemoPage() {
               <ArrowTopRightOnSquareIcon className="h-5 w-5" />
             </a>
           </div>
-          {/* Slide Deck Fullscreen Section */}
-          <div className="flex-1 min-w-[320px] flex flex-col items-center justify-center">
-            <h2 className="sr-only">Slide Deck</h2>
+
+          {/* Divider */}
+          <div className="flex items-center w-full my-4">
+            <hr className="flex-grow border-t-2 border-border" />
+          </div>
+
+          {/* Slide Deck Section */}
+          <div className="flex-1 min-w-[320px] flex flex-col items-center justify-center pt-10">
+            <h2 className="text-2xl font-semibold text-foreground mb-4">Slide Deck</h2>
             <PDFViewer
               src="https://drive.google.com/file/d/1Dc6_pRQ2fQMge14HrB20zMXe81z_XNsc/preview"
               title="Agentstr Presentation"
