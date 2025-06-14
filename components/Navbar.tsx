@@ -24,7 +24,7 @@ export default function Navbar() {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <Link href="/" className="flex items-center text-xl font-bold text-foreground">
+                <Link href="/" className="flex items-center text-xl font-bold text-foreground" onClick={() => setIsOpen(false)}>
                   <Image src="/favicon.ico?v=2" alt="Agentstr SDK Favicon" width={24} height={24} className="mr-2" />
                   Agentstr
                 </Link>
