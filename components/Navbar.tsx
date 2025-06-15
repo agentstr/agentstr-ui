@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 import Image from "next/image";
 
@@ -16,6 +17,12 @@ const navigation = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -24,14 +31,14 @@ export default function Navbar() {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <Link href="/" className="flex items-center text-xl font-bold text-foreground" onClick={() => setIsOpen(false)}>
+                <Link href="/" className="flex items-center text-xl font-bold text-foreground">
                   <Image src="/favicon.ico?v=2" alt="Agentstr SDK Favicon" width={24} height={24} className="mr-2" />
                   Agentstr
                 </Link>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                {navigation.map((item) => 
-                  item.external ? 
+                {navigation.map((item) =>
+                  item.external ?
                     <a
                       key={item.name}
                       href={item.href}
@@ -41,7 +48,7 @@ export default function Navbar() {
                     >
                       {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
                     </a>
-                  : 
+                  :
                     <Link
                       key={item.name}
                       href={item.href}
@@ -74,42 +81,34 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile dropdown below navbar, pushes content down */}
-      {typeof window !== 'undefined' && (
-        <div
-          className={`sm:hidden transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
-          aria-hidden={!isOpen}
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-background shadow-md">
-            {navigation.map((item) =>
-              item.external ? (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-300 hover:text-foreground hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span className="flex items-center">
-                    {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
-                  </span>
-                </a>
-              ) : (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-300 hover:text-foreground hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span className="flex items-center">
-                    {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
-                  </span>
-                </Link>
-              )
-            )}
-          </div>
+      <div
+        className={`sm:hidden transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+        aria-hidden={!isOpen}
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1 bg-background shadow-md">
+          {navigation.map((item) =>
+            item.external ? (
+              <a
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-300 hover:text-foreground hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors"
+              >
+                {item.name} {item.external && <ArrowTopRightOnSquareIcon className="ml-1 h-4 w-4" />}
+              </a>
+            ) : (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-300 hover:text-foreground hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-between transition-colors"
+              >
+                {item.name}
+              </Link>
+            )
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 }

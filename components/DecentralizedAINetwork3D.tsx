@@ -355,11 +355,6 @@ export default function DecentralizedAINetwork3D() {
   };
   const [activeEdges, setActiveEdges] = React.useState<ActiveEdge[]>([]);
 
-  // Cleanup expired edges on every render (reactive to activeEdges)
-  useEffect(() => {
-    setActiveEdges(edges => edges.filter(e => e.expiresAt > Date.now()));
-    // eslint-disable-next-line
-  }, [activeEdges]);
 
   // Also clean up when tab becomes visible again
   useEffect(() => {
