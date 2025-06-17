@@ -2,7 +2,7 @@ Agentstr CLI
 ============
 
 The ``agentstr`` command-line tool lets you deploy a single-file Python “agent” to
-AWS ECS Fargate, Google Cloud Run or Azure Container Instances with **zero
+AWS ECS Fargate, Google Kubernetes Engine or Azure Container Instances with **zero
 infrastructure code**.
 
 Installation
