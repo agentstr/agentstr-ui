@@ -225,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../agentstr.cli.html">Agentstr CLI</a></li>
 </ul>
 
 </div>
@@ -299,9 +300,28 @@
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NostrRAG</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieval-Augmented Generation (RAG) system for Nostr events.</span>
-<span class="sd">    </span>
+
 <span class="sd">    This class fetches Nostr events, builds a vector store knowledge base, and enables</span>
 <span class="sd">    semantic search and question answering over the indexed content.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Simple question answering over recent posts::</span>
+
+<span class="sd">        import asyncio</span>
+<span class="sd">        from langchain_openai import ChatOpenAI</span>
+<span class="sd">        from agentstr import NostrRAG</span>
+
+<span class="sd">        relays = [&quot;wss://relay.damus.io&quot;]</span>
+<span class="sd">        rag = NostrRAG(relays=relays, llm=ChatOpenAI(model_name=&quot;gpt-3.5-turbo&quot;))</span>
+
+<span class="sd">        async def main():</span>
+<span class="sd">            answer = await rag.query(question=&quot;What&#39;s new with Bitcoin?&quot;, limit=8)</span>
+<span class="sd">            print(answer)</span>
+
+<span class="sd">        asyncio.run(main())</span>
+
+<span class="sd">    Full runnable script: `rag.py &lt;https://github.com/agentstr/agentstr-sdk/tree/main/examples/rag.py&gt;`_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NostrRAG.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_rag.html#agentstr.nostr_rag.NostrRAG.__init__">[docs]</a>

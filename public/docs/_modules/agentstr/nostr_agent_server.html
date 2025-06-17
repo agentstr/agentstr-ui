@@ -225,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../agentstr.cli.html">Agentstr CLI</a></li>
 </ul>
 
 </div>
@@ -262,12 +263,14 @@
           <h1>Source code for agentstr.nostr_agent_server</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">imaplib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Commands</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pynostr.event</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.a2a</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentCard</span><span class="p">,</span> <span class="n">ChatInput</span><span class="p">,</span> <span class="n">PriceHandlerResponse</span><span class="p">,</span> <span class="n">PriceHandler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.commands</span><span class="w"> </span><span class="kn">import</span> <span class="n">Commands</span><span class="p">,</span> <span class="n">DefaultCommands</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.nostr_mcp_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrMCPClient</span>
@@ -291,6 +294,38 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Server that integrates an external agent with the Nostr network.</span>
 
 <span class="sd">    Handles direct messages and optional payments, routing them to an external agent.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Minimal server wiring an LLM agent (see full script)::</span>
+
+<span class="sd">        import asyncio</span>
+<span class="sd">        from langchain_openai import ChatOpenAI</span>
+<span class="sd">        from agentstr import NostrAgentServer, NostrMCPClient, ChatInput</span>
+
+<span class="sd">        relays = [&quot;wss://relay.damus.io&quot;]</span>
+<span class="sd">        mcp_client = NostrMCPClient(</span>
+<span class="sd">            mcp_pubkey=&quot;npub1example...&quot;,</span>
+<span class="sd">            relays=relays,</span>
+<span class="sd">            private_key=&quot;nsec1example...&quot;,</span>
+<span class="sd">        )</span>
+
+<span class="sd">        llm = ChatOpenAI(model_name=&quot;gpt-3.5-turbo&quot;)</span>
+
+<span class="sd">        async def agent_callable(input: ChatInput) -&gt; str:</span>
+<span class="sd">            result = await llm.ainvoke(</span>
+<span class="sd">                {&quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: input.messages[-1]}]},</span>
+<span class="sd">            )</span>
+<span class="sd">            return result[&quot;messages&quot;][-1].content</span>
+
+<span class="sd">        server = NostrAgentServer(</span>
+<span class="sd">            nostr_mcp_client=mcp_client,</span>
+<span class="sd">            agent_callable=agent_callable,</span>
+<span class="sd">        )</span>
+
+<span class="sd">        asyncio.run(server.start())</span>
+
+<span class="sd">    Full runnable example: `nostr_langgraph_agent.py &lt;https://github.com/agentstr/agentstr-sdk/tree/main/examples/nostr_langgraph_agent.py&gt;`_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NostrAgentServer.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_agent_server.html#agentstr.nostr_agent_server.NostrAgentServer.__init__">[docs]</a>
@@ -303,7 +338,8 @@
                  <span class="n">agent_info</span><span class="p">:</span> <span class="n">AgentCard</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">agent_callable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ChatInput</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">note_filters</span><span class="p">:</span> <span class="n">NoteFilters</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">price_handler</span><span class="p">:</span> <span class="n">PriceHandler</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+                 <span class="n">price_handler</span><span class="p">:</span> <span class="n">PriceHandler</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">commands</span><span class="p">:</span> <span class="n">Commands</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the agent server.</span>
 
 <span class="sd">        Args:</span>
@@ -321,7 +357,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">agent_info</span> <span class="o">=</span> <span class="n">agent_info</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">agent_callable</span> <span class="o">=</span> <span class="n">agent_callable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">note_filters</span> <span class="o">=</span> <span class="n">note_filters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">price_handler</span> <span class="o">=</span> <span class="n">price_handler</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">price_handler</span> <span class="o">=</span> <span class="n">price_handler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commands</span> <span class="o">=</span> <span class="n">commands</span> <span class="ow">or</span> <span class="n">DefaultCommands</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="NostrAgentServer.chat">
@@ -390,6 +427,9 @@
             <span class="k">return</span>
         <span class="k">elif</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;lnbc&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot; &quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ignoring lightning invoices&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">):</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">event</span><span class="o">.</span><span class="n">pubkey</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="n">invoice</span> <span class="o">=</span> <span class="kc">None</span>

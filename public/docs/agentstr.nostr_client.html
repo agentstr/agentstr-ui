@@ -226,6 +226,7 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="agentstr.cli.html">Agentstr CLI</a></li>
 </ul>
 
 </div>
@@ -279,6 +280,43 @@ processing for agent communication and MCP over the Nostr protocol.</p>
 <p>This class provides methods to connect to Nostr relays, send and receive direct messages,
 manage metadata, and read posts by tags. It integrates with Nostr Wallet Connect (NWC)
 for payment processing if provided.</p>
+<p class="rubric">Examples</p>
+<p>Basic read of recent posts that use the <code class="docutils literal notranslate"><span class="pre">#agentstr_agents</span></code> tag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span>
+
+<span class="n">relays</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;wss://relay.damus.io&quot;</span><span class="p">]</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">NostrClient</span><span class="p">(</span><span class="n">relays</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">read_posts_by_tag</span><span class="p">(</span><span class="s2">&quot;agentstr_agents&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ev</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Send an end-to-end encrypted direct-message and await the reply:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentstr</span><span class="w"> </span><span class="kn">import</span> <span class="n">NostrClient</span><span class="p">,</span> <span class="n">PrivateKey</span>
+
+<span class="n">relays</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;wss://relay.damus.io&quot;</span><span class="p">]</span>
+<span class="c1"># Generate a temporary private key purely for the example.</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">NostrClient</span><span class="p">(</span><span class="n">relays</span><span class="p">,</span> <span class="n">private_key</span><span class="o">=</span><span class="n">PrivateKey</span><span class="p">()</span><span class="o">.</span><span class="n">bech32</span><span class="p">())</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">talk</span><span class="p">(</span><span class="n">recipient_pubkey</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">send_direct_message_and_receive_response</span><span class="p">(</span>
+        <span class="n">recipient_pubkey</span><span class="p">,</span>
+        <span class="s2">&quot;Hello from AgentStr!&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">talk</span><span class="p">(</span><span class="s2">&quot;npub1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>For more runnable demos consult the full scripts on GitHub:
+<a class="reference external" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples/agent_discovery.py">agent_discovery.py</a>
+<a class="reference external" href="https://github.com/agentstr/agentstr-sdk/tree/main/examples/chat_with_agents.py">chat_with_agents.py</a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="agentstr.nostr_client.NostrClient.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relays</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwc_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agentstr/nostr_client.html#NostrClient.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.nostr_client.NostrClient.__init__" title="Link to this definition">¶</a></dt>

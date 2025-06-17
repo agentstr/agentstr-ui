@@ -225,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../agentstr.cli.html">Agentstr CLI</a></li>
 </ul>
 
 </div>
@@ -318,6 +319,28 @@
 
 <span class="sd">    Registers and manages tools that can be called by clients via direct messages,</span>
 <span class="sd">    with optional payment requirements handled through NWC.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Minimal MCP server exposing a single ``add`` tool::</span>
+
+<span class="sd">        import asyncio</span>
+<span class="sd">        from agentstr import NostrMCPServer</span>
+
+<span class="sd">        relays = [&quot;wss://relay.damus.io&quot;]</span>
+
+<span class="sd">        async def add(a: int, b: int) -&gt; int:</span>
+<span class="sd">            return a + b</span>
+
+<span class="sd">        server = NostrMCPServer(</span>
+<span class="sd">            display_name=&quot;Demo MCP&quot;,</span>
+<span class="sd">            relays=relays,</span>
+<span class="sd">            tools=[add],</span>
+<span class="sd">        )</span>
+
+<span class="sd">        asyncio.run(server.start())</span>
+
+<span class="sd">    Full runnable script: `mcp_server.py &lt;https://github.com/agentstr/agentstr-sdk/tree/main/examples/mcp_server.py&gt;`_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NostrMCPServer.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_mcp_server.html#agentstr.nostr_mcp_server.NostrMCPServer.__init__">[docs]</a>

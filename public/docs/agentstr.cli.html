@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Nostr Agent Server" href="agentstr.nostr_agent_server.html" /><link rel="prev" title="OpenAI Integration" href="agentstr.mcp.openai.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Relay Manager" href="agentstr.relay_manager.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>PydanticAI Integration - Agentstr SDK</title>
+        <title>Agentstr CLI - Agentstr SDK</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
@@ -205,15 +205,15 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="agentstr.html">Agentstr SDK</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="agentstr.html">Agentstr SDK</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Agentstr SDK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.a2a.html">A2A (Agent-to-Agent)</a></li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="agentstr.mcp.html">MCP (Model Context Protocol)</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of MCP (Model Context Protocol)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.agno.html">Agno Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.dspy.html">DSPy Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.google.html">Google Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.langgraph.html">LangGraph Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.openai.html">OpenAI Integration</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">PydanticAI Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agentstr.mcp.pydantic.html">PydanticAI Integration</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="agentstr.nostr_agent_server.html">Nostr Agent Server</a></li>
@@ -226,7 +226,7 @@
 <li class="toctree-l2"><a class="reference internal" href="agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="agentstr.cli.html">Agentstr CLI</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Agentstr CLI</a></li>
 </ul>
 
 </div>
@@ -247,7 +247,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/agentstr.mcp.pydantic.rst.txt" title="View this page">
+  <a class="muted-link" href="_sources/agentstr.cli.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -267,23 +267,130 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-agentstr.mcp.pydantic">
-<span id="pydanticai-integration"></span><h1>PydanticAI Integration<a class="headerlink" href="#module-agentstr.mcp.pydantic" title="Link to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="agentstr.mcp.pydantic.to_pydantic_tools">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentstr.mcp.pydantic.</span></span><span class="sig-name descname"><span class="pre">to_pydantic_tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nostr_mcp_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="agentstr.nostr_mcp_client.html#agentstr.nostr_mcp_client.NostrMCPClient" title="agentstr.nostr_mcp_client.NostrMCPClient"><span class="pre">NostrMCPClient</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Tool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/agentstr/mcp/pydantic.html#to_pydantic_tools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentstr.mcp.pydantic.to_pydantic_tools" title="Link to this definition">¶</a></dt>
-<dd><p>Convert tools from the MCP client to Pydantic tools.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>nostr_mcp_client</strong> – An instance of NostrMCPClient to fetch tools from.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of Pydantic tools that wrap the MCP tools.</p>
-</dd>
-</dl>
-</dd></dl>
+          <section id="agentstr-cli">
+<h1>Agentstr CLI<a class="headerlink" href="#agentstr-cli" title="Link to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">agentstr</span></code> command-line tool lets you deploy a single-file Python “agent” to
+AWS ECS Fargate, Google Cloud Run or Azure Container Instances with <strong>zero
+infrastructure code</strong>.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
+<p>The CLI is installed automatically when you install the SDK with the <em>all</em>
+extra:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>add<span class="w"> </span>agentstr-sdk<span class="o">[</span>all<span class="o">]</span><span class="w">   </span><span class="c1"># or: pip install &quot;agentstr-sdk[all]&quot;</span>
+</pre></div>
+</div>
+<p>This places an <code class="docutils literal notranslate"><span class="pre">agentstr</span></code> executable on your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>.</p>
+</section>
+<section id="global-options">
+<h2>Global options<a class="headerlink" href="#global-options" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--provider</span></code> <code class="docutils literal notranslate"><span class="pre">aws|gcp|azure</span></code></p></td>
+<td><p>Target cloud provider.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AGENTSTR_PROVIDER</span></code> env-var, otherwise <code class="docutils literal notranslate"><span class="pre">aws</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-h</span></code>, <code class="docutils literal notranslate"><span class="pre">--help</span></code></p></td>
+<td><p>Show contextual help.</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To avoid passing <code class="docutils literal notranslate"><span class="pre">--provider</span></code> every time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">AGENTSTR_PROVIDER</span><span class="o">=</span>gcp
+</pre></div>
+</div>
+</section>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deploy</span> <span class="pre">&lt;app.py&gt;</span></code></p></td>
+<td><p>Build Docker image, push and deploy <em>app.py</em> as a container service.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+<td><p>List existing deployments.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">logs</span> <span class="pre">&lt;name&gt;</span></code></p></td>
+<td><p>Stream recent logs from a deployment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">destroy</span> <span class="pre">&lt;name&gt;</span></code></p></td>
+<td><p>Tear down the deployment/service.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="deploy-options">
+<h2><code class="docutils literal notranslate"><span class="pre">deploy</span></code> options<a class="headerlink" href="#deploy-options" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--name</span></code> <em>STRING</em></p></td>
+<td><p>Override deployment name (defaults to filename stem).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;app&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--cpu</span></code> <em>INT</em></p></td>
+<td><p>CPU units (AWS) / cores (GCP).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">256</span></code> (AWS) / <code class="docutils literal notranslate"><span class="pre">1</span></code> (GCP)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--memory</span></code> <em>INT</em></p></td>
+<td><p>Memory in MiB.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">512</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--env</span></code> <em>KEY=VAL</em> (repeat)</p></td>
+<td><p>Add environment variables passed to the container.</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--pip</span></code> <em>PACKAGE</em> (repeat)</p></td>
+<td><p>Extra Python dependencies installed into the image.</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--secret</span></code> <em>KEY=VAL</em> (repeat)</p></td>
+<td><p>Secrets (merged with <code class="docutils literal notranslate"><span class="pre">--env</span></code> but hidden from logs).</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deploy an agent with extra deps and environment variables to AWS (default)</span>
+agentstr<span class="w"> </span>deploy<span class="w"> </span>my_agent.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--env<span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="nv">$OPENAI_API_KEY</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pip<span class="w"> </span>openai<span class="w"> </span>langchain
 
-<p>This module provides integration with PydanticAI tools, enabling conversion between MCP tools and PydanticAI’s tool format.</p>
+<span class="c1"># Change provider per command</span>
+agentstr<span class="w"> </span>deploy<span class="w"> </span>bot.py<span class="w"> </span>--provider<span class="w"> </span>gcp<span class="w"> </span>--cpu<span class="w"> </span><span class="m">2</span><span class="w"> </span>--memory<span class="w"> </span><span class="m">1024</span>
+
+<span class="c1"># View logs</span>
+agentstr<span class="w"> </span>logs<span class="w"> </span>bot
+
+<span class="c1"># Destroy</span>
+agentstr<span class="w"> </span>destroy<span class="w"> </span>bot
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
         </article>
@@ -291,23 +398,15 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="agentstr.nostr_agent_server.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Nostr Agent Server</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="agentstr.mcp.openai.html">
+          
+          <a class="prev-page" href="agentstr.relay_manager.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">OpenAI Integration</div>
+                <div class="title">Relay Manager</div>
                 
               </div>
             </a>
@@ -341,8 +440,14 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">PydanticAI Integration</a><ul>
-<li><a class="reference internal" href="#agentstr.mcp.pydantic.to_pydantic_tools"><code class="docutils literal notranslate"><span class="pre">to_pydantic_tools()</span></code></a></li>
+<li><a class="reference internal" href="#">Agentstr CLI</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#global-options">Global options</a></li>
+<li><a class="reference internal" href="#commands">Commands</a></li>
+<li><a class="reference internal" href="#deploy-options"><code class="docutils literal notranslate"><span class="pre">deploy</span></code> options</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

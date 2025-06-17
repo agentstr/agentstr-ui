@@ -225,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../agentstr.cli.html">Agentstr CLI</a></li>
 </ul>
 
 </div>
@@ -265,6 +266,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dspy</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">agentstr.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
 
@@ -370,6 +372,32 @@
 
 
 <span class="n">CHAT_HISTORY</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Thread id -&gt; [str]</span>
+
+
+<div class="viewcode-block" id="PriceHandlerPrompt">
+<a class="viewcode-back" href="../../agentstr.a2a.html#agentstr.a2a.PriceHandlerPrompt">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PriceHandlerPrompt</span><span class="p">(</span><span class="n">dspy</span><span class="o">.</span><span class="n">Signature</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analyze if the agent can handle this request based on their skills and description and chat history.</span>
+<span class="sd">Consider both the agent&#39;s capabilities and whether the request matches their purpose.</span>
+
+<span class="sd">The agent may need to use multiple skills to handle the request. If so, include all relevant skills.</span>
+
+<span class="sd">The user_message should be a friendly, conversational message that:</span>
+<span class="sd">- Confirms the action to be taken</span>
+<span class="sd">- Explains what will be done in simple terms</span>
+<span class="sd">- Asks for confirmation to proceed</span>
+<span class="sd">- Is concise (1-2 sentences max)&quot;&quot;&quot;</span>
+
+    <span class="n">user_request</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">dspy</span><span class="o">.</span><span class="n">InputField</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;The user&#39;s request&quot;</span><span class="p">)</span>
+    <span class="n">history</span><span class="p">:</span> <span class="n">dspy</span><span class="o">.</span><span class="n">History</span> <span class="o">=</span> <span class="n">dspy</span><span class="o">.</span><span class="n">InputField</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;The conversation history&quot;</span><span class="p">)</span>
+    <span class="n">user_response</span><span class="p">:</span> <span class="n">PriceHandlerResponse</span> <span class="o">=</span> <span class="n">dspy</span><span class="o">.</span><span class="n">OutputField</span><span class="p">(</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Message that summarizes the process result, and the information users need, e.g., the &quot;</span>
+                <span class="s2">&quot;confirmation_number if a new flight is booked.&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
 
 
 <div class="viewcode-block" id="PriceHandler">

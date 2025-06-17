@@ -225,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../agentstr.cli.html">Agentstr CLI</a></li>
 </ul>
 
 </div>
@@ -424,7 +425,7 @@
 
 <div class="viewcode-block" id="NWCRelay.make_invoice">
 <a class="viewcode-back" href="../../agentstr.nwc_relay.html#agentstr.nwc_relay.NWCRelay.make_invoice">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">make_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">make_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">expires_in</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">900</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new payment request.</span>
 
 <span class="sd">        Returns:</span>
@@ -438,6 +439,7 @@
             <span class="p">}</span> <span class="k">if</span> <span class="n">amount</span> <span class="k">else</span> <span class="p">{</span>
                 <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
             <span class="p">},</span>
+            <span class="s2">&quot;expires_at&quot;</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="o">+</span> <span class="n">expires_in</span><span class="p">,</span>
         <span class="p">})</span>
         <span class="n">emsg</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;app_privkey&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwc_info</span><span class="p">[</span><span class="s2">&quot;wallet_pubkey&quot;</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>

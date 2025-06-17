@@ -225,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../agentstr.relay_manager.html">Relay Manager</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../agentstr.cli.html">Agentstr CLI</a></li>
 </ul>
 
 </div>
@@ -282,10 +283,49 @@
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NostrClient</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A client for interacting with the Nostr protocol, handling events, direct messages, and metadata.</span>
-<span class="sd">    </span>
+
 <span class="sd">    This class provides methods to connect to Nostr relays, send and receive direct messages,</span>
 <span class="sd">    manage metadata, and read posts by tags. It integrates with Nostr Wallet Connect (NWC)</span>
 <span class="sd">    for payment processing if provided.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Basic read of recent posts that use the ``#agentstr_agents`` tag::</span>
+
+<span class="sd">        import asyncio</span>
+<span class="sd">        from agentstr import NostrClient</span>
+
+<span class="sd">        relays = [&quot;wss://relay.damus.io&quot;]</span>
+<span class="sd">        client = NostrClient(relays)</span>
+
+<span class="sd">        async def main():</span>
+<span class="sd">            events = await client.read_posts_by_tag(&quot;agentstr_agents&quot;, limit=5)</span>
+<span class="sd">            for ev in events:</span>
+<span class="sd">                print(ev.content)</span>
+
+<span class="sd">        asyncio.run(main())</span>
+
+<span class="sd">    Send an end-to-end encrypted direct-message and await the reply::</span>
+
+<span class="sd">        import asyncio</span>
+<span class="sd">        from agentstr import NostrClient, PrivateKey</span>
+
+<span class="sd">        relays = [&quot;wss://relay.damus.io&quot;]</span>
+<span class="sd">        # Generate a temporary private key purely for the example.</span>
+<span class="sd">        client = NostrClient(relays, private_key=PrivateKey().bech32())</span>
+
+<span class="sd">        async def talk(recipient_pubkey: str):</span>
+<span class="sd">            response = await client.send_direct_message_and_receive_response(</span>
+<span class="sd">                recipient_pubkey,</span>
+<span class="sd">                &quot;Hello from AgentStr!&quot;,</span>
+<span class="sd">            )</span>
+<span class="sd">            print(response.message)</span>
+
+<span class="sd">        asyncio.run(talk(&quot;npub1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;))</span>
+
+<span class="sd">    For more runnable demos consult the full scripts on GitHub:</span>
+<span class="sd">    `agent_discovery.py &lt;https://github.com/agentstr/agentstr-sdk/tree/main/examples/agent_discovery.py&gt;`_</span>
+<span class="sd">    `chat_with_agents.py &lt;https://github.com/agentstr/agentstr-sdk/tree/main/examples/chat_with_agents.py&gt;`_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="NostrClient.__init__">
 <a class="viewcode-back" href="../../agentstr.nostr_client.html#agentstr.nostr_client.NostrClient.__init__">[docs]</a>
