@@ -274,9 +274,9 @@ AWS ECS Fargate, Google Kubernetes Engine or Azure Container Instances with <str
 infrastructure code</strong>.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-<p>The CLI is installed automatically when you install the SDK with the <em>all</em>
+<p>The CLI is installed automatically when you install the SDK with the <em>cli</em>
 extra:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>add<span class="w"> </span>agentstr-sdk<span class="o">[</span>all<span class="o">]</span><span class="w">   </span><span class="c1"># or: pip install &quot;agentstr-sdk[all]&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>add<span class="w"> </span>agentstr-sdk<span class="o">[</span>cli<span class="o">]</span><span class="w">   </span><span class="c1"># or: pip install &quot;agentstr-sdk[cli]&quot;</span>
 </pre></div>
 </div>
 <p>This places an <code class="docutils literal notranslate"><span class="pre">agentstr</span></code> executable on your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>.</p>
@@ -294,17 +294,23 @@ extra:</p>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--provider</span></code> <code class="docutils literal notranslate"><span class="pre">aws|gcp|azure</span></code></p></td>
 <td><p>Target cloud provider.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">AGENTSTR_PROVIDER</span></code> env-var, otherwise <code class="docutils literal notranslate"><span class="pre">aws</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AGENTSTR_PROVIDER</span></code> env-var, otherwise inferred from config or <code class="docutils literal notranslate"><span class="pre">aws</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-h</span></code>, <code class="docutils literal notranslate"><span class="pre">--help</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-f</span></code>, <code class="docutils literal notranslate"><span class="pre">--config</span></code> <em>PATH</em></p></td>
+<td><p>YAML config file (can also use <code class="docutils literal notranslate"><span class="pre">AGENTSTR_CONFIG</span></code>).</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-h</span></code>, <code class="docutils literal notranslate"><span class="pre">--help</span></code></p></td>
 <td><p>Show contextual help.</p></td>
 <td><p>–</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>To avoid passing <code class="docutils literal notranslate"><span class="pre">--provider</span></code> every time:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">AGENTSTR_PROVIDER</span><span class="o">=</span>gcp
+<p>If your YAML config contains a top-level <code class="docutils literal notranslate"><span class="pre">provider:</span></code> key, the CLI will automatically infer the cloud, so you normally only need to reference the config file.</p>
+<p>To avoid passing flags every time, you can export environment variables:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">AGENTSTR_PROVIDER</span><span class="o">=</span>gcp<span class="w">  </span><span class="c1"># optional when provider in config</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">AGENTSTR_CONFIG</span><span class="o">=</span>configs/gcp.yml
 </pre></div>
 </div>
 </section>
@@ -320,6 +326,12 @@ extra:</p>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deploy</span> <span class="pre">&lt;app.py&gt;</span></code></p></td>
 <td><p>Build Docker image, push and deploy <em>app.py</em> as a container service.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">put-secret</span> <span class="pre">&lt;key&gt;</span> <span class="pre">&lt;value&gt;</span></code></p></td>
+<td><p>Create or update a single secret and print its reference.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">put-secrets</span> <span class="pre">&lt;env_file&gt;</span></code></p></td>
+<td><p>Create or update multiple secrets from a .env file.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
 <td><p>List existing deployments.</p></td>
@@ -350,8 +362,8 @@ extra:</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">&lt;app&gt;</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--cpu</span></code> <em>INT</em></p></td>
-<td><p>CPU units (AWS) / cores (GCP).</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">256</span></code> (AWS) / <code class="docutils literal notranslate"><span class="pre">1</span></code> (GCP)</p></td>
+<td><p>CPU units (AWS) / cores (GCP/Azure).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">256</span></code> (AWS) / <code class="docutils literal notranslate"><span class="pre">0.25</span></code> (GCP/Azure)</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--memory</span></code> <em>INT</em></p></td>
 <td><p>Memory in MiB.</p></td>
@@ -366,18 +378,30 @@ extra:</p>
 <td><p>–</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--secret</span></code> <em>KEY=VAL</em> (repeat)</p></td>
-<td><p>Secrets (merged with <code class="docutils literal notranslate"><span class="pre">--env</span></code> but hidden from logs).</p></td>
+<td><p>Secrets are pulled from cloud provider’s secret manager.</p></td>
 <td><p>–</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<section id="config-files">
+<h3>Config files<a class="headerlink" href="#config-files" title="Link to this heading">¶</a></h3>
+<p>A YAML file lets you declare most options once and reuse them across commands. Pass it <em>anywhere</em> on the command line with <code class="docutils literal notranslate"><span class="pre">-f/--config</span></code> or set the <code class="docutils literal notranslate"><span class="pre">AGENTSTR_CONFIG</span></code> env var.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>agentstr<span class="w"> </span>-f<span class="w"> </span>configs/azure.yml<span class="w"> </span>deploy
+agentstr<span class="w"> </span>deploy<span class="w"> </span>--config<span class="w"> </span>configs/azure.yml
+<span class="nv">AGENTSTR_CONFIG</span><span class="o">=</span>configs/azure.yml<span class="w"> </span>agentstr<span class="w"> </span>deploy
+</pre></div>
+</div>
+</section>
 <section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deploy an agent with extra deps and environment variables to AWS (default)</span>
 agentstr<span class="w"> </span>deploy<span class="w"> </span>my_agent.py<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--env<span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="nv">$OPENAI_API_KEY</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--pip<span class="w"> </span>openai<span class="w"> </span>langchain
+
+<span class="c1"># Upsert secrets from .env file</span>
+agentstr<span class="w"> </span>put-secrets<span class="w"> </span>path/to/.env
 
 <span class="c1"># Change provider per command</span>
 agentstr<span class="w"> </span>deploy<span class="w"> </span>bot.py<span class="w"> </span>--provider<span class="w"> </span>gcp<span class="w"> </span>--cpu<span class="w"> </span><span class="m">2</span><span class="w"> </span>--memory<span class="w"> </span><span class="m">1024</span>
@@ -445,6 +469,7 @@ agentstr<span class="w"> </span>destroy<span class="w"> </span>bot
 <li><a class="reference internal" href="#global-options">Global options</a></li>
 <li><a class="reference internal" href="#commands">Commands</a></li>
 <li><a class="reference internal" href="#deploy-options"><code class="docutils literal notranslate"><span class="pre">deploy</span></code> options</a><ul>
+<li><a class="reference internal" href="#config-files">Config files</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
