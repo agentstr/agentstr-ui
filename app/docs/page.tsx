@@ -4,7 +4,7 @@ export default function DocsPage() {
   return (
     <div className="h-[calc(100vh-4rem)] w-full">
       <iframe
-        src="/docs/index.html"
+        src="https://docs.agentstr.com"
         className="w-full h-full"
         title="API Documentation"
         frameBorder="0"
