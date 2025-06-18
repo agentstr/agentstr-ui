@@ -275,6 +275,35 @@ infrastructure code</strong>.</p>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
 <p>You need Docker running for <em>all</em> providers.</p>
+<div class="table-wrapper colwidths-given docutils container">
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 33.3%" />
+<col style="width: 46.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Provider</p></th>
+<th class="head"><p>CLI tools</p></th>
+<th class="head"><p>Environment variables</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AWS</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">aws</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AWS_PROFILE</span></code> <em>or</em> standard AWS credential env vars</p></td>
+</tr>
+<tr class="row-odd"><td><p>GCP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gcloud</span></code>, <code class="docutils literal notranslate"><span class="pre">kubectl</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GCP_PROJECT</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Azure</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">az</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AZURE_SUBSCRIPTION_ID</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>Ensure each CLI is authenticated and Docker can push to the relevant registry.</p>
 </section>
 <section id="installation">
@@ -389,8 +418,8 @@ extra:</p>
 </tbody>
 </table>
 </div>
-<section id="config-files">
-<h3>Config files<a class="headerlink" href="#config-files" title="Link to this heading">¶</a></h3>
+<section id="config-files-configs-folder">
+<h3>Config files (<code class="docutils literal notranslate"><span class="pre">configs/</span></code> folder)<a class="headerlink" href="#config-files-configs-folder" title="Link to this heading">¶</a></h3>
 <p>A YAML file lets you declare most options once and reuse them across commands. Pass it <em>anywhere</em> on the command line with <code class="docutils literal notranslate"><span class="pre">-f/--config</span></code> or set the <code class="docutils literal notranslate"><span class="pre">AGENTSTR_CONFIG</span></code> env var.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>agentstr<span class="w"> </span>-f<span class="w"> </span>configs/azure.yml<span class="w"> </span>deploy
 agentstr<span class="w"> </span>deploy<span class="w"> </span>--config<span class="w"> </span>configs/azure.yml
@@ -400,9 +429,11 @@ agentstr<span class="w"> </span>deploy<span class="w"> </span>--config<span clas
 </section>
 <section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deploy an agent with extra deps and environment variables to AWS (default)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deploy an agent with extra deps and environment variables to AWS</span>
 agentstr<span class="w"> </span>deploy<span class="w"> </span>my_agent.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--env<span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="nv">$OPENAI_API_KEY</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--provider<span class="w"> </span>aws<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--env<span class="w"> </span><span class="nv">RELAYS</span><span class="o">=</span><span class="nv">$RELAYS</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--secret<span class="w"> </span><span class="nv">MY_AGENT_NOSTR_NSEC</span><span class="o">=</span><span class="nv">$MY_AGENT_NOSTR_NSEC</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--pip<span class="w"> </span>openai<span class="w"> </span>langchain
 
 <span class="c1"># Upsert secrets from .env file</span>
@@ -475,7 +506,7 @@ agentstr<span class="w"> </span>destroy<span class="w"> </span>bot
 <li><a class="reference internal" href="#global-options">Global options</a></li>
 <li><a class="reference internal" href="#commands">Commands</a></li>
 <li><a class="reference internal" href="#deploy-options"><code class="docutils literal notranslate"><span class="pre">deploy</span></code> options</a><ul>
-<li><a class="reference internal" href="#config-files">Config files</a></li>
+<li><a class="reference internal" href="#config-files-configs-folder">Config files (<code class="docutils literal notranslate"><span class="pre">configs/</span></code> folder)</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
