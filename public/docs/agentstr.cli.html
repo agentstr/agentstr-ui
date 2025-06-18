@@ -272,6 +272,11 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">agentstr</span></code> command-line tool lets you deploy a single-file Python “agent” to
 AWS ECS Fargate, Google Kubernetes Engine or Azure Container Instances with <strong>zero
 infrastructure code</strong>.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<p>You need Docker running for <em>all</em> providers.</p>
+<p>Ensure each CLI is authenticated and Docker can push to the relevant registry.</p>
+</section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
 <p>The CLI is installed automatically when you install the SDK with the <em>cli</em>
@@ -465,6 +470,7 @@ agentstr<span class="w"> </span>destroy<span class="w"> </span>bot
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Agentstr CLI</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#global-options">Global options</a></li>
 <li><a class="reference internal" href="#commands">Commands</a></li>
