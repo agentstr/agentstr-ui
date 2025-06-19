@@ -2,6 +2,7 @@
 
 import React from 'react';
 import CodeBlock from "../../components/CodeBlock";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 export default function UsagePage() {
   React.useEffect(() => {
@@ -54,7 +55,8 @@ export default function UsagePage() {
                     className="flex items-center justify-center px-8 py-3 border border-accent text-base font-medium whitespace-nowrap rounded-md bg-white text-accent shadow-sm hover:bg-accent hover:text-white transition-colors duration-200 dark:bg-accent dark:text-white dark:border-transparent dark:hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
                   >
                     <span className="flex items-center justify-center">
-                      View Reference
+                      Reference
+                      <ArrowTopRightOnSquareIcon className="ml-2 h-5 w-5" />
                     </span>
                   </a>
                 </div>
