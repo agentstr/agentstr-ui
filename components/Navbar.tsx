@@ -10,8 +10,8 @@ import Image from "next/image";
 const navigation = [
   { name: "Usage", href: "/usage" },
   { name: "Demo", href: "/demo" },
-  { name: "Reference", href: "/docs" },
   { name: "Contact", href: "/contact" },
+  { name: "Reference", href: "https://docs.agentstr.com", external: true },
   { name: "GitHub", href: "https://github.com/ehallmark/agentstr-sdk", external: true },
 ];
 
