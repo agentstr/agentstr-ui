@@ -1,9 +1,15 @@
 {
     "names": {
-        "agentstr": "17c630cc91fb2600e119d48f733694134ddb33ef3cd389c99fa8a90b83c59184"
+        "agentstr": "17c630cc91fb2600e119d48f733694134ddb33ef3cd389c99fa8a90b83c59184",
+        "bitcoin_data_tool": "dfad6ff48dfc832863f1f182d42c4986b5cf3d74ee4da3850d9c372c19ecffc7"
     },
     "relays": {
         "17c630cc91fb2600e119d48f733694134ddb33ef3cd389c99fa8a90b83c59184": [
+            "wss://nostr.mom",
+            "wss://relay.damus.io",
+            "wss://relay.primal.net"
+        ],
+        "dfad6ff48dfc832863f1f182d42c4986b5cf3d74ee4da3850d9c372c19ecffc7": [
             "wss://nostr.mom",
             "wss://relay.damus.io",
             "wss://relay.primal.net"

@@ -55,7 +55,7 @@ export default function UsagePage() {
                     className="flex items-center justify-center px-8 py-3 border border-accent text-base font-medium whitespace-nowrap rounded-md bg-white text-accent shadow-sm hover:bg-accent hover:text-white transition-colors duration-200 dark:bg-accent dark:text-white dark:border-transparent dark:hover:bg-accent-dark md:py-4 md:text-lg md:px-10"
                   >
                     <span className="flex items-center justify-center">
-                      Reference
+                      Documentation
                       <ArrowTopRightOnSquareIcon className="ml-2 h-5 w-5" />
                     </span>
                   </a>
@@ -739,7 +739,7 @@ print(result)`}
                 Check out the <a href="/demo" className="text-primary hover:text-foreground">Demo</a> to see how Agentstr can be used in a real-world scenario.
               </p>
               <p className="text-gray-600 dark:text-gray-400">
-                Check out our <a href="https://docs.agentstr.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-foreground">SDK Reference</a> for more details on each component.
+                Check out our <a href="https://docs.agentstr.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-foreground">Documentation</a> for more details on each component.
               </p>
             </div>
           </div>
