@@ -1,2 +1,4 @@
 /.well-known/nostr.json
   Access-Control-Allow-Origin: *
+/favicon.ico
+  Access-Control-Allow-Origin: *
