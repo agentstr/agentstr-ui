@@ -29,6 +29,26 @@
             "wss://nostr.mom",
             "wss://relay.damus.io",
             "wss://relay.primal.net"
+        ],
+        "58d531b3a43fdfb2875ac6cd0026d9c608a60a7950e4682d7255a6960a47ca50": [
+            "wss://nostr.mom",
+            "wss://relay.damus.io",
+            "wss://relay.primal.net"
+        ],
+        "6ab9b59c71648844101d7efd0dc98794802cde24bad628a05634b2a471fc0f8d": [
+            "wss://nostr.mom",
+            "wss://relay.damus.io",
+            "wss://relay.primal.net"
+        ],
+        "84b31c4109a779dab7643f97099b504308c745961c02a35bee68ad903e18ee7c": [
+            "wss://nostr.mom",
+            "wss://relay.damus.io",
+            "wss://relay.primal.net"
+        ],
+        "285ff2ea195a1c55f4c8c8aab09802040898cceb0dcfbe2e4e333bfffd9112c2": [
+            "wss://nostr.mom",
+            "wss://relay.damus.io",
+            "wss://relay.primal.net"
         ]
     }
 }
